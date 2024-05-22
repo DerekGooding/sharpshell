@@ -1,8 +1,6 @@
-﻿using System;
+﻿using SharpShell.Interop;
+using System;
 using System.Drawing;
-using System.Runtime.InteropServices;
-using SharpShell.Helpers;
-using SharpShell.Interop;
 
 namespace ResourcesPropertySheet.Loader
 {
@@ -25,7 +23,6 @@ namespace ResourcesPropertySheet.Loader
             }
             else if (ResourceType.IsKnownResourceType(ResType.RT_ICON))
             {
-
                 //  Icon.FromResource only loads string named resources, so we must use LoadIcon.
                 var handle = User32.LoadIcon(hModule, ResourceName.Resource);
                 IconData = Icon.FromHandle(handle);

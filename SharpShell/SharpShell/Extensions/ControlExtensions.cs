@@ -1,7 +1,7 @@
-﻿using System;
+﻿using SharpShell.Diagnostics;
+using System;
 using System.Reflection;
 using System.Windows.Forms;
-using SharpShell.Diagnostics;
 
 namespace SharpShell.Extensions
 {
@@ -24,7 +24,6 @@ namespace SharpShell.Extensions
             //  Get the wndproc function.
             try
             {
-
                 var methodInfo = me.GetType().GetMethod("WndProc", BindingFlags.Instance | BindingFlags.NonPublic);
                 return (bool)methodInfo.Invoke(me, new object[] { new Message { HWnd = hWnd, WParam = wParam, LParam = lParam, Msg = (int)uMessage } });
             }

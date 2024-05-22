@@ -1,8 +1,8 @@
+using SharpShell.Interop;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
-using SharpShell.Interop;
 
 namespace SharpShell.Helpers
 {
@@ -18,15 +18,15 @@ namespace SharpShell.Helpers
         public const uint GHND = GMEM_MOVEABLE | GMEM_ZEROINIT;
 
         [DllImport("kernel32.dll")]
-        static extern IntPtr GlobalAlloc(uint uFlags, uint dwBytes);
+        private static extern IntPtr GlobalAlloc(uint uFlags, uint dwBytes);
 
         [DllImport("kernel32.dll")]
-        static extern IntPtr GlobalLock(IntPtr hMem);
+        private static extern IntPtr GlobalLock(IntPtr hMem);
 
         [DllImport("kernel32.dll")]
-        static extern bool GlobalUnlock(IntPtr hMem);
+        private static extern bool GlobalUnlock(IntPtr hMem);
 
-        const int CBM_INIT = 0x04;//   /* initialize bitmap */
+        private const int CBM_INIT = 0x04;//   /* initialize bitmap */
 
         public static IntPtr Create32BppBitmap(Image sourceImage)
         {
@@ -54,11 +54,11 @@ namespace SharpShell.Helpers
             var hMemDC = Gdi32.CreateCompatibleDC(hdc);
             Gdi32.ReleaseDC(IntPtr.Zero, hdc);
 
-            var sourceBits = ((Bitmap) sourceImage).LockBits(
+            var sourceBits = ((Bitmap)sourceImage).LockBits(
                 new Rectangle(0, 0, sourceImage.Width, sourceImage.Height), ImageLockMode.ReadOnly,
                 PixelFormat.Format32bppArgb);
 
-            var stride = sourceImage.Width*4;
+            var stride = sourceImage.Width * 4;
             for (int y = 0; y < sourceImage.Height; y++)
             {
                 IntPtr DstDib = (IntPtr)(bits.ToInt32() + (y * stride));
@@ -80,13 +80,13 @@ namespace SharpShell.Helpers
         {
             BitmapData bmData = bm.LockBits(new Rectangle(0, 0, bm.Width, bm.Height),
                                             ImageLockMode.ReadOnly, bm.PixelFormat);
-            uint bufferLen = (uint) (Marshal.SizeOf(typeof (BITMAPV5HEADER)) +
-                                     (Marshal.SizeOf(typeof (uint))*3) + bmData.Height*bmData.Stride);
+            uint bufferLen = (uint)(Marshal.SizeOf(typeof(BITMAPV5HEADER)) +
+                                     (Marshal.SizeOf(typeof(uint)) * 3) + bmData.Height * bmData.Stride);
             IntPtr hMem = GlobalAlloc(GHND | GMEM_DDESHARE, bufferLen);
             IntPtr packedDIBV5 = GlobalLock(hMem);
-            BITMAPV5HEADER bmi = (BITMAPV5HEADER) Marshal.PtrToStructure(packedDIBV5,
-                                                                         typeof (BITMAPV5HEADER));
-            bmi.bV5Size = (uint) Marshal.SizeOf(typeof (BITMAPV5HEADER));
+            BITMAPV5HEADER bmi = (BITMAPV5HEADER)Marshal.PtrToStructure(packedDIBV5,
+                                                                         typeof(BITMAPV5HEADER));
+            bmi.bV5Size = (uint)Marshal.SizeOf(typeof(BITMAPV5HEADER));
             bmi.bV5Width = bmData.Width;
             bmi.bV5Height = bmData.Height;
             bmi.bV5BitCount = 32;
@@ -108,7 +108,7 @@ namespace SharpShell.Helpers
             bmi.bV5ProfileSize = 0;
             bmi.bV5Reserved = 0;
             bmi.bV5Intent = LCS_GM_IMAGES;
-            bmi.bV5SizeImage = (uint) (bmData.Height*bmData.Stride);
+            bmi.bV5SizeImage = (uint)(bmData.Height * bmData.Stride);
             bmi.bV5Endpoints.ciexyzBlue.ciexyzX =
                 bmi.bV5Endpoints.ciexyzBlue.ciexyzY =
                 bmi.bV5Endpoints.ciexyzBlue.ciexyzZ = 0;
@@ -120,32 +120,31 @@ namespace SharpShell.Helpers
                 bmi.bV5Endpoints.ciexyzRed.ciexyzZ = 0;
             Marshal.StructureToPtr(bmi, packedDIBV5, false);
 
-            BITFIELDS Masks = (BITFIELDS) Marshal.PtrToStructure(
-                (IntPtr) (packedDIBV5.ToInt32() + bmi.bV5Size), typeof (BITFIELDS));
+            BITFIELDS Masks = (BITFIELDS)Marshal.PtrToStructure(
+                (IntPtr)(packedDIBV5.ToInt32() + bmi.bV5Size), typeof(BITFIELDS));
             Masks.BlueMask = 0x000000FF;
             Masks.GreenMask = 0x0000FF00;
             Masks.RedMask = 0x00FF0000;
-            Marshal.StructureToPtr(Masks, (IntPtr) (packedDIBV5.ToInt32() +
+            Marshal.StructureToPtr(Masks, (IntPtr)(packedDIBV5.ToInt32() +
                                                     bmi.bV5Size), false);
 
-            long offsetBits = bmi.bV5Size + Marshal.SizeOf(typeof (uint))*3;
-            IntPtr bits = (IntPtr) (packedDIBV5.ToInt32() + offsetBits);
-
+            long offsetBits = bmi.bV5Size + Marshal.SizeOf(typeof(uint)) * 3;
+            IntPtr bits = (IntPtr)(packedDIBV5.ToInt32() + offsetBits);
 
             for (int y = 0; y < bmData.Height; y++)
             {
-                IntPtr DstDib = (IntPtr) (bits.ToInt32() + (y*bmData.Stride));
-                IntPtr SrcDib = (IntPtr) (bmData.Scan0.ToInt32() + ((bmData.Height - 1 - y)*
+                IntPtr DstDib = (IntPtr)(bits.ToInt32() + (y * bmData.Stride));
+                IntPtr SrcDib = (IntPtr)(bmData.Scan0.ToInt32() + ((bmData.Height - 1 - y) *
                                                                     bmData.Stride));
 
                 for (int x = 0; x < bmData.Width; x++)
                 {
                     Marshal.WriteInt32(DstDib, Marshal.ReadInt32(SrcDib));
-                    DstDib = (IntPtr) (DstDib.ToInt32() + 4);
-                    SrcDib = (IntPtr) (SrcDib.ToInt32() + 4);
+                    DstDib = (IntPtr)(DstDib.ToInt32() + 4);
+                    SrcDib = (IntPtr)(SrcDib.ToInt32() + 4);
                 }
             }
-            
+
             // Create the DIB section with an alpha channel.
             IntPtr hdc = User32.GetDC(IntPtr.Zero);
             //IntPtr hdc = Gdi32.CreateCompatibleDC(IntPtr.Zero);
@@ -158,7 +157,6 @@ namespace SharpShell.Helpers
 
             GlobalUnlock(hMem);
 
-            
             return hBitmap;
         }
     }

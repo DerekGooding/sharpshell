@@ -25,28 +25,28 @@ namespace SharpShell.Interop
         /// </summary>
         /// <param name="prc">A pointer to a RECT to be used for the preview.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        [PreserveSig] 
+        [PreserveSig]
         int SetRect(ref RECT prc);
 
         /// <summary>
         /// Directs the preview handler to load data from the source specified in an earlier Initialize method call, and to begin rendering to the previewer window.
         /// </summary>
         /// <returns>This method can return one of these values.</returns>
-        [PreserveSig] 
+        [PreserveSig]
         int DoPreview();
 
         /// <summary>
         /// Directs the preview handler to cease rendering a preview and to release all resources that have been allocated based on the item passed in during the initialization.
         /// </summary>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        [PreserveSig] 
+        [PreserveSig]
         int Unload();
 
         /// <summary>
         /// Directs the preview handler to set focus to itself.
         /// </summary>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        [PreserveSig] 
+        [PreserveSig]
         int SetFocus();
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace SharpShell.Interop
         /// </summary>
         /// <param name="phwnd">When this method returns, contains a pointer to the HWND returned from calling the GetFocus Function from the preview handler's foreground thread.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
-        [PreserveSig] 
+        [PreserveSig]
         int QueryFocus(out IntPtr phwnd);
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace SharpShell.Interop
         /// </summary>
         /// <param name="pmsg">A pointer to a window message.</param>
         /// <returns>If the keystroke message can be processed by the preview handler, the handler will process it and return S_OK. If the preview handler cannot process the keystroke message, it will offer it to the host using TranslateAccelerator. If the host processes the message, this method will return S_OK. If the host does not process the message, this method will return S_FALSE.</returns>
-        [PreserveSig] 
+        [PreserveSig]
         int TranslateAccelerator(MSG pmsg);
     };
 }

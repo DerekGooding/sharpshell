@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SharpShell.Attributes
 {
@@ -21,7 +18,6 @@ namespace SharpShell.Attributes
             AllowMultipleEntries = allowMultipleEntries;
             HandlerSubkey = handlerSubkey;
         }
-
 
         /// <summary>
         /// Gets a value indicating whether multiple entries are allowed.

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using SharpShell.Diagnostics;
+using SharpShell.Interop;
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using SharpShell.Diagnostics;
-using SharpShell.Interop;
 
 namespace SharpShell.NativeBridge
 {
@@ -35,7 +35,7 @@ namespace SharpShell.NativeBridge
             Logging.Error($"NativeBridge: {message}", exception);
         }
 
-        #endregion
+        #endregion Logging Helper Functions
 
         /// <summary>
         /// Initialises the Native Bridge.
@@ -109,8 +109,8 @@ namespace SharpShell.NativeBridge
             //  Try and cast the proc, then call it.
             try
             {
-                var callAddPropSheet = (CallAddPropSheetPageDelegate) Marshal.GetDelegateForFunctionPointer(
-                    procAddress, typeof (CallAddPropSheetPageDelegate));
+                var callAddPropSheet = (CallAddPropSheetPageDelegate)Marshal.GetDelegateForFunctionPointer(
+                    procAddress, typeof(CallAddPropSheetPageDelegate));
                 return callAddPropSheet(pAddPropSheet, hProp, lParam);
             }
             catch (Exception exception)
@@ -149,7 +149,6 @@ namespace SharpShell.NativeBridge
             }
         }
 
-
         /// <summary>
         /// Deinitialises this instance.
         /// </summary>
@@ -179,7 +178,7 @@ namespace SharpShell.NativeBridge
         {
             return libraryHandle;
         }
-        
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate int CallAddPropSheetPageDelegate(IntPtr lpfnAddPage, IntPtr hProp, IntPtr lParam);
 
@@ -192,7 +191,7 @@ namespace SharpShell.NativeBridge
         private IntPtr libraryHandle;
 
         internal void CreatePropertySheet(ref PROPSHEETHEADER psh)
-        { 
+        {
             //  Try and cast the proc, then call it.
             var procAddress = Kernel32.GetProcAddress(libraryHandle, "CreatePropertySheet");
             try

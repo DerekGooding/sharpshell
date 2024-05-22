@@ -1,12 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using Microsoft.Win32;
 using SharpShell.Diagnostics;
 using SharpShell.Pidl;
 using SharpShell.SharpNamespaceExtension;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 
 namespace RegistryNamespaceExtension
 {
@@ -20,9 +19,9 @@ namespace RegistryNamespaceExtension
             this.hiveKey = hiveKey;
             this.displayName = displayName;
             lazyChildKeys = new Lazy<List<RegistryKeyItem>>(CreateChildKeys);
-                
+
             lazyAttributes = new Lazy<List<KeyAttribute>>(() =>
-                hiveKey.GetValueNames().Select(valueName => 
+                hiveKey.GetValueNames().Select(valueName =>
                     new KeyAttribute(valueName, hiveKey.GetValue(valueName).ToString())).ToList());
         }
 
@@ -33,7 +32,7 @@ namespace RegistryNamespaceExtension
             {
                 try
                 {
-                    childKeys.Add( new RegistryKeyItem(hiveKey.OpenSubKey(subkeyName), subkeyName));
+                    childKeys.Add(new RegistryKeyItem(hiveKey.OpenSubKey(subkeyName), subkeyName));
                 }
                 catch (Exception exception)
                 {

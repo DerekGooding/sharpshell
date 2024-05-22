@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 namespace SharpShell.Interop
 {
     /// <summary>
-    /// Exposes methods that the Shell uses to retrieve flags and info tip information 
+    /// Exposes methods that the Shell uses to retrieve flags and info tip information
     /// for an item that resides in an IShellFolder implementation. Info tips are usually
     /// displayed inside a tooltip control.
     /// </summary>

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using SharpShell.Attributes;
+﻿using SharpShell.Attributes;
 using SharpShell.Extensions;
 using SharpShell.Interop;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 using IDataObject = System.Runtime.InteropServices.ComTypes.IDataObject;
 using IDropTarget = SharpShell.Interop.IDropTarget;
 
@@ -47,7 +46,7 @@ namespace SharpShell.SharpDropHandler
             }
 
             //  Create drag event args, which store the provided parameters.
-            var dragEventArgs = new DragEventArgs(null, (int) grfKeyState, pt.X, pt.Y, (DragDropEffects) pdwEffect, DragDropEffects.None);
+            var dragEventArgs = new DragEventArgs(null, (int)grfKeyState, pt.X, pt.Y, (DragDropEffects)pdwEffect, DragDropEffects.None);
 
             try
             {
@@ -130,7 +129,7 @@ namespace SharpShell.SharpDropHandler
             return WinError.S_OK;
         }
 
-        #endregion
+        #endregion Implementation of IDropTarget
 
         /// <summary>
         /// Checks what operations are available for dragging onto the target with the drag files.
@@ -152,6 +151,7 @@ namespace SharpShell.SharpDropHandler
         /// <summary>
         /// Gets the drag items.
         /// </summary>
-        public IEnumerable<string> DragItems { get { return dragItems; } } 
+        public IEnumerable<string> DragItems
+        { get { return dragItems; } }
     }
 }

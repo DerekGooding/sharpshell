@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SharpShell.ServerRegistration;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using Apex.MVVM;
-using SharpShell.ServerRegistration;
 
 namespace ShellExtensionManager.ShellExtensions
 {
@@ -48,7 +44,6 @@ namespace ShellExtensionManager.ShellExtensions
             private set;
         }
 
-        
         /// <summary>
         /// The Extensions observable collection.
         /// </summary>
@@ -64,7 +59,6 @@ namespace ShellExtensionManager.ShellExtensions
             get { return ExtensionsProperty; }
         }
 
-        
         /// <summary>
         /// The NotifyingProperty for the SelectedExtension property.
         /// </summary>

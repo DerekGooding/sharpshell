@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Security.AccessControl;
-using Microsoft.Win32;
 
 namespace SharpShell.Registry
 {
@@ -288,7 +288,7 @@ namespace SharpShell.Registry
         ///   <IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode" />
         /// </PermissionSet>
         void DeleteSubKey(string subkey, bool throwOnMissingSubKey);
-        
+
         /// <summary>Retrieves the name of the key.</summary>
         /// <returns>The absolute (qualified) name of the key.</returns>
         /// <exception cref="T:System.ObjectDisposedException">The <see cref="T:Microsoft.Win32.RegistryKey" /> is closed (closed keys cannot be accessed). </exception>

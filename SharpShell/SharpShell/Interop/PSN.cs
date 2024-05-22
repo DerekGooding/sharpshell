@@ -21,7 +21,7 @@ namespace SharpShell.Interop
         PSN_APPLY = 0xffffff36,
 
         /// <summary>
-        /// Notifies a page that the property sheet is about to be destroyed. 
+        /// Notifies a page that the property sheet is about to be destroyed.
         /// </summary>
         PSN_RESET = 0xffffff35
     }

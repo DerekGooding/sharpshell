@@ -1,7 +1,7 @@
-﻿using System;
+﻿using SharpShell.Interop;
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using SharpShell.Interop;
 
 namespace SharpShell.SharpContextMenu
 {
@@ -37,7 +37,7 @@ namespace SharpShell.SharpContextMenu
                 return IntPtr.Zero;
             }
 
-            //  Select the bitmap, keeping track of the old one. If this fails, 
+            //  Select the bitmap, keeping track of the old one. If this fails,
             //  delete the device context and return a null handle.
             var oldBitmapHandle = Gdi32.SelectObject(deviceContextHandle, hBitmap);
             if (oldBitmapHandle == IntPtr.Zero)
@@ -48,14 +48,14 @@ namespace SharpShell.SharpContextMenu
 
             //  Create paint params that represent our alpha blending.
             var bfAlpha = new BLENDFUNCTION
-                          {
-                              BlendOp = AC_SRC_OVER,
-                              BlendFlags = 0,
-                              SourceConstantAlpha = 255,
-                              AlphaFormat = AC_SRC_ALPHA
-                          };
+            {
+                BlendOp = AC_SRC_OVER,
+                BlendFlags = 0,
+                SourceConstantAlpha = 255,
+                AlphaFormat = AC_SRC_ALPHA
+            };
             var paintParams = new BP_PAINTPARAMS();
-            paintParams.cbSize = (uint) Marshal.SizeOf(paintParams);
+            paintParams.cbSize = (uint)Marshal.SizeOf(paintParams);
             paintParams.dwFlags = BPPF_ERASE;
             paintParams.pBlendFunction = Marshal.AllocHGlobal(Marshal.SizeOf(bfAlpha));
             Marshal.StructureToPtr(bfAlpha, paintParams.pBlendFunction, false);
@@ -67,7 +67,7 @@ namespace SharpShell.SharpContextMenu
             //  Create a paint buffer handle.
             var paintBufferHandle = Uxtheme.BeginBufferedPaint(deviceContextHandle, ref iconRect,
                 BP_BUFFERFORMAT.BPBF_DIB, ref paintParams, out bufferDeviceContextHandle);
-            
+
             //  Free the memory we allocated for the blend function.
             Marshal.FreeHGlobal(paintParams.pBlendFunction);
 
@@ -76,7 +76,7 @@ namespace SharpShell.SharpContextMenu
             {
                 //  Try and draw the icon.
                 if (Gdi32.DrawIconEx(bufferDeviceContextHandle, 0, 0, iconHandle, iconSize.Width, iconSize.Height, 0, IntPtr.Zero,
-                                     (int) DI_NORMAL))
+                                     (int)DI_NORMAL))
                 {
                     //  Now convert the buffer we've painted into PARGB32, meaning we'll end up
                     //  with a PARGB32 bitmap.
@@ -110,17 +110,17 @@ namespace SharpShell.SharpContextMenu
         {
             //  Create a bitmap info setup for a 32 bit bitmap.
             var bi = new BITMAPINFO
-                     {
-                         bmiHeader = new BITMAPINFOHEADER
-                                     {
-                                         biSize = (uint) Marshal.SizeOf(typeof (BITMAPINFOHEADER)),
-                                         biPlanes = 1,
-                                         biCompression = (uint) BI.BI_RGB,
-                                         biWidth = size.Width,
-                                         biHeight = size.Height,
-                                         biBitCount = 32
-                                     }
-                     };
+            {
+                bmiHeader = new BITMAPINFOHEADER
+                {
+                    biSize = (uint)Marshal.SizeOf(typeof(BITMAPINFOHEADER)),
+                    biPlanes = 1,
+                    biCompression = (uint)BI.BI_RGB,
+                    biWidth = size.Width,
+                    biHeight = size.Height,
+                    biBitCount = 32
+                }
+            };
 
             //  Create the DIB section.
             hBitmap = Gdi32.CreateDIBSection(hdc, ref bi, (uint)DIB.DIB_RGB_COLORS, out bits, IntPtr.Zero, 0);
@@ -151,7 +151,7 @@ namespace SharpShell.SharpContextMenu
                 var pargb = (UInt32*)prgbQuad.ToPointer();
 
                 //  If out pixels have any alpha values, we're done.
-                if (HasAlpha(pargb, iconSize, cxRow)) 
+                if (HasAlpha(pargb, iconSize, cxRow))
                     return;
 
                 //  As we don't have alpha values, we need to get the icon info for
@@ -179,9 +179,9 @@ namespace SharpShell.SharpContextMenu
         /// <returns>
         ///   <c>true</c> if the specified pargb has alpha; otherwise, <c>false</c>.
         /// </returns>
-        private unsafe static bool HasAlpha(UInt32* pargb, Size imageSize, int rowLength)
+        private static unsafe bool HasAlpha(UInt32* pargb, Size imageSize, int rowLength)
         {
-            var cxDelta = (uint) (rowLength - imageSize.Width);
+            var cxDelta = (uint)(rowLength - imageSize.Width);
             for (var y = imageSize.Height; y != 0; --y)
             {
                 for (var x = imageSize.Width; x != 0; --x)
@@ -206,15 +206,15 @@ namespace SharpShell.SharpContextMenu
         /// <param name="hbmp">The bitmap handle.</param>
         /// <param name="imageSize">The image size.</param>
         /// <param name="rowLength">The row length.</param>
-        private unsafe static void ConvertToPARGB32(IntPtr hdc, UInt32* pargb, IntPtr hbmp, Size imageSize, int rowLength)
+        private static unsafe void ConvertToPARGB32(IntPtr hdc, UInt32* pargb, IntPtr hbmp, Size imageSize, int rowLength)
         {
             var bmi = new BITMAPINFO
             {
                 bmiHeader = new BITMAPINFOHEADER
                 {
-                    biSize = (uint) Marshal.SizeOf(typeof (BITMAPINFOHEADER)),
+                    biSize = (uint)Marshal.SizeOf(typeof(BITMAPINFOHEADER)),
                     biPlanes = 1,
-                    biCompression = (uint) BI.BI_RGB,
+                    biCompression = (uint)BI.BI_RGB,
                     biWidth = imageSize.Width,
                     biHeight = imageSize.Height,
                     biBitCount = 32
@@ -224,21 +224,21 @@ namespace SharpShell.SharpContextMenu
             //  Allocate data sufficient for the pixel data.
             IntPtr hHeap = Kernel32.GetProcessHeap();
             void* pvBits = Kernel32.HeapAlloc(hHeap, 0, new UIntPtr((uint)(bmi.bmiHeader.biWidth * 4 * bmi.bmiHeader.biHeight))).ToPointer();
-            if (pvBits == (void*) 0)
+            if (pvBits == (void*)0)
                 return;
-            
+
             //  Get the bitmap bits.
             var ptr = new IntPtr(pvBits);
-            if (Gdi32.GetDIBits(hdc, hbmp, 0, (uint) bmi.bmiHeader.biHeight, ref ptr,ref  bmi, (uint)DIB.DIB_RGB_COLORS) ==
+            if (Gdi32.GetDIBits(hdc, hbmp, 0, (uint)bmi.bmiHeader.biHeight, ref ptr, ref bmi, (uint)DIB.DIB_RGB_COLORS) ==
                 bmi.bmiHeader.biHeight)
             {
                 //  Now handle each pixel.
                 UInt32 cxDelta = (uint)(rowLength - bmi.bmiHeader.biWidth);
                 UInt32* pargbMask = (uint*)pvBits;
 
-                for (UInt32 y = (UInt32) bmi.bmiHeader.biHeight; y != 0; --y)
+                for (UInt32 y = (UInt32)bmi.bmiHeader.biHeight; y != 0; --y)
                 {
-                    for (UInt32 x = (UInt32) bmi.bmiHeader.biWidth; x != 0; --x)
+                    for (UInt32 x = (UInt32)bmi.bmiHeader.biWidth; x != 0; --x)
                     {
                         if ((*pargbMask++) != 0)
                         {

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using SharpShell.Extensions;
+using SharpShell.Interop;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
-using SharpShell.Extensions;
-using SharpShell.Interop;
 
 namespace SharpShell
 {
@@ -40,7 +40,7 @@ namespace SharpShell
             if (pDataObj != IntPtr.Zero)
             {
                 //  Create the IDataObject from the provided pDataObj.
-                var dataObject = (System.Runtime.InteropServices.ComTypes.IDataObject) Marshal.GetObjectForIUnknown(pDataObj);
+                var dataObject = (System.Runtime.InteropServices.ComTypes.IDataObject)Marshal.GetObjectForIUnknown(pDataObj);
 
                 //  Add the set of files to the selected file paths.
                 selectedItemPaths = dataObject.GetFileList();
@@ -50,8 +50,8 @@ namespace SharpShell
                 Environment.NewLine, FolderPath ?? "<none>", string.Join(System.Environment.NewLine, selectedItemPaths)));
         }
 
-        #endregion
-        
+        #endregion Implementation of IShellExtInit
+
         /// <summary>
         /// The selected item paths.
         /// </summary>

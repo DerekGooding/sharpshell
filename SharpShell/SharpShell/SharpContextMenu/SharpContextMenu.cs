@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Security.Policy;
-using System.Text;
-using System.Windows.Forms;
-using SharpShell.Attributes;
+﻿using SharpShell.Attributes;
 using SharpShell.Helpers;
 using SharpShell.Interop;
+using System;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Windows.Forms;
 
 namespace SharpShell.SharpContextMenu
 {
@@ -45,7 +42,6 @@ namespace SharpShell.SharpContextMenu
             //  Log this key event.
             Log(string.Format("Query Context Menu for items: {0}{1}", Environment.NewLine, string.Join(Environment.NewLine, SelectedItemPaths)));
 
-
             //  Call the virtual function allowing derived classes to customise the menu.
             OnQueryContextMenu(uFlags);
 
@@ -71,7 +67,7 @@ namespace SharpShell.SharpContextMenu
 
             //  Set the first item id.
             var firstItemId = (uint)idCmdFirst;
-            
+
             //  Use the native context menu wrapper to build the context menu.
             uint lastItemId = 0;
             try
@@ -87,7 +83,7 @@ namespace SharpShell.SharpContextMenu
                 //  Return the failure.
                 return WinError.E_FAIL;
             }
-            
+
             //  Return success, passing the the last item ID plus one (which will be the next command id).
             //  MSDN documentation is flakey here - to be explicit we need to return the count of the items added plus one.
             return WinError.MAKE_HRESULT(WinError.SEVERITY_SUCCESS, 0, (lastItemId - firstItemId) + 1);
@@ -95,8 +91,9 @@ namespace SharpShell.SharpContextMenu
 
         int IContextMenu2.QueryContextMenu(IntPtr hMenu, uint indexMenu, int idCmdFirst, int idCmdLast, CMF uFlags)
         {
-            return ((IContextMenu) this).QueryContextMenu(hMenu, indexMenu, idCmdFirst, idCmdLast, uFlags);
+            return ((IContextMenu)this).QueryContextMenu(hMenu, indexMenu, idCmdFirst, idCmdLast, uFlags);
         }
+
         int IContextMenu3.QueryContextMenu(IntPtr hMenu, uint indexMenu, int idCmdFirst, int idCmdLast, CMF uFlags)
         {
             return ((IContextMenu)this).QueryContextMenu(hMenu, indexMenu, idCmdFirst, idCmdLast, uFlags);
@@ -111,7 +108,7 @@ namespace SharpShell.SharpContextMenu
             //  We'll work out whether the commandis unicode or not...
             var isUnicode = false;
 
-            //  We could have been provided with a CMINVOKECOMMANDINFO or a 
+            //  We could have been provided with a CMINVOKECOMMANDINFO or a
             //  CMINVOKECOMMANDINFOEX - cast to the small and then check the size.
             var ici = (CMINVOKECOMMANDINFO)Marshal.PtrToStructure(pici, typeof(CMINVOKECOMMANDINFO));
             var iciex = new CMINVOKECOMMANDINFOEX();
@@ -142,7 +139,7 @@ namespace SharpShell.SharpContextMenu
 
                 //  DebugLog this key event.
                 Log(string.Format("Invoke ANSI verb {0}", verb));
-                
+
                 //  Try and invoke the command. If we don't invoke it, throw
                 //  E_FAIL so that other handlers can try.
                 if (!nativeContextMenuWrapper.TryInvokeCommand(verb))
@@ -157,7 +154,7 @@ namespace SharpShell.SharpContextMenu
 
                 //  DebugLog this key event.
                 Log(string.Format("Invoke Unicode verb {0}", verb));
-                
+
                 //  Try and invoke the command. If we don't invoke it, throw
                 //  E_FAIL so that other handlers can try.
                 if (!nativeContextMenuWrapper.TryInvokeCommand(verb))
@@ -170,10 +167,10 @@ namespace SharpShell.SharpContextMenu
                 //  loword it, as the hiword is zero, but we're following the
                 //  documentation rigourously.
                 var index = User32.LowWord(ici.verb.ToInt32());
-                
+
                 //  DebugLog this key event.
                 Log(string.Format("Invoke command index {0}", index));
-                
+
                 //  Try and invoke the command. If we don't invoke it, throw
                 //  E_FAIL so that other handlers can try.
                 if (!nativeContextMenuWrapper.TryInvokeCommand(index))
@@ -183,10 +180,12 @@ namespace SharpShell.SharpContextMenu
             //  Return success.
             return WinError.S_OK;
         }
+
         int IContextMenu2.InvokeCommand(IntPtr pici)
         {
             return ((IContextMenu)this).InvokeCommand(pici);
         }
+
         int IContextMenu3.InvokeCommand(IntPtr pici)
         {
             return ((IContextMenu)this).InvokeCommand(pici);
@@ -234,13 +233,13 @@ namespace SharpShell.SharpContextMenu
             if (idcmd >= contextMenuStrip.Value.Items.Count)
                 return WinError.E_FAIL;
             var item = contextMenuStrip.Value.Items[idcmd];
-            
+
             //  Based on the flags, choose a string to set.
             var stringData = string.Empty;
             switch (uflags)
             {
                 case GCS.GCS_VERBW:
-                    //  We need to provide a verb. Use the item name, as the Context Menu Builder will 
+                    //  We need to provide a verb. Use the item name, as the Context Menu Builder will
                     //  make sure it is unique.
                     stringData = item.Name;
                     break;
@@ -252,7 +251,7 @@ namespace SharpShell.SharpContextMenu
             }
 
             //  If we have not been given sufficient space for the string, throw an insufficient buffer exception.
-            if(stringData.Length > cch - 1)
+            if (stringData.Length > cch - 1)
             {
                 Marshal.ThrowExceptionForHR(WinError.STRSAFE_E_INSUFFICIENT_BUFFER);
                 return WinError.E_FAIL;
@@ -265,17 +264,19 @@ namespace SharpShell.SharpContextMenu
             //  Return success.
             return WinError.S_OK;
         }
+
         int IContextMenu2.GetCommandString(int idcmd, GCS uflags, int reserved, StringBuilder commandstring, int cch)
         {
             return ((IContextMenu)this).GetCommandString(idcmd, uflags, reserved, commandstring, cch);
         }
+
         int IContextMenu3.GetCommandString(int idcmd, GCS uflags, int reserved, StringBuilder commandstring, int cch)
         {
             return ((IContextMenu)this).GetCommandString(idcmd, uflags, reserved, commandstring, cch);
         }
 
-        #endregion
-        
+        #endregion Implementation of IContextMenu
+
         #region Implementation of IContextMenu2
 
         /// <summary>
@@ -293,14 +294,15 @@ namespace SharpShell.SharpContextMenu
             //  Always delegate to the IContextMenu3 version.
             return ((IContextMenu3)this).HandleMenuMsg2(uMsg, wParam, lParam, IntPtr.Zero);
         }
+
         int IContextMenu3.HandleMenuMsg(uint uMsg, IntPtr wParam, IntPtr lParam)
         {
             //  Always delegate to the IContextMenu3 version.
             return ((IContextMenu3)this).HandleMenuMsg2(uMsg, wParam, lParam, IntPtr.Zero);
         }
 
-        #endregion
-        
+        #endregion Implementation of IContextMenu2
+
         #region Implementation of IContextMenu3
 
         /// <summary>
@@ -318,13 +320,12 @@ namespace SharpShell.SharpContextMenu
         {
             if (uMsg == (uint)WM.INITMENUPOPUP)
             {
-                //  TODO IMPORTANT: What we have here is not quite right, this is only called when a popup item 
+                //  TODO IMPORTANT: What we have here is not quite right, this is only called when a popup item
                 //  is being opened, not when we initialise the whole menu.
 
                 var menuHandle = wParam;
                 var parentIndex = Win32Helper.LoWord(lParam);
                 var isWindowMenu = Win32Helper.HiWord(lParam) != 0;
-
 
                 //  Call the virtual function allowing derived classes to customise the menu.
                 OnInitialiseMenu(parentIndex);
@@ -334,7 +335,7 @@ namespace SharpShell.SharpContextMenu
             return WinError.S_OK;
         }
 
-        #endregion
+        #endregion Implementation of IContextMenu3
 
         //not used
         //private Dictionary<uint, SIZE[]> idsToPopupSizes = new Dictionary<uint, SIZE[]>();

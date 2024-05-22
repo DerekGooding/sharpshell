@@ -1,7 +1,5 @@
-﻿using System.Collections;
+﻿using SharpShell.Pidl;
 using System.Drawing;
-using System.Security.Cryptography.X509Certificates;
-using SharpShell.Pidl;
 
 namespace SharpShell.SharpNamespaceExtension
 {
@@ -19,7 +17,7 @@ namespace SharpShell.SharpNamespaceExtension
         /// </summary>
         /// <returns>A shell identifier for the item.</returns>
         /// <remarks>
-        /// A shell identifier can be created from raw data with <see cref="ShellId.FromData"/> or 
+        /// A shell identifier can be created from raw data with <see cref="ShellId.FromData"/> or
         /// from a string with <see cref="ShellId.FromString"/>.
         /// </remarks>
         ShellId GetShellId();

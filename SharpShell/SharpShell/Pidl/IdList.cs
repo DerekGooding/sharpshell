@@ -36,11 +36,11 @@ namespace SharpShell.Pidl
         /// <returns>The id list in parsing string format.</returns>
         public string ToParsingString()
         {
-            var sb = new StringBuilder(ids.Sum(id => id.Length*2 + 4));
+            var sb = new StringBuilder(ids.Sum(id => id.Length * 2 + 4));
             foreach (var id in ids)
             {
                 sb.AppendFormat("{0:x4}", (short)id.Length);
-                foreach(var idi in id.RawId)
+                foreach (var idi in id.RawId)
                     sb.AppendFormat("{0:x2}", idi);
             }
 
@@ -83,7 +83,7 @@ namespace SharpShell.Pidl
             //  We must have a valid set to match against.
             if (idList == null || idList.ids == null || idList.ids.Count != ids.Count)
                 return false;
-            
+
             //  If there is any id that doesn't match, we return false.
             return !ids.Where((t, i) => !t.Equals(idList.ids[i])).Any();
         }
@@ -96,6 +96,7 @@ namespace SharpShell.Pidl
         /// <summary>
         /// Gets the ids.
         /// </summary>
-        public ReadOnlyCollection<ShellId> Ids { get { return ids.AsReadOnly(); } }
+        public ReadOnlyCollection<ShellId> Ids
+        { get { return ids.AsReadOnly(); } }
     }
 }

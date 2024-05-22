@@ -1,10 +1,8 @@
-﻿using System;
+﻿using SharpShell.Interop;
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
-using SharpShell.Interop;
-using STATSTG = System.Runtime.InteropServices.ComTypes.STATSTG;
-
 
 namespace SharpShell.Helpers
 {
@@ -32,6 +30,7 @@ namespace SharpShell.Helpers
         {
             Marshal.FreeCoTaskMem(bufferPointer);
         }
+
         /// <summary>
         /// Releases all resources used by the Com Stream.
         /// </summary>
@@ -46,7 +45,7 @@ namespace SharpShell.Helpers
         }
 
         /// <summary>
-        /// When overridden in a derived class, clears all buffers for this stream and causes 
+        /// When overridden in a derived class, clears all buffers for this stream and causes
         /// any buffered data to be written to the underlying device.
         /// </summary>
         public override void Flush()
@@ -54,7 +53,7 @@ namespace SharpShell.Helpers
             //  Commit the underlying COM stream.
             comStream.Commit(0);
         }
-        
+
         /// <summary>
         /// When overridden in a derived class, reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read.
         /// </summary>
@@ -68,7 +67,7 @@ namespace SharpShell.Helpers
         public override int Read(byte[] buffer, int offset, int count)
         {
             //  We don't handle offsets.
-            if (offset != 0) 
+            if (offset != 0)
                 throw new NotImplementedException();
 
             //  Read into the buffer and advance the position.
@@ -122,7 +121,7 @@ namespace SharpShell.Helpers
         public override void Write(byte[] buffer, int offset, int count)
         {
             //  We don't handle non zero offsets.
-            if (offset != 0) 
+            if (offset != 0)
                 throw new NotImplementedException();
 
             //  Write to the stream and advance the position.

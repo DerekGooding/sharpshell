@@ -21,8 +21,8 @@ namespace SharpShell.Interop
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         [PreserveSig]
         int BindToHandler(IntPtr pbc,
-            [MarshalAs(UnmanagedType.LPStruct)]Guid bhid,
-            [MarshalAs(UnmanagedType.LPStruct)]Guid riid,
+            [MarshalAs(UnmanagedType.LPStruct)] Guid bhid,
+            [MarshalAs(UnmanagedType.LPStruct)] Guid riid,
             out IntPtr ppv);
 
         /// <summary>Gets the parent of an IShellItem object.</summary>

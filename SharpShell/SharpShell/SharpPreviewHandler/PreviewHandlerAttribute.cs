@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SharpShell.SharpPreviewHandler
 {
@@ -30,16 +28,16 @@ namespace SharpShell.SharpPreviewHandler
         /// <returns>The preview handler attribute, or null.</returns>
         public static PreviewHandlerAttribute GetPreviewHandlerAttribute(Type type)
         {
-            var previewHandlers = type.GetCustomAttributes(typeof (PreviewHandlerAttribute), false).OfType<PreviewHandlerAttribute>();
+            var previewHandlers = type.GetCustomAttributes(typeof(PreviewHandlerAttribute), false).OfType<PreviewHandlerAttribute>();
             return previewHandlers.SingleOrDefault();
         }
 
         /// <summary>
         /// Disables low IL process isolation. Default is <c>false</c>.
-        /// By default, preview handlers run in a low integrity level (IL) process 
-        /// for security reasons. You can optionally disable running as a low IL 
-        /// process by setting the following value in the registry. However, it 
-        /// is not recommended to do so. Systems could eventually be configured to 
+        /// By default, preview handlers run in a low integrity level (IL) process
+        /// for security reasons. You can optionally disable running as a low IL
+        /// process by setting the following value in the registry. However, it
+        /// is not recommended to do so. Systems could eventually be configured to
         /// reject any process that is not low IL.
         /// </summary>
         /// <value>

@@ -9,6 +9,7 @@ namespace SharpShell.SharpNamespaceExtension
         /// All users can use the namespace extension.
         /// </summary>
         Everyone,
+
         /// <summary>
         /// Only the current user can use the namespace extension.
         /// </summary>

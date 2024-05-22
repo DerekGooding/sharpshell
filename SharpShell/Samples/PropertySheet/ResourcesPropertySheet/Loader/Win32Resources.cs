@@ -1,6 +1,6 @@
 ﻿namespace ResourcesPropertySheet.Loader
 {
-    class Win32Resources
+    internal class Win32Resources
     {
         public Win32ResourceType ResourceType { get; }
         public Win32Resource[] Resouces { get; }

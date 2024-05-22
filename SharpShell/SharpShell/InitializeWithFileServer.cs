@@ -27,7 +27,7 @@ namespace SharpShell
             return WinError.S_OK;
         }
 
-        #endregion
+        #endregion Implementation of IInitializeWithFile
 
         /// <summary>
         /// Gets the selected item stream.

@@ -61,6 +61,6 @@ namespace SharpShell.Interop
         /// <param name="iIcon">The Shell icon ID.</param>
         /// <returns>If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         [PreserveSig]
-        int SetDefaultIcon([In, MarshalAs(UnmanagedType.LPWStr)] string pszFile,int iIcon);
+        int SetDefaultIcon([In, MarshalAs(UnmanagedType.LPWStr)] string pszFile, int iIcon);
     }
 }

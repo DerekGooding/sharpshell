@@ -1,15 +1,15 @@
-﻿using System;
+﻿using ServerRegistrationManager.OutputService;
+using System;
 using System.Reflection;
-using ServerRegistrationManager.OutputService;
 
 namespace ServerRegistrationManager
 {
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             //  To keep things simple, we actually include the SharpShell assembly
-            //  as a resource in the exe, then we can load it as required from the 
+            //  as a resource in the exe, then we can load it as required from the
             //  resource. This leave us with one exe. Ilmerge won't work in this case
             //  because we'd lose the identity of SharpShell.dll (public key, names etc).
             HandleEmbeddedReferences();
@@ -31,9 +31,9 @@ namespace ServerRegistrationManager
 
                 //  Get the assembly name.
                 var assemblyName = new AssemblyName(args.Name).Name;
-                var executableName = typeof (Program).Assembly.GetName().Name;
+                var executableName = typeof(Program).Assembly.GetName().Name;
                 var resourceName = executableName + ".EmbeddedReferences." + assemblyName + ".dll";
-                
+
                 //  Load the resource.
                 using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
                 {

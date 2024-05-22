@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SharpShell.Attributes;
+using SharpShell.SharpIconHandler;
+using System;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
-using SharpShell.Attributes;
-using SharpShell.Diagnostics;
-using SharpShell.SharpIconHandler;
 
 namespace DllIconHandler
 {
@@ -53,7 +48,7 @@ namespace DllIconHandler
             //  If we haven't determined that the dll is native, use the managed icon.
             if (icon == null)
                 icon = Properties.Resources.ManagedDll;
-            
+
             //  Return the icon with the correct size. Use the SharpIconHandler 'GetIconSpecificSize'
             //  function to extract the icon of the required size.
             return GetIconSpecificSize(icon, new Size((int)iconSize, (int)iconSize));

@@ -1,9 +1,9 @@
 ﻿namespace SharpShell.Interop
 {
-// ReSharper disable InconsistentNaming
+    // ReSharper disable InconsistentNaming
 
     /// <summary>
-    /// Where to obtain association data and the form the data is stored in. One of the following values from the ASSOCCLASS enumeration.   
+    /// Where to obtain association data and the form the data is stored in. One of the following values from the ASSOCCLASS enumeration.
     /// </summary>
     public enum ASSOCCLASS
     {
@@ -23,7 +23,7 @@
         ASSOCCLASS_PROGID_STR,
 
         /// <summary>
-        /// The hkClass member provides the full registry path of a CLSID.  
+        /// The hkClass member provides the full registry path of a CLSID.
         /// </summary>
         ASSOCCLASS_CLSID_KEY,
 

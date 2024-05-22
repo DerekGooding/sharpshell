@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using SharpShell.Attributes;
+﻿using SharpShell.Attributes;
+using System;
 
 namespace SharpShell.ServerRegistration
 {

@@ -1,12 +1,10 @@
-﻿using System.IO;
+﻿using SharpShell.Attributes;
+using SharpShell.SharpContextMenu;
+using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using SharpShell.Attributes;
-using SharpShell.SharpContextMenu;
-using System.Collections.Generic;
-
-using System.Linq;
 
 namespace DynamicSubMenus
 {
@@ -31,7 +29,6 @@ namespace DynamicSubMenus
         // </returns>
         protected override bool CanShowMenu()
         {
-            
             //  We can show the item only for a single selection.
             if (SelectedItemPaths.Count() == 1)
             {
@@ -57,7 +54,7 @@ namespace DynamicSubMenus
             FileAttributes attr = File.GetAttributes(SelectedItemPaths.First());
 
             // check if the selected item is a directory
-            if (attr.HasFlag(FileAttributes.Directory)) 
+            if (attr.HasFlag(FileAttributes.Directory))
             {
                 this.MenuDirectory();
             }
@@ -71,7 +68,7 @@ namespace DynamicSubMenus
         }
 
         // <summary>
-        // Updates the context menu. 
+        // Updates the context menu.
         // </summary>
         private void UpdateMenu()
         {
@@ -92,28 +89,28 @@ namespace DynamicSubMenus
                 Image = Properties.Resources.Folder_icon
             };
 
-                    ToolStripMenuItem SubMenu1;
-                    SubMenu1 = new ToolStripMenuItem
-                    {
-                        Text = "DirSubMenu1",
-                        Image = Properties.Resources.Folder_icon
-                    };
+            ToolStripMenuItem SubMenu1;
+            SubMenu1 = new ToolStripMenuItem
+            {
+                Text = "DirSubMenu1",
+                Image = Properties.Resources.Folder_icon
+            };
 
-                    var SubMenu2 = new ToolStripMenuItem
-                    {
-                        Text = "DirSubMenu2",
-                        Image = Properties.Resources.Folder_icon
-                    };
-                    SubMenu2.DropDownItems.Clear();
-                    SubMenu2.Click += (sender, args) => ShowItemName();
+            var SubMenu2 = new ToolStripMenuItem
+            {
+                Text = "DirSubMenu2",
+                Image = Properties.Resources.Folder_icon
+            };
+            SubMenu2.DropDownItems.Clear();
+            SubMenu2.Click += (sender, args) => ShowItemName();
 
-                            var SubSubMenu1 = new ToolStripMenuItem
-                            {
-                                Text = "DirSubSubMenu1",
-                                Image = Properties.Resources.Folder_icon
-                            };
-                            SubSubMenu1.Click += (sender, args) => ShowItemName();
-            
+            var SubSubMenu1 = new ToolStripMenuItem
+            {
+                Text = "DirSubSubMenu1",
+                Image = Properties.Resources.Folder_icon
+            };
+            SubSubMenu1.Click += (sender, args) => ShowItemName();
+
             // Lets attach the submenus to the main menu
             SubMenu1.DropDownItems.Add(SubSubMenu1);
             MainMenu.DropDownItems.Add(SubMenu1);
@@ -135,27 +132,27 @@ namespace DynamicSubMenus
                 Image = Properties.Resources.file_icon
             };
 
-                    ToolStripMenuItem SubMenu3;
-                    SubMenu3 = new ToolStripMenuItem
-                    {
-                        Text = "FileSubMenu1",
-                        Image = Properties.Resources.file_icon
-                    };
+            ToolStripMenuItem SubMenu3;
+            SubMenu3 = new ToolStripMenuItem
+            {
+                Text = "FileSubMenu1",
+                Image = Properties.Resources.file_icon
+            };
 
-                    var SubMenu4 = new ToolStripMenuItem
-                    {
-                        Text = "FileSubMenu2",
-                        Image = Properties.Resources.file_icon
-                    };
-                    SubMenu4.DropDownItems.Clear();
-                    SubMenu4.Click += (sender, args) => ShowItemName();
+            var SubMenu4 = new ToolStripMenuItem
+            {
+                Text = "FileSubMenu2",
+                Image = Properties.Resources.file_icon
+            };
+            SubMenu4.DropDownItems.Clear();
+            SubMenu4.Click += (sender, args) => ShowItemName();
 
-                            var SubSubMenu3 = new ToolStripMenuItem
-                            {
-                                Text = "FileSubSubMenu1",
-                                Image = Properties.Resources.file_icon
-                            };
-                            SubSubMenu3.Click += (sender, args) => ShowItemName();
+            var SubSubMenu3 = new ToolStripMenuItem
+            {
+                Text = "FileSubSubMenu1",
+                Image = Properties.Resources.file_icon
+            };
+            SubSubMenu3.Click += (sender, args) => ShowItemName();
 
             // Lets attach the submenus to the main menu
             SubMenu3.DropDownItems.Add(SubSubMenu3);

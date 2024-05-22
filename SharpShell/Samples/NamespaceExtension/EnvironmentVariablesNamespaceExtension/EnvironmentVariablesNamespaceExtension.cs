@@ -1,7 +1,7 @@
-﻿using System;
+﻿using SharpShell.SharpNamespaceExtension;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using SharpShell.SharpNamespaceExtension;
 
 namespace EnvironmentVariablesNamespaceExtension
 {
@@ -46,7 +46,7 @@ namespace EnvironmentVariablesNamespaceExtension
                     return environmentVariableItem.GetDisplayName(DisplayNameContext.Normal);
                 if (column.PropertyKey.FormatId == KeyProperties.valueGuid)
                     return environmentVariableItem.GetValue();
-                
+
                 return null;
             });
         }

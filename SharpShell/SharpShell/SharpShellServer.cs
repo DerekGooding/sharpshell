@@ -1,11 +1,11 @@
-﻿using System;
+﻿using SharpShell.Attributes;
+using SharpShell.Diagnostics;
+using SharpShell.Interop;
+using SharpShell.ServerRegistration;
+using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Runtime.InteropServices;
-using SharpShell.Attributes;
-using SharpShell.Diagnostics;
-using SharpShell.ServerRegistration;
-using SharpShell.Interop;
 
 namespace SharpShell
 {
@@ -20,7 +20,7 @@ namespace SharpShell
     /// feature as it means that the ServerManager tool (and other tools) can interrogate
     /// assemblies via MEF to get information on servers they contain.
     /// </summary>
-    [InheritedExport(typeof(ISharpShellServer))]
+    [InheritedExportAttribute(typeof(ISharpShellServer))]
     public abstract class SharpShellServer : ISharpShellServer
     {
         /// <summary>
@@ -92,7 +92,6 @@ namespace SharpShell
             {
                 Logging.Log($"Disabling process isolation for SharpFileThumbnailHandler named '{type.Name}'.");
                 ServerRegistrationManager.SetDisableProcessIsolationValue(type.GUID, registrationType, 1 /* i.e. disabled */);
-
             }
 
             //  Execute the custom register function, if there is one.

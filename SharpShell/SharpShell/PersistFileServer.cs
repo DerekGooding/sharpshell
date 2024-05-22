@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices.ComTypes;
 
-namespace SharpShell 
+namespace SharpShell
 {
     /// <summary>
     /// PersistFileServer provides a base for SharpShell Servers that must implement
@@ -75,8 +75,8 @@ namespace SharpShell
             ppszFileName = null;
         }
 
-        #endregion
-        
+        #endregion Implementation of IPersistFile
+
         /// <summary>
         /// Gets the selected item path.
         /// </summary>

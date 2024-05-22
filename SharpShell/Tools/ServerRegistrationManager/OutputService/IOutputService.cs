@@ -14,7 +14,7 @@
         void WriteMessage(string message, bool log = false);
 
         /// <summary>
-        /// Writes the a success message. Implementations may show a tick or the 
+        /// Writes the a success message. Implementations may show a tick or the
         /// message in green etc.
         /// </summary>
         /// <param name="message">The message.</param>

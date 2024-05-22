@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using SharpShell.Attributes;
+using SharpShell.SharpPropertySheet;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using SharpShell.Attributes;
-using SharpShell.SharpPropertySheet;
 
 namespace FileTimesPropertySheet
 {
     /// <summary>
-    /// The ResourcesPropertySheet is a shell extension to show the managed 
+    /// The ResourcesPropertySheet is a shell extension to show the managed
     /// and unmanaged resources containing in binary files.
     /// </summary>
     [ComVisible(true)]
@@ -38,7 +38,7 @@ namespace FileTimesPropertySheet
             var page = new FileTimesPropertyPage();
 
             //  Return the pages we've created.
-            return new[] {page};
+            return new[] { page };
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SharpShell.Helpers;
-using SharpShell.Interop;
+using System;
+using System.Runtime.InteropServices;
 
 // ReSharper disable IdentifierTypo
 
@@ -15,7 +14,7 @@ namespace SharpShell.Tests.Helpers
         {
             //  Pack 1024x768 into a width/height dword.
             var dimensions = new IntPtr(1024 + (768 << 16));
-            
+
             //  Assert we can grab the loword.
             Assert.That(Win32Helper.LoWord(dimensions), Is.EqualTo(1024));
         }

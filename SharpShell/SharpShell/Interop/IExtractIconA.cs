@@ -36,6 +36,6 @@ namespace SharpShell.Interop
         /// Returns S_OK if the function extracted the icon, or S_FALSE if the calling application should extract the icon.
         /// </returns>
         [PreserveSig]
-        int Extract([In, MarshalAs(UnmanagedType.LPStr)]string pszFile, uint nIconIndex, out IntPtr phiconLarge, out IntPtr phiconSmall, uint nIconSize);
+        int Extract([In, MarshalAs(UnmanagedType.LPStr)] string pszFile, uint nIconIndex, out IntPtr phiconLarge, out IntPtr phiconSmall, uint nIconSize);
     }
 }

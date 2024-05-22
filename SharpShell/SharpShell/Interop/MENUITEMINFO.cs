@@ -25,7 +25,7 @@ namespace SharpShell.Interop
         public uint fType;
 
         /// <summary>
-        /// The menu item state. 
+        /// The menu item state.
         /// </summary>
         public uint fState;
 

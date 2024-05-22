@@ -19,7 +19,6 @@ namespace SharpShell.Interop
         [PreserveSig]
         int SetSite([MarshalAs(UnmanagedType.IUnknown)] object pUnkSite);
 
-
         /// <summary>
         /// Retrieves the latest site passed using SetSite.
         /// </summary>

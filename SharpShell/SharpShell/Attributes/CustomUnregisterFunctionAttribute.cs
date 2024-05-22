@@ -1,7 +1,7 @@
-﻿using System;
+﻿using SharpShell.ServerRegistration;
+using System;
 using System.Linq;
 using System.Reflection;
-using SharpShell.ServerRegistration;
 
 namespace SharpShell.Attributes
 {
@@ -20,7 +20,7 @@ namespace SharpShell.Attributes
         {
             //  Does the type have the attribute?
             var methodWithAttribute = type.GetMethods(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.FlattenHierarchy)
-                .FirstOrDefault(m => m.GetCustomAttributes(typeof (CustomUnregisterFunctionAttribute), false).Any());
+                .FirstOrDefault(m => m.GetCustomAttributes(typeof(CustomUnregisterFunctionAttribute), false).Any());
 
             //  Do we have a method? If so, invoke it.
             if (methodWithAttribute != null)

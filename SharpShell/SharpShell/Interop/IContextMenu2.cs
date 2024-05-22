@@ -49,7 +49,7 @@ namespace SharpShell.Interop
         /// </returns>
         new int GetCommandString(int idcmd, GCS uflags, int reserved, StringBuilder commandstring, int cch);
 
-        #endregion
+        #endregion IContextMenu overrides
 
         /// <summary>
         /// Enables client objects of the IContextMenu interface to handle messages associated with owner-drawn menu items.

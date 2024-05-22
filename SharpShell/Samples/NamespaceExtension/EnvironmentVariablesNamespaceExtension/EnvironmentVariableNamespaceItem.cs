@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SharpShell.Pidl;
+﻿using SharpShell.Pidl;
 using SharpShell.SharpNamespaceExtension;
+using System;
+using System.Drawing;
 
 namespace EnvironmentVariablesNamespaceExtension
 {
-    class EnvironmentVariableNamespaceItem : IShellNamespaceItem
+    internal class EnvironmentVariableNamespaceItem : IShellNamespaceItem
     {
         private readonly string _name;
 

@@ -60,7 +60,7 @@ namespace SharpShell.Interop
         /// </returns>
         new int HandleMenuMsg(uint uMsg, IntPtr wParam, IntPtr lParam);
 
-        #endregion
+        #endregion IContextMenu and IContextMenu2 overrides
 
         /// <summary>
         /// Allows client objects of the IContextMenu3 interface to handle messages associated with owner-drawn menu items.

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Microsoft.Win32;
 
 namespace SharpShell.Registry
 {
@@ -44,7 +44,7 @@ namespace SharpShell.Registry
         {
             //  Find and return the root key for the given view.
             var rootKey = _rootKeys.Where(kv => kv.Key.Item1 == view && kv.Key.Item2 == hKey).Select(kvp => kvp.Value).FirstOrDefault();
-            if(rootKey == null) throw new InvalidOperationException($"Cannot find {view} root key for hive '{hKey}'");
+            if (rootKey == null) throw new InvalidOperationException($"Cannot find {view} root key for hive '{hKey}'");
             return rootKey;
         }
 
@@ -67,16 +67,16 @@ namespace SharpShell.Registry
             //  Loop through the lines, building a stack of keys which we set.
             var keyStack = new Stack<IRegistryKey>();
             var lineNum = 0;
-            foreach (var line in structure.Split(new [] { Environment.NewLine }, StringSplitOptions.None))
+            foreach (var line in structure.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
             {
                 lineNum++;
 
                 //  Skip empty lines.
                 if (string.IsNullOrEmpty(line)) continue;
-                
+
                 //  Get the depth of the line, which is indented by sets of three spaces.
                 var spaces = Spaces(line);
-                if(spaces%3 != 0) throw new InvalidOperationException($@"Line {lineNum+1}: Line starts with {spaces} spaces. Lines should start with spaces which are a multiple of three.");
+                if (spaces % 3 != 0) throw new InvalidOperationException($@"Line {lineNum + 1}: Line starts with {spaces} spaces. Lines should start with spaces which are a multiple of three.");
                 var depth = spaces / 3;
 
                 //  Pop the stack if we need to.
@@ -87,7 +87,7 @@ namespace SharpShell.Registry
                 {
                     //  Load the hive.
                     var hive = _rootKeys.Where(kv => kv.Key.Item1 == registryView && kv.Value.Name == line).Select(kvp => kvp.Value).FirstOrDefault();
-                    if(hive == null) throw new InvalidOperationException($@"Line ${lineNum + 1}: {line} is not a known registry hive key.");
+                    if (hive == null) throw new InvalidOperationException($@"Line ${lineNum + 1}: {line} is not a known registry hive key.");
                     keyStack.Push(hive);
                     continue;
                 }
@@ -114,7 +114,7 @@ namespace SharpShell.Registry
                     }
                     continue;
                 }
-                
+
                 //  If we get here, we've got a malformed file.
                 throw new InvalidOperationException($@"Line {lineNum + 1}: This line it at an invalid depth.");
             }
@@ -128,7 +128,7 @@ namespace SharpShell.Registry
         /// <returns>The key, printed at the given depth.</returns>
         private static string PrintKey(IRegistryKey key, int depth)
         {
-            var indent = new string(' ', depth*3);
+            var indent = new string(' ', depth * 3);
 
             //  Get the value strings.
             var values = key.GetValueNames()

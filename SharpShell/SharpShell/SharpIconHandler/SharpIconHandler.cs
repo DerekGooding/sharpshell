@@ -1,10 +1,9 @@
-﻿using System;
+﻿using SharpShell.Attributes;
+using SharpShell.Interop;
+using System;
 using System.Drawing;
 using System.IO;
-using System.Runtime.InteropServices.ComTypes;
 using System.Text;
-using SharpShell.Attributes;
-using SharpShell.Interop;
 
 namespace SharpShell.SharpIconHandler
 {
@@ -24,7 +23,7 @@ namespace SharpShell.SharpIconHandler
             DontCacheIcons = true;
         }
 
-       #region Implementation of IExtractIconA and IExtractIconW
+        #region Implementation of IExtractIconA and IExtractIconW
 
         /// <summary>
         /// Gets the location and index of an icon.
@@ -39,10 +38,12 @@ namespace SharpShell.SharpIconHandler
         {
             return GetIconLocation(uFlags, out piIndex, out pwFlags);
         }
+
         int IExtractIconW.GetIconLocation(GILInFlags uFlags, StringBuilder szIconFile, int cchMax, out int piIndex, out GILOutFlags pwFlags)
         {
             return GetIconLocation(uFlags, out piIndex, out pwFlags);
         }
+
         private int GetIconLocation(GILInFlags uFlags, out int piIndex, out GILOutFlags pwFlags)
         {
             //  DebugLog this key event.
@@ -60,6 +61,7 @@ namespace SharpShell.SharpIconHandler
             //  Return success.
             return WinError.S_OK;
         }
+
         /// <summary>
         /// Extracts an icon image from the specified location.
         /// </summary>
@@ -75,10 +77,12 @@ namespace SharpShell.SharpIconHandler
         {
             return Extract(out phiconLarge, out phiconSmall, nIconSize);
         }
+
         int IExtractIconW.Extract(string pszFile, uint nIconIndex, out IntPtr phiconLarge, out IntPtr phiconSmall, uint nIconSize)
         {
             return Extract(out phiconLarge, out phiconSmall, nIconSize);
         }
+
         private int Extract(out IntPtr phiconLarge, out IntPtr phiconSmall, uint nIconSize)
         {
             //  DebugLog this key event.
@@ -108,7 +112,7 @@ namespace SharpShell.SharpIconHandler
             return WinError.S_OK;
         }
 
-        #endregion
+        #endregion Implementation of IExtractIconA and IExtractIconW
 
         /// <summary>
         /// Gets an icon of a specific size from a set of icons.
@@ -129,7 +133,7 @@ namespace SharpShell.SharpIconHandler
                 return new Icon(memoryStream, size);
             }
         }
-        
+
         /// <summary>
         /// Gets the icon.
         /// </summary>
@@ -139,7 +143,7 @@ namespace SharpShell.SharpIconHandler
         protected abstract Icon GetIcon(bool smallIcon, uint iconSize);
 
         /// <summary>
-        /// Gets or sets a value indicating whether to force icons from this handler 
+        /// Gets or sets a value indicating whether to force icons from this handler
         /// to not be cached by the shell.
         /// </summary>
         /// <value>

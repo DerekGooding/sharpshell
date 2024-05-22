@@ -21,7 +21,7 @@
         /// Gets the folder's default path independent of the current location of its parent. KF_FLAG_DEFAULT_PATH must also be set.
         /// </summary>
         KF_FLAG_NOT_PARENT_RELATIVE = 0x00000200,
-        
+
         /// <summary>
         /// Gets the default path for a known folder. If this flag is not set, the function retrieves the current—and possibly redirected—path of the folder. The execution of this flag includes a verification of the folder's existence unless KF_FLAG_DONT_VERIFY is set.
         /// </summary>

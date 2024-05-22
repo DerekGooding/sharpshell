@@ -11,17 +11,17 @@ namespace SharpShell.Interop
         [DllImport("gdi32.dll", SetLastError = true)]
         internal static extern IntPtr CreateDIBSection(IntPtr hdc, [In] IntPtr pbmi,
             uint pila, out IntPtr ppvBits, IntPtr hSection, uint dwOffset);
-        
+
         [DllImport("gdi32.dll", SetLastError = true)]
         internal static extern IntPtr CreateDIBSection(IntPtr hdc, [In] BITMAPV5HEADER pbmi,
             uint pila, out IntPtr ppvBits, IntPtr hSection, uint dwOffset);
 
         [DllImport("gdi32.dll", SetLastError = true)]
-        internal static extern IntPtr CreateDIBSection(IntPtr hdc, [In]ref  BITMAPINFOHEADER pbmi,
+        internal static extern IntPtr CreateDIBSection(IntPtr hdc, [In] ref BITMAPINFOHEADER pbmi,
             uint pila, out IntPtr ppvBits, IntPtr hSection, uint dwOffset);
 
         [DllImport("gdi32.dll", SetLastError = true)]
-        internal static extern IntPtr CreateDIBSection(IntPtr hdc, [In]ref  BITMAPINFO pbmi,
+        internal static extern IntPtr CreateDIBSection(IntPtr hdc, [In] ref BITMAPINFO pbmi,
             uint pila, out IntPtr ppvBits, IntPtr hSection, uint dwOffset);
 
         [DllImport("gdi32.dll")]
@@ -70,7 +70,7 @@ namespace SharpShell.Interop
         /// <returns>If the function succeeds, the return value is <c>true</c>. If the function fails, the return value is <c>false</c>.</returns>
         [DllImport("gdi32.dll", EntryPoint = "DeleteDC")]
         internal static extern bool DeleteDC([In] IntPtr hdc);
-        
+
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern bool DrawIconEx(IntPtr hdc, int xLeft, int yTop, IntPtr hIcon,
             int cxWidth, int cyHeight, int istepIfAniCur, IntPtr hbrFlickerFreeDraw,

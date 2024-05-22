@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+
 namespace SharpShell.Interop
 {
     /// <summary>
@@ -23,7 +24,7 @@ namespace SharpShell.Interop
         [PreserveSig]
         new int GetClassID(out Guid pClassID);
 
-        #endregion
+        #endregion IPersist Overrides
 
         /// <summary>
         /// Determines whether this instance is dirty.

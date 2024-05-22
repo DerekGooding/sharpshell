@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+
 #pragma warning disable 1591
 
 namespace SharpShell.Interop
@@ -27,7 +26,7 @@ namespace SharpShell.Interop
 
         [DllImport("user32.dll")]
         internal static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-        
+
         [DllImport("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, uint Msg, uint wParam, IntPtr lParam);
 
@@ -36,13 +35,13 @@ namespace SharpShell.Interop
 
         [DllImport("user32.dll")]
         internal static extern IntPtr GetDC(IntPtr hWnd);
-        
+
         [DllImport("user32.dll")]
         internal static extern bool ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
         [DllImport("user32.dll")]
         internal static extern bool DestroyWindow(IntPtr hostWindowHandle);
-        
+
         [DllImport("user32.dll")]
         internal static extern bool GetIconInfo(IntPtr hIcon, out ICONINFO piconinfo);
 
@@ -84,13 +83,11 @@ namespace SharpShell.Interop
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern IntPtr GetParent(IntPtr hWnd);
 
-
         [DllImport("user32.dll")]
         internal static extern IntPtr CreateIconIndirect([In] ref ICONINFO iconInfo);
 
         public static int GWL_STYLE = -16;
-        public static int WS_CHILD = 0x40000000; 
-
+        public static int WS_CHILD = 0x40000000;
 
         public static int HighWord(int number)
         {
@@ -102,6 +99,5 @@ namespace SharpShell.Interop
         {
             return number & 0xffff;
         }
-
     }
 }

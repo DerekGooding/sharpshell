@@ -10,7 +10,7 @@ namespace SharpShell.Interop
     /// TODO: This struct has different sizes on Windows x86 and x64, validate that it works in both modes.
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    public struct TBBUTTON 
+    public struct TBBUTTON
     {
         /// <summary>
         /// Zero-based index of the button image. Set this member to I_IMAGECALLBACK, and the toolbar will send the TBN_GETDISPINFO notification code to retrieve the image index when it is needed.
@@ -25,11 +25,13 @@ namespace SharpShell.Interop
         public int idCommand;
 
         [StructLayout(LayoutKind.Explicit)]
-        private struct TBBUTTON_U {
+        private struct TBBUTTON_U
+        {
             [FieldOffset(0)] public byte fsState;
             [FieldOffset(1)] public byte fsStyle;
             [FieldOffset(0)] private IntPtr bReserved;
         }
+
         private TBBUTTON_U union;
 
         /// <summary>
@@ -48,7 +50,7 @@ namespace SharpShell.Interop
         public UIntPtr dwData;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public IntPtr iString;
     }

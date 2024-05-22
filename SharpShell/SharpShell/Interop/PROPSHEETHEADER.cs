@@ -15,7 +15,7 @@ namespace SharpShell.Interop
         public uint nPages;
         public IntPtr nStartPage;
         public IntPtr phpage;
-        public IntPtr /*PFNPROPSHEETCALLBACK*/ pfnCallback ;
+        public IntPtr /*PFNPROPSHEETCALLBACK*/ pfnCallback;
         public IntPtr hbmWatermark;
         public IntPtr hplWatermark;
         public IntPtr hbmHeader;

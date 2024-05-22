@@ -24,7 +24,7 @@ namespace SharpShell.Interop
         [PreserveSig]
         new int GetClassID(out Guid pClassID);
 
-        #endregion
+        #endregion Overriden IPersist Methods
 
         /// <summary>
         /// Sets a persisted item identifier list.

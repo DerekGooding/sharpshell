@@ -1,9 +1,5 @@
 ﻿using SharpShell.Diagnostics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServerRegistrationManager.OutputService
 {
@@ -22,7 +18,7 @@ namespace ServerRegistrationManager.OutputService
         {
             //  Set the colour.
             Console.ForegroundColor = ConsoleColor.Gray;
-            
+
             //  Write the message.
             Console.WriteLine(message);
 

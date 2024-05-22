@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using Apex.WinForms.Interop;
-using Apex.WinForms.Shell;
-using ServerManager.ShellDebugger;
+﻿using ServerManager.ShellDebugger;
 using ServerManager.TestShell;
 using SharpShell;
-using SharpShell.Attributes;
 using SharpShell.Diagnostics;
 using SharpShell.Helpers;
 using SharpShell.ServerRegistration;
@@ -21,13 +10,20 @@ using SharpShell.SharpIconHandler;
 using SharpShell.SharpIconOverlayHandler;
 using SharpShell.SharpInfoTipHandler;
 using SharpShell.SharpPreviewHandler;
-using SharpShell.SharpPropertySheet;
 using SharpShell.SharpThumbnailHandler;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace ServerManager
 {
     /// <summary>
-    /// The main class 
+    /// The main class
     /// </summary>
     public partial class ServerManagerForm : Form
     {
@@ -54,7 +50,7 @@ namespace ServerManager
 
             //  Load any servers from the assembly.
             var serverEntries = ServerManagerApi.LoadServers(path);
-            foreach(var serverEntry in serverEntries)
+            foreach (var serverEntry in serverEntries)
             {
                 AddServerEntryToList(serverEntry);
             }
@@ -75,25 +71,31 @@ namespace ServerManager
                         serverEntry.ServerName,
                         serverEntry.ServerType.ToString(),
                         serverEntry.ClassId.ToString()
-                    }) {Tag = serverEntry};
+                    })
+            { Tag = serverEntry };
 
             switch (serverEntry.ServerType)
             {
                 case ServerType.ShellContextMenu:
                     listItem.ImageIndex = 0;
                     break;
+
                 case ServerType.ShellPropertySheet:
                     listItem.ImageIndex = 2;
                     break;
+
                 case ServerType.ShellIconHandler:
                     listItem.ImageIndex = 1;
                     break;
-                    case ServerType.ShellInfoTipHandler:
+
+                case ServerType.ShellInfoTipHandler:
                     listItem.ImageIndex = 3;
                     break;
+
                 case ServerType.ShellIconOverlayHandler:
                     listItem.ImageIndex = 4;
                     break;
+
                 default:
                     listItem.ImageIndex = 0;
                     break;
@@ -103,7 +105,6 @@ namespace ServerManager
                 listItem.ForeColor = Color.FromArgb(255, 0, 0);
 
             listViewServers.Items.Add(listItem);
-
         }
 
         public ServerEntry SelectedServerEntry
@@ -125,16 +126,16 @@ namespace ServerManager
             var recentlyUsedFilesToRemove = new List<string>();
             if (Properties.Settings.Default.RecentlyUsedFiles != null)
             {
-                foreach(var path in Properties.Settings.Default.RecentlyUsedFiles)
+                foreach (var path in Properties.Settings.Default.RecentlyUsedFiles)
                     AddServer(path, false);
             }
 
             //  Check for any servers added via the command line.
             var arguments = Environment.GetCommandLineArgs();
-            for(int i = 1; i < arguments.Count(); i++)
+            for (int i = 1; i < arguments.Count(); i++)
             {
                 var arg = arguments[i];
-                if(File.Exists(arg))
+                if (File.Exists(arg))
                     AddServer(arg, true);
             }
         }
@@ -162,7 +163,7 @@ namespace ServerManager
             ServerRegistrationManager.InstallServer(SelectedServerEntry.Server, RegistrationType.OS32Bit, true);
             serverDetailsView1.Initialise(SelectedServerEntry);
         }
-        
+
         private void uninstallServerx86ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (SelectedServerEntry == null)
@@ -189,7 +190,7 @@ namespace ServerManager
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                e.Effect = ((string[]) e.Data.GetData(DataFormats.FileDrop)).Any() ? DragDropEffects.Copy : DragDropEffects.None;
+                e.Effect = ((string[])e.Data.GetData(DataFormats.FileDrop)).Any() ? DragDropEffects.Copy : DragDropEffects.None;
             }
             else
             {
@@ -199,13 +200,12 @@ namespace ServerManager
 
         private void listViewServers_DragDrop(object sender, DragEventArgs e)
         {
-            
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 var files = e.Data.GetData(DataFormats.FileDrop) as string[];
                 if (files != null)
                 {
-                    foreach(var file in files)
+                    foreach (var file in files)
                         AddServer(file, true);
                 }
             }
@@ -243,7 +243,6 @@ namespace ServerManager
                     }
                 }
             }
-
         }
 
         private void clearMostRecentlyUsedServersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -343,7 +342,7 @@ namespace ServerManager
         {
             ExplorerManager.RestartExplorer();
         }
-        
+
         private void UpdateUserInterfaceCommands()
         {
             //  Install/Uninstall etc etc only available if we have a selection.
@@ -420,7 +419,7 @@ namespace ServerManager
         {
             (new AboutForm()).ShowDialog(this);
         }
-        
+
         private void toolStripButtonOpenTestShell_Click(object sender, EventArgs e)
         {
             (new TestShellForm()).ShowDialog(this);
@@ -454,7 +453,7 @@ namespace ServerManager
             //  Create a regasm instance and register the server.
             var regasm = new RegAsm();
             var success = Environment.Is64BitOperatingSystem ? regasm.Register64(SelectedServerEntry.ServerPath, true) : regasm.Register32(SelectedServerEntry.ServerPath, true);
-            
+
             //  Inform the user of the result.
             if (success)
             {

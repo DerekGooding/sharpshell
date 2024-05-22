@@ -1,12 +1,12 @@
-﻿using System;
+﻿using SharpShell.Attributes;
+using SharpShell.Components;
+using SharpShell.Diagnostics;
+using SharpShell.Interop;
+using SharpShell.ServerRegistration;
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using SharpShell.Attributes;
-using SharpShell.Components;
-using SharpShell.Interop;
 using System.Windows.Forms;
-using SharpShell.Diagnostics;
-using SharpShell.ServerRegistration;
 
 namespace SharpShell.SharpDeskBand
 {
@@ -113,7 +113,7 @@ namespace SharpShell.SharpDeskBand
                 User32.SetParent(band.Handle, parentWindowHandle);
                 Log("IObjectWithSite.SetSite try end");
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 LogError("Failed to cast the provided site to an IOleWindow.", exception);
                 return WinError.E_FAIL;
@@ -125,7 +125,7 @@ namespace SharpShell.SharpDeskBand
             return WinError.S_OK;
         }
 
-        #endregion
+        #endregion Implmentation of the IObjectWithSite interface
 
         #region Implementation of IPersistStream
 
@@ -180,7 +180,7 @@ namespace SharpShell.SharpDeskBand
             pcbSize = 0;
             return WinError.S_OK;
         }
-        
+
         int IPersist.GetClassID(out Guid pClassID)
         {
             //  Log key events.
@@ -195,7 +195,7 @@ namespace SharpShell.SharpDeskBand
             return WinError.S_OK;
         }
 
-        #endregion
+        #endregion Implementation of IPersistStream
 
         #region Implmentation of IDeskBand
 
@@ -210,10 +210,11 @@ namespace SharpShell.SharpDeskBand
             //  Return success.
             return WinError.S_OK;
         }
+
         int IDeskBand2.GetWindow(out IntPtr phwnd)
         {
             Log("IDeskBand2.GetWindow called.");
-            return ((IOleWindow) this).GetWindow(out phwnd);
+            return ((IOleWindow)this).GetWindow(out phwnd);
         }
 
         int IDeskBand.GetWindow(out IntPtr phwnd)
@@ -301,10 +302,11 @@ namespace SharpShell.SharpDeskBand
                 if (bandOptions.AlwaysShowGripper) pdbi.dwModeFlags |= DESKBANDINFO.DBIMF.DBIMF_ALWAYSGRIPPER;
                 if (bandOptions.HasNoMargins) pdbi.dwModeFlags |= DESKBANDINFO.DBIMF.DBIMF_NOMARGINS;
             }
-                        
+
             //  Return success.
             return WinError.S_OK;
         }
+
         int IDeskBand2.GetBandInfo(uint dwBandID, DESKBANDINFO.DBIF dwViewMode, ref DESKBANDINFO pdbi)
         {
             Log("IDeskBand2.GetBandInfo called.");
@@ -316,11 +318,13 @@ namespace SharpShell.SharpDeskBand
             Log("IOleWindow.ContextSensitiveHelp");
             return WinError.E_NOTIMPL;
         }
+
         int IDeskBand.ContextSensitiveHelp(bool fEnterMode)
         {
             Log("IDeskBand.ContextSensitiveHelp");
-            return ((IOleWindow) this).ContextSensitiveHelp(fEnterMode);
+            return ((IOleWindow)this).ContextSensitiveHelp(fEnterMode);
         }
+
         int IDeskBand2.ContextSensitiveHelp(bool fEnterMode)
         {
             Log("IDeskBand2.ContextSensitiveHelp");
@@ -333,9 +337,9 @@ namespace SharpShell.SharpDeskBand
             Log("IDockingWindow.ShowDW called.");
 
             //  If we've got a content window, show it or hide it.
-            if(bShow)
+            if (bShow)
                 lazyDeskBand.Value.Show();
-            else 
+            else
                 lazyDeskBand.Value.Hide();
 
             //  Return success.
@@ -387,10 +391,11 @@ namespace SharpShell.SharpDeskBand
             //  should always return E_NOTIMPL.
             return WinError.E_NOTIMPL;
         }
+
         int IDeskBand.ResizeBorderDW(RECT rcBorder, IntPtr punkToolbarSite, bool fReserved)
         {
             Log("IDeskBand.ResizeBorderDW");
-            return ((IDockingWindow) this).ResizeBorderDW(rcBorder, punkToolbarSite, fReserved);
+            return ((IDockingWindow)this).ResizeBorderDW(rcBorder, punkToolbarSite, fReserved);
         }
 
         int IDeskBand2.ResizeBorderDW(RECT rcBorder, IntPtr punkToolbarSite, bool fReserved)
@@ -422,7 +427,7 @@ namespace SharpShell.SharpDeskBand
             return WinError.S_OK;
         }
 
-        #endregion
+        #endregion Implmentation of IDeskBand
 
         #region Implementation of IInputObject
 
@@ -470,7 +475,7 @@ namespace SharpShell.SharpDeskBand
             return WinError.S_OK;
         }
 
-        #endregion
+        #endregion Implementation of IInputObject
 
         #region Custom Registration and Unregistration
 
@@ -527,7 +532,7 @@ namespace SharpShell.SharpDeskBand
             }
         }
 
-        #endregion
+        #endregion Custom Registration and Unregistration
 
         /// <summary>
         /// Gets the minimum size of the Band UI. This uses the <see cref="Control.MinimumSize"/> value or

@@ -32,7 +32,7 @@ namespace SharpShell.Interop
         /// The header.
         /// </summary>
         public NMHDR hdr;
-        
+
         /// <summary>
         /// The lparam
         /// </summary>

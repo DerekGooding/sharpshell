@@ -163,7 +163,7 @@ namespace SharpShell.Interop
         [PreserveSig]
         new int SetNameOf(IntPtr hwnd, IntPtr pidl, String pszName, SHGDNF uFlags, out IntPtr ppidlOut);
 
-        #endregion
+        #endregion IShellFolder overrides for COM/C# compatibility.
 
         /// <summary>
         /// Returns the globally unique identifier (GUID) of the default search object for the folder.

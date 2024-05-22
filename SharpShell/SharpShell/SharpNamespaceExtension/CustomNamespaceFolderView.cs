@@ -1,5 +1,5 @@
-﻿using System.Windows.Forms;
-using SharpShell.Interop;
+﻿using SharpShell.Interop;
+using System.Windows.Forms;
 
 namespace SharpShell.SharpNamespaceExtension
 {

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Win32;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.AccessControl;
-using Microsoft.Win32;
 
 namespace SharpShell.Registry
 {

@@ -3,7 +3,7 @@ using System;
 namespace SharpShell.Interop
 {
     // ReSharper disable InconsistentNaming
-   
+
     /// <summary>
     /// Defines the values used with the IShellFolder::GetDisplayNameOf and IShellFolder::SetNameOf methods to specify the type of file or folder names used by those methods.
     /// </summary>
@@ -20,14 +20,17 @@ namespace SharpShell.Interop
         /// Use this flag in combinations with SHGDN_FORPARSING and SHGDN_FOREDITING.
         /// </summary>
         SHGDN_INFOLDER = 0x0001,
+
         /// <summary>
         /// The name is used for in-place editing when the user renames the item.
         /// </summary>
         SHGDN_FOREDITING = 0x1000,
+
         /// <summary>
         /// The name is displayed in an address bar combo box.
         /// </summary>
         SHGDN_FORADDRESSBAR = 0x4000,
+
         /// <summary>
         /// The name is used for parsing. That is, it can be passed to IShellFolder::ParseDisplayName to recover the object's PIDL. The form this name takes depends on the particular object. When SHGDN_FORPARSING is used alone, the name is relative to the desktop. When combined with SHGDN_INFOLDER, the name is relative to the folder from which the request was made.
         /// </summary>

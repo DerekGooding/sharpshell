@@ -1,15 +1,14 @@
 using System;
-using System.Reflection.Emit;
 using System.Runtime.InteropServices;
 
 namespace SharpShell.Interop
 {
     // ReSharper disable InconsistentNaming
-    
+
     /// <summary>
     /// Contains strings returned from the IShellFolder interface methods.
     /// </summary>
-    [StructLayout(LayoutKind.Sequential, Size=272)]
+    [StructLayout(LayoutKind.Sequential, Size = 272)]
     public struct STRRET
     {
         /// <summary>
@@ -39,10 +38,12 @@ namespace SharpShell.Interop
             {
                 case STRRETTYPE.STRRET_WSTR:
                     return Marshal.PtrToStringUni(data);
+
                 case STRRETTYPE.STRRET_OFFSET:
                     throw new NotImplementedException();
                 case STRRETTYPE.STRRET_CSTR:
                     return Marshal.PtrToStringAnsi(data);
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }

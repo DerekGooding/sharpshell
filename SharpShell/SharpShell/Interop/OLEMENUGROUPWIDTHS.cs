@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 
 namespace SharpShell.Interop
 {
-// ReSharper disable InconsistentNaming
+    // ReSharper disable InconsistentNaming
 
     /// <summary>
     /// Indicates the number of menu items in each of the six menu groups of a menu shared between a container and an object server during an in-place editing session. This is the mechanism for building a shared menu.
@@ -16,5 +16,5 @@ namespace SharpShell.Interop
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 6)] public uint[] width;
     }
 
-// ReSharper restore InconsistentNaming
+    // ReSharper restore InconsistentNaming
 }

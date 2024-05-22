@@ -1,17 +1,14 @@
-﻿using System;
+﻿using SharpShell.Attributes;
+using SharpShell.SharpPropertySheet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using SharpShell.Attributes;
-using SharpShell.SharpPropertySheet;
 
 namespace ResourcesPropertySheet
 {
-
     /// <summary>
-    /// The ResourcesPropertySheet is a shell extension to show the managed 
+    /// The ResourcesPropertySheet is a shell extension to show the managed
     /// and unmanaged resources contained in binary files.
     /// </summary>
     [ComVisible(true)]
@@ -39,7 +36,7 @@ namespace ResourcesPropertySheet
         protected override IEnumerable<SharpPropertyPage> CreatePages()
         {
             var view = new ResourcesView();
-            return new[] {view};
+            return new[] { view };
         }
     }
 }

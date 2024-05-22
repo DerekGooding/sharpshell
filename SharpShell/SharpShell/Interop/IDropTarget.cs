@@ -5,7 +5,7 @@ using System.Runtime.InteropServices.ComTypes;
 namespace SharpShell.Interop
 {
     /// <summary>
-    /// The IDropTarget interface is one of the interfaces you implement to provide drag-and-drop operations in your application. It contains methods used in any application that can be a target for data during a drag-and-drop operation. 
+    /// The IDropTarget interface is one of the interfaces you implement to provide drag-and-drop operations in your application. It contains methods used in any application that can be a target for data during a drag-and-drop operation.
     /// </summary>
     [ComImport]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

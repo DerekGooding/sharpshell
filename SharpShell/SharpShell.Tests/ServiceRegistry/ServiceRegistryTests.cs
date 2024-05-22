@@ -1,6 +1,6 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SharpShell.Registry;
+using System;
 
 namespace SharpShell.Tests.ServiceRegistry
 {
@@ -11,7 +11,7 @@ namespace SharpShell.Tests.ServiceRegistry
         {
             //  By default, the service registry should provide a WindowsRegsitry for IRegistry.
             var registry = SharpShell.ServiceRegistry.ServiceRegistry.GetService<IRegistry>();
-            Assert.IsInstanceOf(typeof(WindowsRegistry), registry);
+            Assert.Equals(typeof(WindowsRegistry), registry);
         }
 
         [Test]
@@ -31,8 +31,8 @@ namespace SharpShell.Tests.ServiceRegistry
             var service = SharpShell.ServiceRegistry.ServiceRegistry.GetService<IRegistry>();
 
             //  Assert we called our custom function, and created the service.
-            Assert.IsTrue(serviceProviderCalled);
-            Assert.AreSame(windowsRegistry, service);
+            Assert.That(serviceProviderCalled);
+            Assert.Equals(windowsRegistry, service);
         }
 
         [Test]

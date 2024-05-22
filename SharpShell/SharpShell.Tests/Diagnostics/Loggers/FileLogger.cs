@@ -1,10 +1,10 @@
-﻿using System;
+﻿using NUnit.Framework;
+using SharpShell.Diagnostics.Loggers;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using NUnit.Framework;
-using SharpShell.Diagnostics.Loggers;
 
 namespace SharpShell.Tests.Diagnostics.Loggers
 {

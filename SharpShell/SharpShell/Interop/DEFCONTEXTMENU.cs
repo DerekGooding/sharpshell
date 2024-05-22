@@ -58,6 +58,6 @@ namespace SharpShell.Interop
         /// </summary>
         public IntPtr[] aKeys;
     }
-    
+
     // ReSharper restore InconsistentNaming
 }

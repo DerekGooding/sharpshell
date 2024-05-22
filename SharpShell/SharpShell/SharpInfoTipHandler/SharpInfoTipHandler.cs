@@ -1,6 +1,6 @@
-﻿using System;
-using SharpShell.Attributes;
+﻿using SharpShell.Attributes;
 using SharpShell.Interop;
+using System;
 
 namespace SharpShell.SharpInfoTipHandler
 {
@@ -27,15 +27,15 @@ namespace SharpShell.SharpInfoTipHandler
 
             //  Now work out what type of info to get.
             RequestedInfoType infoType;
-            if(dwFlags.HasFlag(QITIPF.QITIPF_USENAME))
+            if (dwFlags.HasFlag(QITIPF.QITIPF_USENAME))
                 infoType = RequestedInfoType.Name;
-            else if(dwFlags.HasFlag(QITIPF.QITIPF_LINKUSETARGET))
+            else if (dwFlags.HasFlag(QITIPF.QITIPF_LINKUSETARGET))
                 infoType = RequestedInfoType.InfoOfShortcutTarget;
-            else if(dwFlags.HasFlag(QITIPF.QITIPF_LINKNOTARGET))
+            else if (dwFlags.HasFlag(QITIPF.QITIPF_LINKNOTARGET))
                 infoType = RequestedInfoType.InfoOfShortcut;
             else
                 infoType = RequestedInfoType.InfoTip;
-            
+
             try
             {
                 //  Get the requested info.

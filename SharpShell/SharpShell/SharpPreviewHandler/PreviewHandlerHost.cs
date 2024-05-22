@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace SharpShell.SharpPreviewHandler
 {
     /// <summary>
-    /// The PreviewHandlerHost is the window created in the preview 
+    /// The PreviewHandlerHost is the window created in the preview
     /// pane which will hold the derived preview handlers UI.
     /// </summary>
     internal class PreviewHandlerHost : Form
@@ -32,9 +26,9 @@ namespace SharpShell.SharpPreviewHandler
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
+            //
             // PreviewHandlerHost
-            // 
+            //
             this.Name = "PreviewHandlerHost";
             this.ResumeLayout(false);
 

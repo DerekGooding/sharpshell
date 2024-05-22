@@ -4,29 +4,29 @@ using System.Runtime.InteropServices;
 namespace SharpShell.Interop
 {
     /// <summary>
-    /// provides methods for registering and unregistering component category 
-    /// information in the registry. This includes both the human-readable 
-    /// names of categories and the categories implemented or required by a 
+    /// provides methods for registering and unregistering component category
+    /// information in the registry. This includes both the human-readable
+    /// names of categories and the categories implemented or required by a
     /// given component or class.
     /// </summary>
     [ComImport, Guid("0002E012-0000-0000-C000-000000000046"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown), ComVisible(false)]
     public interface ICatRegister
     {
         /// <summary>
-        /// Registers one or more component categories. Each component category 
+        /// Registers one or more component categories. Each component category
         /// consists of a CATID and a list of locale-dependent description strings.
         /// </summary>
         /// <param name="cCategories">The number of component categories to register.</param>
         /// <param name="rgCategoryInfo">
-        /// The array of cCategories CATEGORYINFO structures. By providing the same 
-        /// CATID for multiple CATEGORYINFO structures, multiple locales can be 
-        /// registered for the same component category. 
+        /// The array of cCategories CATEGORYINFO structures. By providing the same
+        /// CATID for multiple CATEGORYINFO structures, multiple locales can be
+        /// registered for the same component category.
         /// </param>
         [PreserveSig]
         int RegisterCategories(uint cCategories, [In, MarshalAs(UnmanagedType.LPArray)] CATEGORYINFO[] rgCategoryInfo);
 
         /// <summary>
-        /// Removes the registration of one or more component categories. Each component 
+        /// Removes the registration of one or more component categories. Each component
         /// category consists of a CATID and a list of locale-dependent description strings.
         /// </summary>
         /// <param name="cCategories">The number of cCategories CATIDs to be removed.</param>

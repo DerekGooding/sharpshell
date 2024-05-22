@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using ServerRegistrationManager.Actions;
+﻿using ServerRegistrationManager.Actions;
 using ServerRegistrationManager.OutputService;
 using SharpShell.Diagnostics;
 using SharpShell.Helpers;
 using SharpShell.ServerRegistration;
+using System;
+using System.IO;
+using System.Linq;
 
 namespace ServerRegistrationManager
 {
@@ -140,7 +140,7 @@ namespace ServerRegistrationManager
             outputService.WriteMessage("========================================");
             outputService.WriteMessage("");
         }
-        
+
         private const string VerbHelp = @"help";
         private const string VerbInstall = @"install";
         private const string VerbUninstall = @"uninstall";

@@ -1,9 +1,6 @@
-﻿using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SharpShell.Pidl;
+﻿using SharpShell.Pidl;
 using SharpShell.SharpNamespaceExtension;
+using System.Drawing;
 
 namespace GitHubNamespaceExtension
 {
@@ -11,7 +8,6 @@ namespace GitHubNamespaceExtension
     {
         public GitHubBranch()
         {
-            
         }
 
         public string Name { get; set; }

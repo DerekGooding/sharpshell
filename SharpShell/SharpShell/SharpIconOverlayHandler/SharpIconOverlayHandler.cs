@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using SharpShell.Attributes;
+using SharpShell.Diagnostics;
+using SharpShell.Extensions;
+using SharpShell.Interop;
+using SharpShell.ServerRegistration;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.AccessControl;
 using System.Text;
-using Microsoft.Win32;
-using SharpShell.Attributes;
-using SharpShell.Diagnostics;
-using SharpShell.Extensions;
-using SharpShell.Interop;
-using SharpShell.ServerRegistration;
 
 namespace SharpShell.SharpIconOverlayHandler
 {
@@ -148,7 +148,7 @@ namespace SharpShell.SharpIconOverlayHandler
             return WinError.S_OK;
         }
 
-        #endregion
+        #endregion Implementation of IShellIconOverlayIdentifier
 
         /// <summary>
         /// Gets the icon file path, creating the icon file if needed.
@@ -225,17 +225,17 @@ namespace SharpShell.SharpIconOverlayHandler
                   RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
             {
                 //  Open the ShellIconOverlayIdentifiers.
-                using(var overlayIdentifiers = localMachineBaseKey
+                using (var overlayIdentifiers = localMachineBaseKey
                     .OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers",
                     RegistryKeyPermissionCheck.ReadWriteSubTree, RegistryRights.EnumerateSubKeys | RegistryRights.QueryValues | RegistryRights.CreateSubKey | RegistryRights.CreateSubKey))
                 {
                     //  If we don't have the key, we've got a problem.
-                    if(overlayIdentifiers == null)
+                    if (overlayIdentifiers == null)
                         throw new InvalidOperationException("Cannot open the ShellIconOverlayIdentifiers key.");
 
                     //  How many shell icon overlay identifiers do we have?
                     var overlayHandlersCount = overlayIdentifiers.GetSubKeyNames().Count();
-                    if(overlayHandlersCount >= MaximumOverlayIdentifiers)
+                    if (overlayHandlersCount >= MaximumOverlayIdentifiers)
                         Logging.Error("There are already the maximum number of overlay " +
                             "handlers registered for the system. Although " + serverType.Name + " is " +
                                                   "being registered, it will not be used by Windows Explorer.");
@@ -244,7 +244,7 @@ namespace SharpShell.SharpIconOverlayHandler
                     using (var overlayKey = overlayIdentifiers.CreateSubKey(keyName))
                     {
                         //  If we don't have the overlay key, we've got a problem.
-                        if(overlayKey == null)
+                        if (overlayKey == null)
                             throw new InvalidOperationException("Cannot create the key for the overlay server.");
 
                         //  Set the server CLSID.
@@ -297,7 +297,7 @@ namespace SharpShell.SharpIconOverlayHandler
             //  If the path exists (which is possible when debugging or if the server has run before)
             //  then delete it.
             //  TODO: Is this safe in a multi-threaded shell?
-            if(File.Exists(temporaryIconOverlayFilePath))
+            if (File.Exists(temporaryIconOverlayFilePath))
                 File.Delete(temporaryIconOverlayFilePath);
         }
 

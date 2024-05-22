@@ -89,7 +89,7 @@ namespace SharpShell.SharpNamespaceExtension
         IsFileSystemAncestor = 0x10000000,
 
         /// <summary>
-        /// Indicates that this item is a shell folder, i.e. it can contain 
+        /// Indicates that this item is a shell folder, i.e. it can contain
         /// other shell items.
         /// </summary>
         IsFolder = 0x20000000,

@@ -1,10 +1,8 @@
-﻿using System;
+﻿using SharpShell.Interop;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
-using SharpShell.Interop;
 
 namespace SharpShell.Extensions
 {
@@ -62,7 +60,6 @@ namespace SharpShell.Extensions
                     if (result != 0)
                         fileList.Add(fileNameBuilder.ToString());
                 }
-
             }
             finally
             {

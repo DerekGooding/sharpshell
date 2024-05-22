@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+﻿using SharpShell.Interop;
+using System;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using SharpShell.Interop;
-using SharpShell.Pidl;
 using IServiceProvider = SharpShell.Interop.IServiceProvider;
 
 namespace ServerManager.ShellDebugger
@@ -30,10 +23,10 @@ namespace ServerManager.ShellDebugger
             shellTreeView.OnShellItemSelected += shellTreeView_OnShellItemSelected;
         }
 
-        void shellTreeView_OnShellItemSelected(object sender, ShellTreeEventArgs e)
+        private void shellTreeView_OnShellItemSelected(object sender, ShellTreeEventArgs e)
         {
             //  Browse to the selected item if it is a folder.
-            ((IShellBrowser) this).BrowseObject(e.ShellItem.PIDL, SBSP.SBSP_SAMEBROWSER | SBSP.SBSP_ABSOLUTE);
+            ((IShellBrowser)this).BrowseObject(e.ShellItem.PIDL, SBSP.SBSP_SAMEBROWSER | SBSP.SBSP_ABSOLUTE);
         }
 
         protected override void OnHandleDestroyed(EventArgs e)
@@ -48,9 +41,9 @@ namespace ServerManager.ShellDebugger
 
                 //  The shell view may have come from COM but may be a SharpShell view, so check if it's COM
                 //  before we release it.
-                if(Marshal.IsComObject(shellView))
+                if (Marshal.IsComObject(shellView))
                     Marshal.ReleaseComObject(shellView);
-                
+
                 shellView = null;
             }
 
@@ -69,7 +62,7 @@ namespace ServerManager.ShellDebugger
             return ((IShellBrowser)this).ContextSensitiveHelp(fEnterMode);
         }
 
-        #endregion
+        #endregion IOleBrowser implementation
 
         #region IShellBrowser implementation
 
@@ -135,8 +128,8 @@ namespace ServerManager.ShellDebugger
             IntPtr pidlTmp;
 
             //  We'll need the shell folder GUID.
-            var shellFolderGuid = typeof (IShellFolder).GUID;
-            var shellViewGuid = typeof (IShellView).GUID;
+            var shellFolderGuid = typeof(IShellFolder).GUID;
+            var shellViewGuid = typeof(IShellView).GUID;
 
             //  Check to see if we have a desktop pidl, relative pidl or absolite pidl.
             if (Shell32.ILIsEqual(pidl, desktopFolderPidl))
@@ -214,7 +207,7 @@ namespace ServerManager.ShellDebugger
                 try
                 {
                     // Create the actual list view.
-                    res = shellView.CreateViewWindow( lastIShellView, ref fs,
+                    res = shellView.CreateViewWindow(lastIShellView, ref fs,
                           this, ref rc, ref hWndListView);
                 }
                 catch (COMException)
@@ -255,7 +248,7 @@ namespace ServerManager.ShellDebugger
 
         int IShellBrowser.SendControlMsg(uint id, uint uMsg, short wParam, long lParam, ref long pret)
         {
-          //  pret = 0;
+            //  pret = 0;
             return WinError.E_NOTIMPL;
         }
 
@@ -275,13 +268,14 @@ namespace ServerManager.ShellDebugger
         {
             return WinError.E_NOTIMPL;
         }
-        #endregion
+
+        #endregion IShellBrowser implementation
 
         #region IServiceProvider implementation
 
         int IServiceProvider.QueryService(ref Guid guidService, ref Guid riid, out IShellBrowser ppvObject)
         {
-            var shellBrowserGuid = typeof (IShellBrowser).GUID;
+            var shellBrowserGuid = typeof(IShellBrowser).GUID;
 
             /*if (riid == Shell32.IID_IShellBrowser)
             {
@@ -292,8 +286,8 @@ namespace ServerManager.ShellDebugger
             ppvObject = null;
             return WinError.E_NOINTERFACE;
         }
-        
-        #endregion
+
+        #endregion IServiceProvider implementation
 
         private IShellFolder currentFolder;
         private IntPtr currentAbsolutePidl;
@@ -314,7 +308,6 @@ namespace ServerManager.ShellDebugger
 
         private void ShellDebuggerForm_Load(object sender, EventArgs e)
         {
-
         }
 
         int ICommDlgBrowser.OnDefaultCommand(IntPtr ppshv)

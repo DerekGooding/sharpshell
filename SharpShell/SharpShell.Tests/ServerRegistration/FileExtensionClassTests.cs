@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using NUnit.Framework;
 using SharpShell.Registry;
 using SharpShell.ServerRegistration;
+using System;
 
 namespace SharpShell.Tests.ServerRegistration
 {
@@ -23,7 +23,7 @@ namespace SharpShell.Tests.ServerRegistration
             catch (Exception exception)
             {
                 //  We should have an exception which includes the invalid extension in the message.
-                if(!string.IsNullOrEmpty(extension))
+                if (!string.IsNullOrEmpty(extension))
                     Assert.That(exception.Message, Contains.Substring(extension));
             }
         }

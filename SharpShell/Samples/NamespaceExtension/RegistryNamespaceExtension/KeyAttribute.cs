@@ -1,10 +1,6 @@
-﻿using System.Diagnostics;
-using System.Drawing;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using SharpShell.Pidl;
+﻿using SharpShell.Pidl;
 using SharpShell.SharpNamespaceExtension;
+using System.Drawing;
 
 namespace RegistryNamespaceExtension
 {

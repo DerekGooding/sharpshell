@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using SharpShell.Attributes;
+﻿using SharpShell.Attributes;
 using SharpShell.Interop;
 using SharpShell.SharpIconOverlayHandler;
+using System;
+using System.Drawing;
+using System.IO;
+using System.Runtime.InteropServices;
 
 namespace LockedFileIconOverlayHandler
 {
     /// <summary>
-    /// The LockedFileIconOverlayHandler shows a padlock over files 
+    /// The LockedFileIconOverlayHandler shows a padlock over files
     /// which APPEAR to be locked. Use with care.
     /// </summary>
     [ComVisible(true)]

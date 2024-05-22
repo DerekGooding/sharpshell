@@ -16,31 +16,31 @@ namespace SharpShell.SharpNamespaceExtension
         /// </summary>
         [RegistryKey(@"Desktop")]
         Desktop,
-        
+
         /// <summary>
         /// The entire network
         /// </summary>
         [RegistryKey(@"NetworkNeighborhood\EntireNetwork")]
         EntireNetwork,
-        
+
         /// <summary>
         /// My computer
         /// </summary>
         [RegistryKey(@"MyComputer")]
         MyComputer,
-        
+
         /// <summary>
         /// My network places
         /// </summary>
         [RegistryKey(@"NetworkNeighborhood")]
         MyNetworkPlaces,
-        
+
         /// <summary>
         /// The remote computer
         /// </summary>
         [RegistryKey(@"RemoteComputer")]
         RemoteComputer,
-        
+
         /// <summary>
         /// The users files
         /// </summary>

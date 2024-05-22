@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using SharpShell.Attributes;
+﻿using SharpShell.Attributes;
 using SharpShell.Interop;
 using SharpShell.SharpIconOverlayHandler;
+using System;
+using System.IO;
+using System.Runtime.InteropServices;
 
 namespace ReadOnlyFileIconOverlayHandler
 {

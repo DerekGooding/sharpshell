@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SharpShell.Attributes
 {
@@ -28,7 +26,7 @@ namespace SharpShell.Attributes
         /// <returns>The display name of the type, if defined.</returns>
         public static string GetDisplayName(Type type)
         {
-            var attribute = type.GetCustomAttributes(typeof (DisplayNameAttribute), true)
+            var attribute = type.GetCustomAttributes(typeof(DisplayNameAttribute), true)
                 .OfType<DisplayNameAttribute>().FirstOrDefault();
             return attribute != null ? attribute.DisplayName : null;
         }

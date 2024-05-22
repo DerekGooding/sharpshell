@@ -16,7 +16,7 @@ namespace SharpShell.Interop
         /// The minimum constant value in FOLDERVIEWMODE, for validation purposes.
         /// </summary>
         FVM_FIRST = 1,
-        
+
         /// <summary>
         /// The view should display medium-size icons.
         /// </summary>
@@ -40,7 +40,7 @@ namespace SharpShell.Interop
         /// <summary>
         /// The view should display thumbnail icons.
         /// </summary>
-        FVM_THUMBNAIL =5,
+        FVM_THUMBNAIL = 5,
 
         /// <summary>
         /// The view should display large icons.

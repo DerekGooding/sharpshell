@@ -1,11 +1,11 @@
-﻿using System;
+﻿using SharpShell;
+using System;
 using System.Reflection;
-using SharpShell;
 
 namespace ServerManager
 {
     /// <summary>
-    /// A Server Entry in the application. Keeps track of viewmodel style data 
+    /// A Server Entry in the application. Keeps track of viewmodel style data
     /// for a sharp shell server.
     /// </summary>
     public class ServerEntry

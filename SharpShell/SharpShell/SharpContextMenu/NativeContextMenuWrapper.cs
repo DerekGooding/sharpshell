@@ -1,9 +1,9 @@
-﻿using System;
+﻿using SharpShell.Interop;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using SharpShell.Interop;
 
 namespace SharpShell.SharpContextMenu
 {
@@ -42,7 +42,7 @@ namespace SharpShell.SharpContextMenu
             //  Go through every tool strip item.
             foreach (ToolStripItem item in toolStripItems)
             {
-                //  If there's not a name, set one. 
+                //  If there's not a name, set one.
                 //  This will be used as the verb.
                 if (string.IsNullOrEmpty(item.Name))
                     item.Name = Guid.NewGuid().ToString();
@@ -90,16 +90,15 @@ namespace SharpShell.SharpContextMenu
             var menuItemInfo = new MENUITEMINFO();
             menuItemInfo.cbSize = (uint)Marshal.SizeOf(menuItemInfo);
             menuItemInfo.wID = id;
-            
+
             //  Depending on the type of the item, we'll call the appropriate building function.
-            if(toolStripItem is ToolStripMenuItem)
+            if (toolStripItem is ToolStripMenuItem)
                 BuildMenuItemInfo(ref menuItemInfo, (ToolStripMenuItem)toolStripItem);
-            else if(toolStripItem is ToolStripSeparator)
+            else if (toolStripItem is ToolStripSeparator)
                 BuildSeparatorMenuItemInfo(ref menuItemInfo);
 
             //  Return the menu item info.
             return menuItemInfo;
-
         }
 
         /// <summary>
@@ -116,10 +115,10 @@ namespace SharpShell.SharpContextMenu
             //  If the menu item has children, we'll also create the submenu.
             if (menuItem.HasDropDownItems)
             {
-                menuItemInfo.fMask += (uint) MIIM.MIIM_SUBMENU;
+                menuItemInfo.fMask += (uint)MIIM.MIIM_SUBMENU;
                 menuItemInfo.hSubMenu = User32.CreatePopupMenu();
             }
-            
+
             //  The type is the string.
             menuItemInfo.fType = (uint)MFT.MFT_STRING;
 
@@ -132,7 +131,7 @@ namespace SharpShell.SharpContextMenu
             //  If the menu item is checked, add the check state.
             if (menuItem.Checked)
             {
-                menuItemInfo.fState += (uint) MFS.MFS_CHECKED;
+                menuItemInfo.fState += (uint)MFS.MFS_CHECKED;
             }
 
             //  Is there an icon?
@@ -140,7 +139,6 @@ namespace SharpShell.SharpContextMenu
             if (bitmap != null)
                 menuItemInfo.hbmpItem = PARGB32.CreatePARGB32HBitmap(bitmap.GetHicon(), bitmap.Size);
         }
-
 
         /// <summary>
         /// Builds the menu item info.
@@ -191,7 +189,7 @@ namespace SharpShell.SharpContextMenu
         }
 
         private readonly Dictionary<uint, ToolStripItem> idsToItems = new Dictionary<uint, ToolStripItem>();
-        
+
         /// <summary>
         /// Map of indexes to commands.
         /// </summary>

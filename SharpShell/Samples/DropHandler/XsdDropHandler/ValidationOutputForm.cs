@@ -69,9 +69,11 @@ namespace XsdDropHandler
                 case ValidationType.Success:
                     imageIndex = ImageList_Index_Success;
                     break;
+
                 case ValidationType.Warning:
                     imageIndex = ImageList_Index_Warning;
                     break;
+
                 case ValidationType.Error:
                     imageIndex = ImageList_Index_Error;
                     break;

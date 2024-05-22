@@ -30,7 +30,7 @@ namespace SharpShell.Interop
         [PreserveSig]
         new int ContextSensitiveHelp(bool fEnterMode);
 
-        #endregion
+        #endregion Explicit Overrides of IOleWindow functions
 
         /// <summary>
         /// Allows the container to insert its menu groups into the composite menu that is displayed when an extended namespace is being viewed or used.

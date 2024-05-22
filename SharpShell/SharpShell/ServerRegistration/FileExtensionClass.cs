@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using SharpShell.Registry;
+using System;
 
 namespace SharpShell.ServerRegistration
 {

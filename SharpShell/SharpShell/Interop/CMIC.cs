@@ -67,6 +67,7 @@ namespace SharpShell.Interop
         /// The CTRL key is pressed. Use this instead of polling the current state of the keyboard that may have changed since the verb was invoked.
         /// </summary>
         CMIC_MASK_CONTROL_DOWN = 0x40000000,
+
         /*/// <summary>
         /// This flag is valid only when referring to a 16-bit Windows-based application. If set, the application that the shortcut points to runs in a private Virtual DOS Machine (VDM). See Remarks.
         /// </summary>

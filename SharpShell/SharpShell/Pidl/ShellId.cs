@@ -39,9 +39,9 @@ namespace SharpShell.Pidl
         /// <exception cref="System.InvalidOperationException">'data' must contain data.</exception>
         public static ShellId FromData(byte[] data)
         {
-            if(data == null)
+            if (data == null)
                 throw new NullReferenceException("'data' cannot be null.");
-            if(data.Length == 0)
+            if (data.Length == 0)
                 throw new InvalidOperationException("'data' must contain data.");
 
             return new ShellId(data);
@@ -95,7 +95,7 @@ namespace SharpShell.Pidl
                 return false;
             if (Length != rhs.Length)
                 return false;
-            for(int i=0;i<Length;i++)
+            for (int i = 0; i < Length; i++)
                 if (id[i] != rhs.id[i])
                     return false;
 
@@ -106,7 +106,7 @@ namespace SharpShell.Pidl
         /// Returns a hash code for this instance.
         /// </summary>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
         /// </returns>
         public override int GetHashCode()
         {
@@ -116,12 +116,14 @@ namespace SharpShell.Pidl
         /// <summary>
         /// Gets the raw identifier.
         /// </summary>
-        public byte[] RawId { get { return id; }}
+        public byte[] RawId
+        { get { return id; } }
 
         /// <summary>
         /// Gets the length of the identifier.
         /// </summary>
-        public int Length {get { return id.Length; }}
+        public int Length
+        { get { return id.Length; } }
 
         /// <summary>
         /// The identifier.

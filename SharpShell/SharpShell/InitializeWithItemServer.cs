@@ -1,5 +1,4 @@
-﻿using System;
-using SharpShell.Interop;
+﻿using SharpShell.Interop;
 
 namespace SharpShell
 {
@@ -25,7 +24,7 @@ namespace SharpShell
             return WinError.S_OK;
         }
 
-        #endregion
+        #endregion Implementation of IInitializeWithItem
 
         /// <summary>
         /// Gets the selected shell item.
@@ -40,6 +39,5 @@ namespace SharpShell
         /// </summary>
         /// <value>The selected shell item access mode.</value>
         public STGM SelectedShellItemAccessMode { get; private set; }
-
     }
 }

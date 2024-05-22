@@ -33,7 +33,7 @@ namespace SharpShell.Interop
         [PreserveSig]
         new int Initialize(IntPtr pidl);
 
-        #endregion
+        #endregion Overrides for C#/COM compatibility.
 
         /// <summary>
         /// Gets the ITEMIDLIST for the folder object.

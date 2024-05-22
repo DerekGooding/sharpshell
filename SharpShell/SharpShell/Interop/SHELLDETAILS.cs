@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 
 namespace SharpShell.Interop
 {
-// ReSharper disable InconsistentNaming
+    // ReSharper disable InconsistentNaming
 
     /// <summary>
     /// Reports detailed information on an item in a Shell folder.
@@ -26,5 +26,5 @@ namespace SharpShell.Interop
         public STRRET str;
     }
 
-// ReSharper restore InconsistentNaming
+    // ReSharper restore InconsistentNaming
 }

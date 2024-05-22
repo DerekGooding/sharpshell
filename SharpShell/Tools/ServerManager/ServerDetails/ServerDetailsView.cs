@@ -1,7 +1,6 @@
-﻿using System;
-using System.Windows.Forms;
-using SharpShell.Attributes;
+﻿using SharpShell.Attributes;
 using SharpShell.ServerRegistration;
+using System.Windows.Forms;
 
 namespace ServerManager.ServerDetails
 {

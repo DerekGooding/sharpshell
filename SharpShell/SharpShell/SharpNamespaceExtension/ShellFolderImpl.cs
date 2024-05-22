@@ -1,17 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
 using SharpShell.Interop;
 using SharpShell.Pidl;
+using System;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace SharpShell.SharpNamespaceExtension
 {
     /// <summary>
-    /// The ShellFolderImpl is used to provide a single location of functionality for the 
-    /// Shell Folder parts of a namespace extension, as well as a namespace extension's 
+    /// The ShellFolderImpl is used to provide a single location of functionality for the
+    /// Shell Folder parts of a namespace extension, as well as a namespace extension's
     /// child folder (if any).
     /// </summary>
     internal class ShellFolderImpl : IShellFolder2, IPersistFolder2, IPersistIDList
@@ -32,7 +29,7 @@ namespace SharpShell.SharpNamespaceExtension
             //  Create the lazy folder view.
             lazyFolderView = new Lazy<ShellNamespaceFolderView>(proxyFolder.GetView);
         }
-        
+
         #region Implementation of IShellFolder and IShellFolder2
 
         /// <summary>
@@ -56,7 +53,6 @@ namespace SharpShell.SharpNamespaceExtension
 
             //  We always eat the entire display string for SharpShell PIDL/DisplayName parsing.
             pchEaten = (uint)pszDisplayName.Length;
-
 
             //  In theory, we should understand the pidl.
             var item = GetChildItem(idList);
@@ -394,8 +390,8 @@ namespace SharpShell.SharpNamespaceExtension
 
                 if (isFolder)
                 {
-                    //  todo perhaps a good class name would simply be the 
-                    //  name of the item type? or an attribute that uses the classname as a 
+                    //  todo perhaps a good class name would simply be the
+                    //  name of the item type? or an attribute that uses the classname as a
                     //  fallback.
                     var associations = new ASSOCIATIONELEMENT[]
                     {
@@ -413,7 +409,6 @@ namespace SharpShell.SharpNamespaceExtension
                             }
                     };
                     Shell32.AssocCreateForClasses(associations, (uint)associations.Length, riid, out ppv);
-
                 }
                 else
                 {
@@ -432,7 +427,6 @@ namespace SharpShell.SharpNamespaceExtension
 
             /*   } */
 
-
             //  We have a set of child pidls (i.e. length one). We can now offer interfaces such as:
             /*
              * IContextMenu	The cidl parameter can be greater than or equal to one.
@@ -450,7 +444,6 @@ IQueryInfo	The cidl parameter can only be one.
             ppv = IntPtr.Zero;
             return WinError.E_NOINTERFACE;
         }
-
 
         /// <summary>
         /// Provides a default IExtractIcon implementation.
@@ -559,7 +552,6 @@ IQueryInfo	The cidl parameter can only be one.
         int IShellFolder2.EnumObjects(IntPtr hwnd, SHCONTF grfFlags, out IEnumIDList ppenumIDList)
         {
             return ((IShellFolder)this).EnumObjects(hwnd, grfFlags, out ppenumIDList);
-
         }
 
         int IShellFolder2.BindToObject(IntPtr pidl, IntPtr pbc, ref Guid riid, out IntPtr ppv)
@@ -673,7 +665,7 @@ IQueryInfo	The cidl parameter can only be one.
                 psd = new SHELLDETAILS { cxChar = 0, fmt = 0, str = new STRRET { uType = STRRET.STRRETTYPE.STRRET_WSTR, data = IntPtr.Zero } };
                 return WinError.E_FAIL;
             }
-            
+
             //  If we have no pidl, we need the details of the column itself.
             if (pidl == IntPtr.Zero)
             {
@@ -686,12 +678,15 @@ IQueryInfo	The cidl parameter can only be one.
                     case ColumnAlignment.Left:
                         format = (int)LVCFMT.LVCFMT_LEFT;
                         break;
+
                     case ColumnAlignment.Centre:
                         format = (int)LVCFMT.LVCFMT_CENTER;
                         break;
+
                     case ColumnAlignment.Right:
                         format = (int)LVCFMT.LVCFMT_RIGHT;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -700,9 +695,7 @@ IQueryInfo	The cidl parameter can only be one.
                 if (column.HasImage)
                     format |= (int)LVCFMT.LVCFMT_COL_HAS_IMAGES;
 
-
                 //  TODO I have no idea why the shell details are not correctly respecting the cxChar..
-
 
                 //  Create shell details for the column.
                 psd = new SHELLDETAILS
@@ -751,7 +744,7 @@ IQueryInfo	The cidl parameter can only be one.
             return WinError.S_OK;
         }
 
-        #endregion
+        #endregion Implementation of IShellFolder and IShellFolder2
 
         #region Implementation IPersist, IPersistFolder, IPersistFolder2, IPersistIDList
 
@@ -766,9 +759,21 @@ IQueryInfo	The cidl parameter can only be one.
             pClassID = namespaceExtension.ServerClsid;
             return WinError.S_OK;
         }
-        int IPersistFolder.GetClassID(out Guid pClassID) { return ((IPersist)this).GetClassID(out pClassID); }
-        int IPersistFolder2.GetClassID(out Guid pClassID) { return ((IPersist)this).GetClassID(out pClassID); }
-        int IPersistIDList.GetClassID(out Guid pClassID) {return ((IPersist)this).GetClassID(out pClassID); }
+
+        int IPersistFolder.GetClassID(out Guid pClassID)
+        {
+            return ((IPersist)this).GetClassID(out pClassID);
+        }
+
+        int IPersistFolder2.GetClassID(out Guid pClassID)
+        {
+            return ((IPersist)this).GetClassID(out pClassID);
+        }
+
+        int IPersistIDList.GetClassID(out Guid pClassID)
+        {
+            return ((IPersist)this).GetClassID(out pClassID);
+        }
 
         int IPersistFolder.Initialize(IntPtr pidl)
         {
@@ -776,7 +781,11 @@ IQueryInfo	The cidl parameter can only be one.
             idListAbsolute = PidlManager.PidlToIdlist(pidl);
             return WinError.S_OK;
         }
-        int IPersistFolder2.Initialize(IntPtr pidl) { return ((IPersistFolder)this).Initialize(pidl); }
+
+        int IPersistFolder2.Initialize(IntPtr pidl)
+        {
+            return ((IPersistFolder)this).Initialize(pidl);
+        }
 
         /// <summary>
         /// Gets the ITEMIDLIST for the folder object.
@@ -803,15 +812,15 @@ IQueryInfo	The cidl parameter can only be one.
 
         int IPersistIDList.SetIDList(IntPtr pidl)
         {
-            return ((IPersistFolder2) this).Initialize(pidl);
+            return ((IPersistFolder2)this).Initialize(pidl);
         }
 
         int IPersistIDList.GetIDList([Out] out IntPtr pidl)
         {
-            return ((IPersistFolder2) this).GetCurFolder(out pidl);
+            return ((IPersistFolder2)this).GetCurFolder(out pidl);
         }
 
-        #endregion
+        #endregion Implementation IPersist, IPersistFolder, IPersistFolder2, IPersistIDList
 
         private static IShellNamespaceFolder GetChildFolder(IShellNamespaceFolder folder, ShellId itemId)
         {
@@ -860,6 +869,7 @@ IQueryInfo	The cidl parameter can only be one.
             }
             return null;
         }
+
         private static void UpdateFlagIfSet(ref SFGAO sfgao, SFGAO flag, bool set)
         {
             if (sfgao.HasFlag(flag))
@@ -883,7 +893,7 @@ IQueryInfo	The cidl parameter can only be one.
         }
 
         /// <summary>
-        /// The namespace extension that we are either a proxy for or that is that parent of a 
+        /// The namespace extension that we are either a proxy for or that is that parent of a
         /// folder we are a proxy for.
         /// </summary>
         private SharpNamespaceExtension namespaceExtension;
@@ -896,7 +906,7 @@ IQueryInfo	The cidl parameter can only be one.
         /// <summary>
         /// The lazy folder view. Initialised when required from the IShellNamespaceFolder object.
         /// </summary>
-        private readonly Lazy<ShellNamespaceFolderView> lazyFolderView; 
+        private readonly Lazy<ShellNamespaceFolderView> lazyFolderView;
 
         /// <summary>
         /// The absolute ID list of the folder. This is provided by IPersistFolder.

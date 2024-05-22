@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ResourcesPropertySheet.Loader;
+﻿using ResourcesPropertySheet.Loader;
 
 namespace ResourcesPropertySheet.ResourceEditors
 {
-    interface IResourceEditor
+    internal interface IResourceEditor
     {
         void Initialise(Win32Resource resource);
 

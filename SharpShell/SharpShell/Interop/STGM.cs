@@ -29,7 +29,7 @@ namespace SharpShell.Interop
         READ = 0x00000000,
 
         /// <summary>
-        /// Enables you to save changes to the object, but does not permit access to its data. 
+        /// Enables you to save changes to the object, but does not permit access to its data.
         /// </summary>
         WRITE = 0x00000001,
 

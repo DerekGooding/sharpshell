@@ -1,6 +1,5 @@
 ﻿using SharpShell.Interop;
 using SharpShell.Pidl;
-using SharpShell.SharpContextMenu;
 
 namespace SharpShell.SharpNamespaceExtension
 {

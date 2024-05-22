@@ -24,7 +24,7 @@ namespace XsdDropHandler
                 validationMessages[xsdPath].Add(new ValidationMessage(xsdPath, ValidationType.Error, "The schema does not appear to be valid."));
                 return;
             }
-            validationMessages[xsdPath].Add(new ValidationMessage(xsdPath, ValidationType.Success, "Successfully loaded schema from " + 
+            validationMessages[xsdPath].Add(new ValidationMessage(xsdPath, ValidationType.Success, "Successfully loaded schema from " +
                 Path.GetFileNameWithoutExtension(xsdPath) + "."));
 
             readerSettings.ValidationType = System.Xml.ValidationType.Schema;
@@ -40,11 +40,10 @@ namespace XsdDropHandler
                 validationMessages[currentXmlFile] = new List<ValidationMessage>();
 
                 //  Create a reader for the file.
-                using(var xmlStream = new FileStream(xmlPath, FileMode.Open))
+                using (var xmlStream = new FileStream(xmlPath, FileMode.Open))
                 {
                     try
                     {
-
                         using (var reader = XmlReader.Create(xmlStream, readerSettings))
                         {
                             //  Read the data.
@@ -63,18 +62,18 @@ namespace XsdDropHandler
             }
         }
 
-        void readerSettings_ValidationEventHandler(object sender, ValidationEventArgs e)
+        private void readerSettings_ValidationEventHandler(object sender, ValidationEventArgs e)
         {
             //  Update the dictionary.
             validationMessages[currentXmlFile].Add(new ValidationMessage(currentXmlFile, e));
-            
         }
 
         private string currentXmlFile;
 
         private readonly Dictionary<string, List<ValidationMessage>> validationMessages = new Dictionary<string, List<ValidationMessage>>();
 
-        public Dictionary<string, List<ValidationMessage>> ValidationMessages { get { return validationMessages; } }
+        public Dictionary<string, List<ValidationMessage>> ValidationMessages
+        { get { return validationMessages; } }
     }
 
     public class ValidationMessage
@@ -96,9 +95,11 @@ namespace XsdDropHandler
                 case XmlSeverityType.Error:
                     ValidationType = ValidationType.Error;
                     break;
+
                 case XmlSeverityType.Warning:
                     ValidationType = ValidationType.Warning;
                     break;
+
                 default:
                     ValidationType = ValidationType.Success;
                     break;

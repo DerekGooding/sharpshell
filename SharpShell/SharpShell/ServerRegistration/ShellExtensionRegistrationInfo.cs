@@ -10,7 +10,6 @@ namespace SharpShell.ServerRegistration
     {
         internal ShellExtensionRegistrationInfo()
         {
-            
         }
 
         /// <summary>
@@ -107,6 +106,7 @@ namespace SharpShell.ServerRegistration
         /// <value>
         /// The class registrations.
         /// </value>
-        public IEnumerable<ClassRegistration> ClassRegistrations { get { return classRegistrations; } } 
+        public IEnumerable<ClassRegistration> ClassRegistrations
+        { get { return classRegistrations; } }
     }
 }

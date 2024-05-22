@@ -1,8 +1,7 @@
-﻿using System;
+﻿using SharpShell.SharpPropertySheet;
+using System;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
-using SharpShell.SharpPropertySheet;
 
 namespace FileTimesPropertySheet
 {
@@ -56,7 +55,7 @@ namespace FileTimesPropertySheet
             //  Save the changes.
             SaveFileTimes();
         }
-        
+
         /// <summary>
         /// Handles the Click event of the buttonTouch control.
         /// </summary>

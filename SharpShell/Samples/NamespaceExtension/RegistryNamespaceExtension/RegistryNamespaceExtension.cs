@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using SharpShell.SharpNamespaceExtension;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Messaging;
-using Microsoft.Win32;
-using SharpShell.SharpNamespaceExtension;
 
 namespace RegistryNamespaceExtension
 {
@@ -74,6 +73,4 @@ namespace RegistryNamespaceExtension
         public static Guid valueGuid = new Guid("{71DDFA53-2148-4C21-8C99-F619308FC73B}");
         public static uint valuePid = 3;
     }
-
-
 }

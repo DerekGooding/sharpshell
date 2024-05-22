@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using SharpShell.Attributes;
+﻿using SharpShell.Attributes;
 using SharpShell.SharpInfoTipHandler;
+using System;
+using System.IO;
+using System.Runtime.InteropServices;
 
 namespace FolderInfoTipHandler
 {
@@ -39,13 +36,13 @@ namespace FolderInfoTipHandler
                                            Path.GetFileName(SelectedItemPath), Directory.GetFiles(SelectedItemPath).Length);
 
                 case RequestedInfoType.Name:
-                    
+
                     //  Return the name of the folder.
                     return string.Format("Folder '{0}'", Path.GetFileName(SelectedItemPath));
-                    
+
                 default:
 
-                    //  We won't be asked for anything else, like shortcut paths, for folders, so we 
+                    //  We won't be asked for anything else, like shortcut paths, for folders, so we
                     //  can return an empty string in the default case.
                     return string.Empty;
             }

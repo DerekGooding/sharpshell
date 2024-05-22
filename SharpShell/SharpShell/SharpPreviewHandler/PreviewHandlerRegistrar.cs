@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Security.AccessControl;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using SharpShell.Attributes;
 using SharpShell.Exceptions;
 using SharpShell.Extensions;
 using SharpShell.Registry;
 using SharpShell.ServerRegistration;
+using System;
+using System.Linq;
+using System.Security.AccessControl;
 
 namespace SharpShell.SharpPreviewHandler
 {
@@ -80,14 +80,17 @@ namespace SharpShell.SharpPreviewHandler
                             classKey.SetValue("AppID", appId);
                             CreatePrevhostApp(appId);
                             break;
+
                         case SurrogateHostType.Prevhost:
                             //  Standard prevhost App ID.
                             classKey.SetValue("AppID", "{6d2b5079-2f0b-48dd-ab7f-97cec514d30b}");
                             break;
+
                         case SurrogateHostType.Prevhost32On64:
                             //  Specialised prevhost for x86 handler on x64.
                             classKey.SetValue("AppID", "{534A1E02-D58F-44f0-B58B-36CBED287C7C}");
                             break;
+
                         default:
                             throw new ServerRegistrationException(
                                 string.Format("{0} is not a valid value for the surrogate host type.",
@@ -183,7 +186,7 @@ namespace SharpShell.SharpPreviewHandler
 
         /// <summary>
         /// Gets the application identifier for server CLSID.
-        /// This is used when creating a new AppID registration for 
+        /// This is used when creating a new AppID registration for
         /// a dedicate preview handler host.
         /// </summary>
         /// <param name="serverClsid">The server CLSID.</param>

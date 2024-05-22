@@ -23,7 +23,7 @@ namespace SharpShell.Interop
         [PreserveSig]
         new int GetClassID(out Guid pClassID);
 
-        #endregion
+        #endregion Overrides for C#/COM compatibility.
 
         /// <summary>
         /// Instructs a Shell folder object to initialize itself based on the information passed.

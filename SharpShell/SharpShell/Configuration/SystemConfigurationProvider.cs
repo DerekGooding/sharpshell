@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Security.AccessControl;
 using System.Threading;
-using Microsoft.Win32;
 
 namespace SharpShell.Configuration
 {
@@ -31,7 +31,7 @@ namespace SharpShell.Configuration
         /// <returns>The system configuration.</returns>
         private static SystemConfiguration LoadConfiguration()
         {
-            //  Create the configuration object with the default configuration 
+            //  Create the configuration object with the default configuration
             //  which will be returned if no config is present in the system.
             var config = new SystemConfiguration
             {
@@ -45,7 +45,7 @@ namespace SharpShell.Configuration
             using (var localMachineBaseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, Environment.Is64BitOperatingSystem ? RegistryView.Registry64 : RegistryView.Registry32))
             {
                 //  Open the SharpShell Key.
-                using (var sharpShellKey = localMachineBaseKey.OpenSubKey(SharpShellKey, 
+                using (var sharpShellKey = localMachineBaseKey.OpenSubKey(SharpShellKey,
                     RegistryKeyPermissionCheck.ReadSubTree, RegistryRights.ReadKey))
                 {
                     //  If we don't have the key, return the default config.
@@ -75,7 +75,7 @@ namespace SharpShell.Configuration
                 using (var sharpShellKey = localMachineBaseKey.CreateSubKey(SharpShellKey,
                     RegistryKeyPermissionCheck.ReadWriteSubTree))
                 {
-                    if(sharpShellKey == null)
+                    if (sharpShellKey == null)
                         throw new InvalidOperationException("Unable to create the SharpShell registry key.");
 
                     //  Save the config.
@@ -98,6 +98,7 @@ namespace SharpShell.Configuration
 
         //  Registry keys and values.
         private const string SharpShellKey = @"Software\SharpShell";
+
         private const string LoggingModeValue = "LoggingMode";
         private const string LogPathValue = "LogPath";
     }

@@ -1,9 +1,7 @@
-using System.Drawing;
-
 namespace SharpShell.SharpNamespaceExtension
 {
     /// <summary>
-    /// The Namespace Extension Registration settings are requested by 
+    /// The Namespace Extension Registration settings are requested by
     /// SharpShell to when registering a <see cref="SharpNamespaceExtension "/>.
     /// All configuration is used only during registration time.
     /// </summary>
@@ -36,7 +34,7 @@ namespace SharpShell.SharpNamespaceExtension
         public string Tooltip { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to use the assembly icon for the 
+        /// Gets or sets a value indicating whether to use the assembly icon for the
         /// namespace icon.
         /// </summary>
         public bool UseAssemblyIcon { get; set; }

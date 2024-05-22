@@ -9,7 +9,7 @@ namespace SharpShell.Interop
     [ComImport]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("000214E3-0000-0000-C000-000000000046")]
-    public interface IShellView  : IOleWindow
+    public interface IShellView : IOleWindow
     {
         /// <summary>
         /// Retrieves a handle to one of the windows participating in in-place activation (frame, document, parent, or in-place object window).
@@ -39,9 +39,9 @@ namespace SharpShell.Interop
         /// Enables or disables modeless dialog boxes. This method is not currently implemented.
         /// </summary>
         /// <param name="fEnable">Nonzero to enable modeless dialog box windows or zero to disable them.</param>
-        [PreserveSig] 
+        [PreserveSig]
         int EnableModeless(bool fEnable);
-    
+
         /// <summary>
         /// Called when the activation state of the view window is changed by an event that is not caused by the Shell view itself. For example, if the TAB key is pressed when the tree has the focus, the view should be given the focus.
         /// </summary>
@@ -68,7 +68,7 @@ namespace SharpShell.Interop
         /// <returns>Returns a success code if successful, or a COM error code otherwise.</returns>
         [PreserveSig]
         int CreateViewWindow([In, MarshalAs(UnmanagedType.Interface)] IShellView psvPrevious,
-             [In] ref FOLDERSETTINGS pfs, [In, MarshalAs(UnmanagedType.Interface)] IShellBrowser psb, [In]  ref RECT prcView, [In, Out] ref IntPtr phWnd);
+             [In] ref FOLDERSETTINGS pfs, [In, MarshalAs(UnmanagedType.Interface)] IShellBrowser psb, [In] ref RECT prcView, [In, Out] ref IntPtr phWnd);
 
         /// <summary>
         /// Destroys the view window.

@@ -1,5 +1,6 @@
-﻿using System;
-using SharpShell.Interop;
+﻿using SharpShell.Interop;
+using System;
+
 #pragma warning disable 1591
 
 namespace SharpShell.SharpNamespaceExtension

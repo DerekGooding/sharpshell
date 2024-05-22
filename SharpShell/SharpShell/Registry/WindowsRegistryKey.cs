@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Security.AccessControl;
-using Microsoft.Win32;
 
 namespace SharpShell.Registry
 {
@@ -91,7 +91,7 @@ namespace SharpShell.Registry
         {
             return new WindowsRegistryKey(_registryKey.CreateSubKey(subkey, permissionCheck));
         }
-        
+
         /// <inheritdoc />
         public IRegistryKey CreateSubKey(string subkey, RegistryKeyPermissionCheck permissionCheck, RegistrySecurity registrySecurity)
         {

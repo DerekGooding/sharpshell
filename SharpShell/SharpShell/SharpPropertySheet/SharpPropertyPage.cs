@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SharpShell.Diagnostics;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using SharpShell.Diagnostics;
 
 namespace SharpShell.SharpPropertySheet
 {
     /// <summary>
-    /// The SharpPropertyPage class is the base class for Property Pages used in 
+    /// The SharpPropertyPage class is the base class for Property Pages used in
     /// Shell Property Sheet Extension servers.
     /// </summary>
     public class SharpPropertyPage : UserControl
@@ -39,7 +36,7 @@ namespace SharpShell.SharpPropertySheet
             Logging.Error($"{level1} ('{PageTitle}' Page): {message}", exception);
         }
 
-        #endregion
+        #endregion Logging Helper Functions
 
         /// <summary>
         /// Gets or sets the page title.
@@ -142,13 +139,12 @@ namespace SharpShell.SharpPropertySheet
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
+            //
             // SharpPropertyPage
-            // 
+            //
             this.BackColor = System.Drawing.Color.Transparent;
             this.Name = "SharpPropertyPage";
             this.ResumeLayout(false);
-
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SharpShell.Configuration;
+using SharpShell.Diagnostics.Loggers;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using SharpShell.Configuration;
-using SharpShell.Diagnostics.Loggers;
 
 namespace SharpShell.Diagnostics
 {
@@ -27,11 +27,11 @@ namespace SharpShell.Diagnostics
             //  Add configured loggers.
             try
             {
-                if(config.LoggingMode.HasFlag(LoggingMode.Debug))
+                if (config.LoggingMode.HasFlag(LoggingMode.Debug))
                     loggers.Add(new DebugLogger());
-                if(config.LoggingMode.HasFlag(LoggingMode.EventLog))
+                if (config.LoggingMode.HasFlag(LoggingMode.EventLog))
                     loggers.Add(new EventLogLogger());
-                if(config.LoggingMode.HasFlag(LoggingMode.File))
+                if (config.LoggingMode.HasFlag(LoggingMode.File))
                     loggers.Add(new FileLogger(config.LogPath));
             }
             catch (Exception exception)
@@ -60,7 +60,7 @@ namespace SharpShell.Diagnostics
             }
             catch (Exception exception)
             {
-                Debug.WriteLine("An unhandled exception occured logging the message {0}. Exception details: {1}", 
+                Debug.WriteLine("An unhandled exception occured logging the message {0}. Exception details: {1}",
                     message, exception);
             }
         }
@@ -79,7 +79,7 @@ namespace SharpShell.Diagnostics
                         l.LogError(message);
                         if (exception != null) l.LogError(exception.ToString());
                     });
-                }
+            }
             catch (Exception e)
             {
                 Debug.WriteLine("An unhandled exception occured logging the error {0}. Exception details: {1}",

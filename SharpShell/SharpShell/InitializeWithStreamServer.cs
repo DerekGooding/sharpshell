@@ -1,6 +1,6 @@
-﻿using System.Runtime.InteropServices.ComTypes;
-using SharpShell.Helpers;
+﻿using SharpShell.Helpers;
 using SharpShell.Interop;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace SharpShell
 {
@@ -28,7 +28,7 @@ namespace SharpShell
             return WinError.S_OK;
         }
 
-        #endregion
+        #endregion Implementation of IInitializeWithStream
 
         /// <summary>
         /// Gets the selected item stream.

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ServerRegistrationManager.OutputService;
+using SharpShell.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using ServerRegistrationManager.OutputService;
-using SharpShell.Configuration;
 
 namespace ServerRegistrationManager.Actions
 {
@@ -26,7 +26,6 @@ namespace ServerRegistrationManager.Actions
                 ShowConfig(outputService);
             else
                 SetConfig(outputService, parametersList);
-
         }
 
         private static void ShowConfig(IOutputService outputService)

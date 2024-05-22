@@ -1,10 +1,10 @@
-﻿using System;
+﻿using SharpShell.Attributes;
+using SharpShell.SharpDropHandler;
+using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using SharpShell.Attributes;
-using SharpShell.SharpDropHandler;
 
 namespace XsdDropHandler
 {
@@ -35,7 +35,7 @@ namespace XsdDropHandler
         protected override void Drop(DragEventArgs dragEventArgs)
         {
             //  Create the validator output form.
-            var validatorOutputForm = new ValidationOutputForm {XsdFilePath = SelectedItemPath, XmlFilePaths = DragItems};
+            var validatorOutputForm = new ValidationOutputForm { XsdFilePath = SelectedItemPath, XmlFilePaths = DragItems };
             validatorOutputForm.ShowDialog();
         }
     }

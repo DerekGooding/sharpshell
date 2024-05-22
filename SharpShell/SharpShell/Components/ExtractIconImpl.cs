@@ -1,9 +1,9 @@
-﻿using System;
+﻿using SharpShell.Diagnostics;
+using SharpShell.Interop;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Text;
-using SharpShell.Diagnostics;
-using SharpShell.Interop;
 
 namespace SharpShell.Components
 {
@@ -43,7 +43,7 @@ namespace SharpShell.Components
         {
             return GetIconLocation(uFlags, out piIndex, out pwFlags);
         }
-        
+
         private int GetIconLocation(GILInFlags uFlags, out int piIndex, out GILOutFlags pwFlags)
         {
             //  We're always going to return by handle.
@@ -104,8 +104,8 @@ namespace SharpShell.Components
             try
             {
                 //  Set the large and small icons.
-                phiconLarge = GetIcon( iconSizeLarge).Handle;
-                phiconSmall = GetIcon( iconSizeSmall).Handle;
+                phiconLarge = GetIcon(iconSizeLarge).Handle;
+                phiconSmall = GetIcon(iconSizeSmall).Handle;
             }
             catch (Exception exception)
             {
@@ -141,8 +141,7 @@ namespace SharpShell.Components
             }
         }
 
-        #endregion
-
+        #endregion Implementation of IExtractIconA and IExtractIconW
 
         /// <summary>
         /// Gets or sets a value indicating whether or not to cache icons.

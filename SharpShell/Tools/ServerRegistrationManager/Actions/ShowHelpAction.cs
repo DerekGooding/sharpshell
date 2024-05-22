@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ServerRegistrationManager.OutputService;
+using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using ServerRegistrationManager.OutputService;
 
 namespace ServerRegistrationManager.Actions
 {

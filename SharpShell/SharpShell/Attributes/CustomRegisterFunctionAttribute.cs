@@ -1,7 +1,7 @@
-﻿using System;
+﻿using SharpShell.ServerRegistration;
+using System;
 using System.Linq;
 using System.Reflection;
-using SharpShell.ServerRegistration;
 
 namespace SharpShell.Attributes
 {
@@ -24,7 +24,7 @@ namespace SharpShell.Attributes
 
             //  Do we have a method? If so, invoke it.
             if (methodWithAttribute != null)
-                methodWithAttribute.Invoke(null, new object[] {type, registrationType});
+                methodWithAttribute.Invoke(null, new object[] { type, registrationType });
         }
     }
 }

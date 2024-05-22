@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -26,8 +21,8 @@ namespace ServerManager
             var builder = new StringBuilder();
 
             builder.AppendLine(@"SharpShell Server Manager");
-            builder.AppendLine(@"Server Manager Version: " + typeof (ServerManagerForm).Assembly.GetName().Version);
-            builder.AppendLine(@"SharpShell Version:" + typeof (SharpShell.ISharpShellServer).Assembly.GetName().Version);
+            builder.AppendLine(@"Server Manager Version: " + typeof(ServerManagerForm).Assembly.GetName().Version);
+            builder.AppendLine(@"SharpShell Version:" + typeof(SharpShell.ISharpShellServer).Assembly.GetName().Version);
             builder.AppendLine(@"Copyright (c) Dave Kerr 2013");
             builder.AppendLine(@"More Info: http://sharpshell.codeplex.com");
 

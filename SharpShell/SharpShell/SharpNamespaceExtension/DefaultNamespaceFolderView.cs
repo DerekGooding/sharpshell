@@ -1,8 +1,8 @@
+using SharpShell.Interop;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
-using SharpShell.Interop;
 
 namespace SharpShell.SharpNamespaceExtension
 {
@@ -38,13 +38,13 @@ namespace SharpShell.SharpNamespaceExtension
             //  Setup create info for a new default folder view.
             var createInfo = new SFV_CREATE
             {
-                cbSize = (uint) Marshal.SizeOf(typeof (SFV_CREATE)),
+                cbSize = (uint)Marshal.SizeOf(typeof(SFV_CREATE)),
                 pshf = folder,
                 psvOuter = null,
                 psfvcb = null
             };
 
-            //  TODO: IMPORTANT: This is the function that's failing now for creating the 
+            //  TODO: IMPORTANT: This is the function that's failing now for creating the
             //  view, it seems that it could be due to not providing psvOuter (which may be
             //  required as we're not far off being a common dialog) or more likely because we
             //  are not providing the callback. Try both...
@@ -69,7 +69,8 @@ namespace SharpShell.SharpNamespaceExtension
         /// <summary>
         /// Gets the columns.
         /// </summary>
-        public ReadOnlyCollection<ShellDetailColumn> Columns { get { return columns.AsReadOnly(); } }
+        public ReadOnlyCollection<ShellDetailColumn> Columns
+        { get { return columns.AsReadOnly(); } }
 
         /// <summary>
         /// The internal list of columns.

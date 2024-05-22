@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace SharpShell.SharpNamespaceExtension
+﻿namespace SharpShell.SharpNamespaceExtension
 {
     /// <summary>
     /// A ShellDetailColumn is used to define a column in a <see cref="DefaultNamespaceFolderView" />.
@@ -42,7 +40,7 @@ namespace SharpShell.SharpNamespaceExtension
         public ColumnAlignment ColumnAlignment { get; set; }
 
         /// <summary>
-        /// Gets or sets the average length of the text for items in the column, used to 
+        /// Gets or sets the average length of the text for items in the column, used to
         /// provide an initial size. The default value is 50 characters.
         /// </summary>
         /// <value>

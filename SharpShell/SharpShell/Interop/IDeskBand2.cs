@@ -33,7 +33,7 @@ namespace SharpShell.Interop
         [PreserveSig]
         new int ContextSensitiveHelp(bool fEnterMode);
 
-        #endregion
+        #endregion IOleWindow Overrides
 
         #region Overrides of IDockingWindow
 
@@ -73,7 +73,7 @@ namespace SharpShell.Interop
         [PreserveSig]
         new int ResizeBorderDW(RECT rcBorder, IntPtr punkToolbarSite, bool fReserved);
 
-        #endregion
+        #endregion Overrides of IDockingWindow
 
         #region IDeskBand Overrides
 
@@ -87,7 +87,7 @@ namespace SharpShell.Interop
         [PreserveSig]
         new int GetBandInfo(UInt32 dwBandID, DESKBANDINFO.DBIF dwViewMode, ref DESKBANDINFO pdbi);
 
-        #endregion
+        #endregion IDeskBand Overrides
 
         /// <summary>
         /// Indicates the deskband's ability to be displayed as translucent.

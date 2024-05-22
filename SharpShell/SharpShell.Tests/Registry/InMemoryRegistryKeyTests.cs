@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using NUnit.Framework;
 using SharpShell.Registry;
 

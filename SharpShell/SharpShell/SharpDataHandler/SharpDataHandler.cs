@@ -1,6 +1,6 @@
-﻿using System;
+﻿using SharpShell.Attributes;
+using System;
 using System.Windows.Forms;
-using SharpShell.Attributes;
 using IDataObject = System.Runtime.InteropServices.ComTypes.IDataObject;
 
 namespace SharpShell.SharpDataHandler
@@ -105,7 +105,7 @@ namespace SharpShell.SharpDataHandler
             }
         }
 
-        #endregion
+        #endregion Implementation of IDataObject
 
         /// <summary>
         /// Gets the data for the selected item. The selected item's path is stored in the SelectedItemPath property.

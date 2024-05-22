@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SharpShell.Interop;
+using SharpShell.Pidl;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -6,9 +8,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-using SharpShell.Interop;
-using SharpShell.Pidl;
 
 namespace ServerManager.ShellDebugger
 {
@@ -28,11 +27,10 @@ namespace ServerManager.ShellDebugger
             //  Set the image list to the shell image list.
             this.SetImageList(TreeViewExtensions.ImageListType.Normal, ShellImageList.GetImageList(ShellImageListSize.Small));
 
-            this.AfterSelect += ShellTreeView_AfterSelect;
-            
+            AfterSelect += ShellTreeView_AfterSelect;
         }
 
-        void ShellTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        private void ShellTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             var shellItem = GetShellItem(e.Node);
             FireOnShellItemSelected(shellItem);
@@ -61,11 +59,11 @@ namespace ServerManager.ShellDebugger
 
             //  Create the desktop node.
             var desktopNode = new TreeNode
-                                  {
-                                      Text = desktopFolder.DisplayName,
-                                      ImageIndex = desktopFolder.IconIndex,
-                                      SelectedImageIndex = desktopFolder.IconIndex,
-                                  };
+            {
+                Text = desktopFolder.DisplayName,
+                ImageIndex = desktopFolder.IconIndex,
+                SelectedImageIndex = desktopFolder.IconIndex,
+            };
 
             //  Map it and add it.
             nodesToFolders[desktopNode] = desktopFolder;
@@ -73,7 +71,7 @@ namespace ServerManager.ShellDebugger
 
             //  Fire the event.
             FireOnShellItemAdded(desktopNode);
-            
+
             //  Expand it.
             OnBeforeExpand(new TreeViewCancelEventArgs(desktopNode, false, TreeViewAction.Expand));
             desktopNode.Expand();
@@ -96,7 +94,7 @@ namespace ServerManager.ShellDebugger
 
             //  Create the enum flags.
             var childFlags = ChildTypes.Folders | ChildTypes.Files;
-            if(ShowFiles)
+            if (ShowFiles)
                 childFlags |= ChildTypes.Files;
             if (ShowHiddenFilesAndFolders)
                 childFlags |= ChildTypes.Hidden;
@@ -109,11 +107,11 @@ namespace ServerManager.ShellDebugger
             {
                 //  Create a child node.
                 var childNode = new TreeNode
-                                    {
-                                        Text = child.DisplayName,
-                                        ImageIndex = child.IconIndex,
-                                        SelectedImageIndex = child.IconIndex,
-                                    };
+                {
+                    Text = child.DisplayName,
+                    ImageIndex = child.IconIndex,
+                    SelectedImageIndex = child.IconIndex,
+                };
 
                 //  Map the node to the shell folder.
                 nodesToFolders[childNode] = child;
@@ -128,7 +126,7 @@ namespace ServerManager.ShellDebugger
                 //  Fire the shell item added event.
                 FireOnShellItemAdded(childNode);
             }
-            
+
             //  Enable update now that we've added the children.
             EndUpdate();
 
@@ -143,8 +141,7 @@ namespace ServerManager.ShellDebugger
         /// <returns>The shell item for the tree node.</returns>
         public ShellItem GetShellItem(TreeNode node)
         {
-            ShellItem shellFolder;
-            if(nodesToFolders.TryGetValue(node, out shellFolder))
+            if (nodesToFolders.TryGetValue(node, out ShellItem shellFolder))
                 return shellFolder;
             return null;
         }
@@ -157,15 +154,13 @@ namespace ServerManager.ShellDebugger
         {
             //  Fire the event if we have it.
             var theEvent = OnShellItemAdded;
-            if(theEvent != null)
+            if (theEvent != null)
                 theEvent(this, new TreeViewEventArgs(nodeAdded));
         }
 
         private void FireOnShellItemSelected(ShellItem shellItem)
         {
-            var theEvent = OnShellItemSelected;
-            if(theEvent != null)
-                theEvent(this, new ShellTreeEventArgs(shellItem));
+            OnShellItemSelected?.Invoke(this, new ShellTreeEventArgs(shellItem));
         }
 
         /// <summary>
@@ -199,25 +194,25 @@ namespace ServerManager.ShellDebugger
         /// <returns>true if the <see cref="T:System.ComponentModel.Component"/> is in design mode; otherwise, false.</returns>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public new bool DesignMode { get { return (System.Diagnostics.Process.GetCurrentProcess().ProcessName == "devenv"); } }
+        public new bool DesignMode
+        { get { return (System.Diagnostics.Process.GetCurrentProcess().ProcessName == "devenv"); } }
 
         /// <summary>
         /// Occurs when a shell item is added.
         /// </summary>
         [Category("Shell Tree View")]
         [Description("Called when a shell item is added.")]
-        public event TreeViewEventHandler OnShellItemAdded;
+        public event EventHandler<TreeViewEventArgs> OnShellItemAdded;
 
-        public event ShellItemTreeEventHandler OnShellItemSelected;
+        public event EventHandler<ShellTreeEventArgs> OnShellItemSelected;
 
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
+            SuspendLayout();
+            //
             // ShellTreeView
-            // 
-            this.ResumeLayout(false);
-
+            //
+            ResumeLayout(false);
         }
 
         protected override void OnNodeMouseClick(TreeNodeMouseClickEventArgs e)
@@ -231,13 +226,12 @@ namespace ServerManager.ShellDebugger
 
                 //  Create a default context menu.
                 OpenItemContextMenu(itemHit, e.X, e.Y);
-
             }
         }
 
         private void OpenItemContextMenu(ShellItem itemHit, int x, int y)
         {
-                //  TODO: we need a min and max for the menu items.
+            //  TODO: we need a min and max for the menu items.
 
             //  see http://www.codeproject.com/Articles/4025/Use-Shell-ContextMenu-in-your-applications for more
 
@@ -250,11 +244,9 @@ namespace ServerManager.ShellDebugger
                 ? PidlManager.PidlToIdlist(itemHit.PIDL)
                 : PidlManager.Combine(PidlManager.PidlToIdlist(itemHit.ParentItem.PIDL),
                     PidlManager.PidlToIdlist(itemHit.RelativePIDL));
-                
 
             //  Get the UI object of the context menu.
-            IntPtr apidl = PidlManager.PidlsToAPidl(new IntPtr[] {PidlManager.IdListToPidl(fullIdList)});
-
+            IntPtr apidl = PidlManager.PidlsToAPidl(new IntPtr[] { PidlManager.IdListToPidl(fullIdList) });
 
             IntPtr ppv = IntPtr.Zero;
             shellFolder.GetUIObjectOf(Handle, 1, apidl, Shell32.IID_IContextMenu, 0,
@@ -265,9 +257,10 @@ namespace ServerManager.ShellDebugger
             {
                 IContextMenu contextMenu = (IContextMenu)Marshal.GetObjectForIUnknown(ppv);
 
-                var popupMenu = new ContextMenu();
-                contextMenu.QueryContextMenu(popupMenu.Handle, 0, 0, 65525, CMF.CMF_EXPLORE);
-                popupMenu.Show(this, new Point(x, y));
+                // TODO ContextMenu is no longer supported. Use ContextMenuStrip instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
+                //var popupMenu = new ContextMenu();
+                //contextMenu.QueryContextMenu(popupMenu.Handle, 0, 0, 65525, CMF.CMF_EXPLORE);
+                //popupMenu.Show(this, new Point(x, y));
             }
         }
     }
@@ -389,11 +382,11 @@ namespace ServerManager.ShellDebugger
         /// <summary>
         /// The shell image lists.
         /// </summary>
-        private readonly static Dictionary<ShellImageListSize, IImageList> imageLists = new Dictionary<ShellImageListSize, IImageList>();
+        private static readonly Dictionary<ShellImageListSize, IImageList> imageLists = new Dictionary<ShellImageListSize, IImageList>();
     }
 
     /// <summary>
-    /// Shell Image List sizes. These correspond exactly by value to the sizes such 
+    /// Shell Image List sizes. These correspond exactly by value to the sizes such
     /// as SHIL_LARGE, SHIL_JUMBO, etc.
     /// </summary>
     public enum ShellImageListSize
@@ -467,7 +460,7 @@ namespace ServerManager.ShellDebugger
         /// <returns>The desktop shell folder.</returns>
         private static ShellItem CreateDesktopShellFolder()
         {
-            //  Get the desktop shell folder interface. 
+            //  Get the desktop shell folder interface.
             IShellFolder desktopShellFolderInterface = null;
             var result = Shell32.SHGetDesktopFolder(out desktopShellFolderInterface);
 
@@ -525,11 +518,11 @@ namespace ServerManager.ShellDebugger
             var flags = SFGAO.SFGAO_FOLDER | SFGAO.SFGAO_HASSUBFOLDER | SFGAO.SFGAO_BROWSABLE | SFGAO.SFGAO_FILESYSTEM;
             //todo was this parentFolder.ShellFolderInterface.GetAttributesOf(1, ref pidl, ref flags);
 
-            var apidl = Marshal.AllocCoTaskMem(IntPtr.Size*1);
-            Marshal.Copy(new IntPtr[] {pidl}, 0, apidl, 1);
+            var apidl = Marshal.AllocCoTaskMem(IntPtr.Size * 1);
+            Marshal.Copy(new IntPtr[] { pidl }, 0, apidl, 1);
 
             parentFolder.ShellFolderInterface.GetAttributesOf(1, apidl, ref flags);
-           
+
             IsFolder = (flags & SFGAO.SFGAO_FOLDER) != 0;
             HasSubFolders = (flags & SFGAO.SFGAO_HASSUBFOLDER) != 0;
 
@@ -552,7 +545,7 @@ namespace ServerManager.ShellDebugger
                 IntPtr ppv = IntPtr.Zero;
                 var result = parentFolder.ShellFolderInterface.BindToObject(pidl, IntPtr.Zero, ref Shell32.IID_IShellFolder,
                     out ppv);//out shellFolderInterface);
-                shellFolderInterface = ((IShellFolder) Marshal.GetObjectForIUnknown(ppv));
+                shellFolderInterface = ((IShellFolder)Marshal.GetObjectForIUnknown(ppv));
                 ShellFolderInterface = shellFolderInterface;
 
                 //  Validate the result.
@@ -622,7 +615,7 @@ namespace ServerManager.ShellDebugger
 
                     //  Get each pidl.
                     var pidls = new IntPtr[itemsFetched];
-                    Marshal.Copy(pidlArray, pidls, 0, (int) itemsFetched);
+                    Marshal.Copy(pidlArray, pidls, 0, (int)itemsFetched);
                     foreach (var childPidl in pidls)
                     {
                         //  Create a new shell folder.
@@ -645,11 +638,11 @@ namespace ServerManager.ShellDebugger
                         Marshal.FreeCoTaskMem(childPidl);
                     }
                 } while (result == WinError.S_OK);
-            
+
                 Marshal.FreeCoTaskMem(pidlArray);
 
                 //  Release the enumerator.
-                if(Marshal.IsComObject(pEnum))
+                if (Marshal.IsComObject(pEnum))
                     Marshal.ReleaseComObject(pEnum);
             }
             catch (Exception exception)
@@ -750,7 +743,8 @@ namespace ServerManager.ShellDebugger
         /// <summary>
         /// Gets the ShellFolder of the Desktop.
         /// </summary>
-        public static ShellItem DesktopShellFolder { get { return desktopShellFolder.Value; } }
+        public static ShellItem DesktopShellFolder
+        { get { return desktopShellFolder.Value; } }
 
         /// <summary>
         /// Gets the shell folder interface.
@@ -778,7 +772,8 @@ namespace ServerManager.ShellDebugger
         /// <summary>
         /// Gets the path.
         /// </summary>
-        public string Path { get { return path.Value; } }
+        public string Path
+        { get { return path.Value; } }
 
         /// <summary>
         /// Gets the overlay icon.
@@ -786,8 +781,10 @@ namespace ServerManager.ShellDebugger
         /// <value>
         /// The overlay icon.
         /// </value>
-        public Icon OverlayIcon { get { return overlayIcon.Value; } }
+        public Icon OverlayIcon
+        { get { return overlayIcon.Value; } }
     }
+
     /// <summary>
     /// The Child Type flags.
     /// </summary>

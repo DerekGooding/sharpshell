@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ResourcesPropertySheet.Loader;
+﻿using ResourcesPropertySheet.Loader;
 using ResourcesPropertySheet.Properties;
 using ResourcesPropertySheet.ResourceEditors;
 using SharpShell.Diagnostics;
-using SharpShell.Interop;
 using SharpShell.SharpPropertySheet;
+using System;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace ResourcesPropertySheet
 {
@@ -25,8 +17,8 @@ namespace ResourcesPropertySheet
         {
             InitializeComponent();
 
-//            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-//            this.BackColor = Color.Transparent;
+            //            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+            //            this.BackColor = Color.Transparent;
 
             //  Set the page title.
             PageTitle = "Resources";
@@ -84,7 +76,7 @@ namespace ResourcesPropertySheet
 
             if (resource.ResourceType.IsKnownResourceType(ResType.RT_BITMAP))
             {
-                var bitmapEditor = new BitmapEditor {Dock = DockStyle.Fill};
+                var bitmapEditor = new BitmapEditor { Dock = DockStyle.Fill };
                 currentEditor = bitmapEditor;
                 var parent = tableLayoutPanel1.GetControlFromPosition(1, 1);
                 parent.Controls.Add(bitmapEditor);

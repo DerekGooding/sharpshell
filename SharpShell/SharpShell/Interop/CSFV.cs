@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace SharpShell.Interop
 {
-// ReSharper disable InconsistentNaming
+    // ReSharper disable InconsistentNaming
 
     /// <summary>
     /// Used with the SHCreateShellFolderViewEx function.
@@ -31,9 +31,6 @@ namespace SharpShell.Interop
         /// </summary>
         public IntPtr pidl;
 
-        /// <summary>
-        /// 
-        /// </summary>
         public uint lEvents;
 
         /// <summary>
@@ -41,11 +38,8 @@ namespace SharpShell.Interop
         /// </summary>
         public IntPtr pfnCallback;
 
-        /// <summary>
-        /// 
-        /// </summary>
         public FOLDERVIEWMODE fvm;
     }
 
-// ReSharper restore InconsistentNaming
+    // ReSharper restore InconsistentNaming
 }

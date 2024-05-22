@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using SharpShell.Interop;
+﻿using SharpShell.Interop;
 using SharpShell.Pidl;
 using SharpShell.SharpNamespaceExtension;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace GitHubNamespaceExtension
 {

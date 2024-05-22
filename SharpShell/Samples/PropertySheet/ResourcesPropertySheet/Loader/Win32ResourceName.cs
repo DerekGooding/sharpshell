@@ -1,6 +1,6 @@
-﻿using System;
+﻿using SharpShell.Helpers;
+using System;
 using System.Runtime.InteropServices;
-using SharpShell.Helpers;
 
 namespace ResourcesPropertySheet.Loader
 {
@@ -14,7 +14,7 @@ namespace ResourcesPropertySheet.Loader
         {
             Resource = resource;
             _isInt = Win32Helper.IS_INTRESOURCE(resource);
-            if (_isInt) _intValue = (uint) resource;
+            if (_isInt) _intValue = (uint)resource;
             else _stringValue = Marshal.PtrToStringUni(Resource);
         }
 

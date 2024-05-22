@@ -1,13 +1,13 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using SharpShell.Diagnostics;
+﻿using SharpShell.Diagnostics;
 using SharpShell.Helpers;
 using SharpShell.Interop;
+using System;
+using System.Runtime.InteropServices;
 
 namespace SharpShell.SharpPropertySheet
 {
     /// <summary>
-    /// The PropertyPageProxy is the object used to pass data between the 
+    /// The PropertyPageProxy is the object used to pass data between the
     /// shell and the SharpPropertyPage.
     /// </summary>
     internal class PropertyPageProxy
@@ -17,7 +17,6 @@ namespace SharpShell.SharpPropertySheet
         /// </summary>
         private PropertyPageProxy()
         {
-            
         }
 
         #region Logging Helper Functions
@@ -45,7 +44,7 @@ namespace SharpShell.SharpPropertySheet
             Logging.Error($"{level1} (Proxy {HostWindowHandle.ToString("x8")} for {level2}): {message}", exception);
         }
 
-        #endregion
+        #endregion Logging Helper Functions
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyPageProxy"/> class.
@@ -114,12 +113,12 @@ namespace SharpShell.SharpPropertySheet
                 //  The proxy window is really just a container for the user control which holds the user defined
                 //  property sheet content. So make it transparent (otherwise we'll get a grey dialog background).
                 case WindowsMessages.WM_ERASEBKGND:
-                    
+
                     //  Return true - i.e. we handled erasing the background (by doing nothing).
                     return new IntPtr(1);
 
                 case WindowsMessages.WM_INITDIALOG:
-                    
+
                     try
                     {
                         //  Store the property sheet page handle.
@@ -127,7 +126,7 @@ namespace SharpShell.SharpPropertySheet
 
                         //  Set the parent of the property page to the host.
                         User32.SetParent(Target.Handle, hWnd);
-                        
+
                         //  Get the handle to the property sheet.
                         propertySheetHandle = User32.GetParent(hWnd);
 
@@ -144,21 +143,21 @@ namespace SharpShell.SharpPropertySheet
                 case WindowsMessages.WM_NOTIFY:
 
                     //  Get the NMHDR.
-                    var nmhdr = (NMHDR)Marshal.PtrToStructure(lParam, typeof (NMHDR));
+                    var nmhdr = (NMHDR)Marshal.PtrToStructure(lParam, typeof(NMHDR));
 
                     //  Is it PSN_APPLY?
                     if (nmhdr.code == (uint)PSN.PSN_APPLY)
                     {
                         //  Get the PSH notify struct.
-                        var nmpsheet = (PSHNOTIFY) Marshal.PtrToStructure(lParam, typeof (PSHNOTIFY));
+                        var nmpsheet = (PSHNOTIFY)Marshal.PtrToStructure(lParam, typeof(PSHNOTIFY));
 
                         //  If lParam is 0, it's apply, otherwise it's OK.
-                        if(nmpsheet.lParam == IntPtr.Zero)
+                        if (nmpsheet.lParam == IntPtr.Zero)
                             Target.OnPropertySheetApply();
                         else
                             Target.OnPropertySheetOK();
                     }
-                    else if(nmhdr.code == (uint)PSN.PSN_SETACTIVE)
+                    else if (nmhdr.code == (uint)PSN.PSN_SETACTIVE)
                     {
                         //  Fire the page activated.
                         Target.OnPropertyPageSetActive();
@@ -207,51 +206,51 @@ namespace SharpShell.SharpPropertySheet
             switch (uMsg)
             {
                 case PSPCB.PSPCB_ADDREF:
-                {
-                    //  Increment the internal reference count.
-                    Log($"Add Internal Ref {referenceCount} -> {referenceCount + 1}");
-                    referenceCount++;
-
-                    //  At this point, increment the IPropSheetShellExt interface reference count, so that the
-                    //  shell doesn't try and release the server before we are done.
-                    var pUnk = Marshal.GetIUnknownForObject(Parent); // i.e. IShellPropSheetExt
-                    var newCount = Marshal.AddRef(pUnk);
-                    Log($"IShellPropSheetExt: Add Ref {newCount - 1} -> {newCount}");
-
-                    break;
-                }
-
-                case PSPCB.PSPCB_RELEASE:
-                {
-                    Log($"Release Internal Ref {referenceCount} -> {referenceCount - 1}");
-
-                    //  Decrement the internal reference count.
-                    referenceCount--;
-                    
-                    //  If we're down to zero references, cleanup.
-                    if (referenceCount == 0)
                     {
-                        //  The Target is a child of the host window handle, and that is child of the sheet.
-                        //  So these windows will be destroyed as part of the normal lifecycle. It's important
-                        //  we *don't* destroy them here or they could be destroyed twice. This is the place
-                        //  however to free up other resources which might be used by the page.
-                        try
-                        {
-                            Target?.OnRelease();
-                        }
-                        catch (Exception exception)
-                        {
-                            LogError("An exception occured releasing the property page", exception);
-                        }
+                        //  Increment the internal reference count.
+                        Log($"Add Internal Ref {referenceCount} -> {referenceCount + 1}");
+                        referenceCount++;
+
+                        //  At this point, increment the IPropSheetShellExt interface reference count, so that the
+                        //  shell doesn't try and release the server before we are done.
+                        var pUnk = Marshal.GetIUnknownForObject(Parent); // i.e. IShellPropSheetExt
+                        var newCount = Marshal.AddRef(pUnk);
+                        Log($"IShellPropSheetExt: Add Ref {newCount - 1} -> {newCount}");
+
+                        break;
                     }
 
-                    //  Balance out the AddRef all from PSPCB_ADDREF by releasing now.
-                    var pUnk = Marshal.GetIUnknownForObject(Parent); // i.e. IShellPropSheetExt
-                    var newCount = Marshal.Release(pUnk);
-                    Log($"IShellPropSheetExt: Release {newCount + 1} -> {newCount}");
+                case PSPCB.PSPCB_RELEASE:
+                    {
+                        Log($"Release Internal Ref {referenceCount} -> {referenceCount - 1}");
 
-                    break;
-                }
+                        //  Decrement the internal reference count.
+                        referenceCount--;
+
+                        //  If we're down to zero references, cleanup.
+                        if (referenceCount == 0)
+                        {
+                            //  The Target is a child of the host window handle, and that is child of the sheet.
+                            //  So these windows will be destroyed as part of the normal lifecycle. It's important
+                            //  we *don't* destroy them here or they could be destroyed twice. This is the place
+                            //  however to free up other resources which might be used by the page.
+                            try
+                            {
+                                Target?.OnRelease();
+                            }
+                            catch (Exception exception)
+                            {
+                                LogError("An exception occured releasing the property page", exception);
+                            }
+                        }
+
+                        //  Balance out the AddRef all from PSPCB_ADDREF by releasing now.
+                        var pUnk = Marshal.GetIUnknownForObject(Parent); // i.e. IShellPropSheetExt
+                        var newCount = Marshal.Release(pUnk);
+                        Log($"IShellPropSheetExt: Release {newCount + 1} -> {newCount}");
+
+                        break;
+                    }
 
                 case PSPCB.PSPCB_CREATE:
 
@@ -262,7 +261,7 @@ namespace SharpShell.SharpPropertySheet
             }
             return 0;
         }
-        
+
         /// <summary>
         /// Creates the property page handle.
         /// </summary>

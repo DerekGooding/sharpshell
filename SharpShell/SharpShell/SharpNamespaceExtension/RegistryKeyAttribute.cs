@@ -1,5 +1,5 @@
-using System;
 using SharpShell.Extensions;
+using System;
 
 namespace SharpShell.SharpNamespaceExtension
 {

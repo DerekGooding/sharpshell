@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using SharpShell.Registry;
+using System;
 
 namespace SharpShell.Diagnostics
 {
@@ -31,7 +31,7 @@ namespace SharpShell.Diagnostics
             using (var alwaysUnloadDLLKey = localMachine.OpenSubKey(KeyName_AlwaysUnloadDll))
             {
                 return alwaysUnloadDLLKey != null;
-            }   
+            }
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace SharpShell.Diagnostics
                     return false;
 
                 //  We can now check the value explicitly.
-                return  ((int)value) == 1;
+                return ((int)value) == 1;
             }
         }
 
@@ -65,7 +65,6 @@ namespace SharpShell.Diagnostics
         {
             alwaysUnloadDll = CheckAlwaysUnloadDll();
             desktopProcess = CheckDesktopProcess();
-
         }
 
         /// <summary>
@@ -142,7 +141,7 @@ namespace SharpShell.Diagnostics
         {
             //  Open the explorer key with the desired permissions.
             var explorerKey = hiveKey.OpenSubKey(KeyName_Explorer, permissionCheck);
-            
+
             //  If we don't have it, we've got a critical error.
             if (explorerKey == null)
                 throw new InvalidOperationException("Unable to open the Explorer key.");
@@ -189,7 +188,6 @@ namespace SharpShell.Diagnostics
         /// </value>
         public bool AlwaysUnloadDll
         {
-
             get { return alwaysUnloadDll; }
             set
             {
@@ -207,8 +205,8 @@ namespace SharpShell.Diagnostics
         public bool DesktopProcess
         {
             get { return desktopProcess; }
-            set 
-            { 
+            set
+            {
                 desktopProcess = value;
                 SetDesktopProcess();
             }

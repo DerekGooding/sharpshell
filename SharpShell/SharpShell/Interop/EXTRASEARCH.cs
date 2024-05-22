@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace SharpShell.Interop
 {
-// ReSharper disable InconsistentNaming
+    // ReSharper disable InconsistentNaming
 
     /// <summary>
     /// Used by an IEnumExtraSearch enumerator object to return information on the search objects supported by a Shell Folder object.
@@ -29,5 +29,5 @@ namespace SharpShell.Interop
         public string wszUrl;
     }
 
-// ReSharper restore InconsistentNaming
+    // ReSharper restore InconsistentNaming
 }

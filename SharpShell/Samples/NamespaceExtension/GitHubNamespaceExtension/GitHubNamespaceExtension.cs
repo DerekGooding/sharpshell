@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using SharpShell.Interop;
+﻿using SharpShell.Interop;
 using SharpShell.Pidl;
 using SharpShell.SharpNamespaceExtension;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace GitHubNamespaceExtension
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [ComVisible(true)]
     [NamespaceExtensionJunctionPoint(NamespaceExtensionAvailability.Everyone, VirtualFolder.Desktop, "GitHub")]

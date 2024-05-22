@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SharpShell.SharpPreviewHandler;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using SharpShell.Diagnostics;
-using SharpShell.SharpPreviewHandler;
 
 namespace AbcPreviewHandler
 {
@@ -20,14 +16,12 @@ namespace AbcPreviewHandler
             InitializeComponent();
         }
 
-
         /// <summary>
         /// Does the preview.
         /// </summary>
         /// <param name="selectedFilePath">The selected file path.</param>
         public void DoPreview(string selectedFilePath)
         {
-
         }
 
         /// <summary>

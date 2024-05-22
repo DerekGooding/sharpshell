@@ -1,9 +1,9 @@
+using SharpShell.Interop;
+using SharpShell.Pidl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using SharpShell.Interop;
-using SharpShell.Pidl;
 
 namespace SharpShell.SharpNamespaceExtension
 {
@@ -44,7 +44,7 @@ namespace SharpShell.SharpNamespaceExtension
         /// <returns></returns>
         public int Next(uint celt, IntPtr rgelt, out uint pceltFetched)
         {
-            //  Request the children from the extension. As this is an abstract call, we always 
+            //  Request the children from the extension. As this is an abstract call, we always
             //  use an exception handler.
             var items = new List<IShellNamespaceItem>();
             try
@@ -79,7 +79,7 @@ namespace SharpShell.SharpNamespaceExtension
             //  These PIDLs must not be relative, so using the value returned by the GetShellId
             //  function is enough.
             var pidlArray = items.Select(
-                iid => PidlManager.IdListToPidl(IdList.Create(new List<ShellId> { iid.GetShellId()} ))).ToArray();
+                iid => PidlManager.IdListToPidl(IdList.Create(new List<ShellId> { iid.GetShellId() }))).ToArray();
 
             //  Copy the data to the provided array.
             Marshal.Copy(pidlArray, 0, rgelt, pidlArray.Length);

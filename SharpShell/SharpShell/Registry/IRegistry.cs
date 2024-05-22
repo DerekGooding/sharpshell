@@ -4,7 +4,7 @@ namespace SharpShell.Registry
 {
     /// <summary>
     /// An interface for any type which can provide access to the registry. In most circumstances, the implementation
-    /// will be <see cref="WindowsRegistry"/>. This service exists to support effective testing of registry access. 
+    /// will be <see cref="WindowsRegistry"/>. This service exists to support effective testing of registry access.
     /// </summary>
     public interface IRegistry
     {

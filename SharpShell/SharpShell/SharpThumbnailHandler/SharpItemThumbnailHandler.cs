@@ -1,7 +1,7 @@
-﻿using System;
-using System.Drawing;
-using SharpShell.Attributes;
+﻿using SharpShell.Attributes;
 using SharpShell.Interop;
+using System;
+using System.Drawing;
 
 namespace SharpShell.SharpThumbnailHandler
 {
@@ -39,7 +39,7 @@ namespace SharpShell.SharpThumbnailHandler
                 //  Get the thumbnail image.
                 thumbnailImage = GetThumbnailImage(cx);
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 //  DebugLog the exception and return failure.
                 LogError("An exception occured when getting the thumbnail image.", exception);
@@ -47,7 +47,7 @@ namespace SharpShell.SharpThumbnailHandler
             }
 
             //  If we couldn't get an image, return failure.
-            if(thumbnailImage == null)
+            if (thumbnailImage == null)
             {
                 //  DebugLog a warning return failure.
                 Log("The internal GetThumbnail function failed to return a valid thumbnail.");
@@ -57,7 +57,7 @@ namespace SharpShell.SharpThumbnailHandler
             //  Now we can set the image.
             phbmp = thumbnailImage.GetHbitmap();
             pdwAlpha = WTS_ALPHATYPE.WTSAT_ARGB;
-          
+
             //  Return success.
             return WinError.S_OK;
         }

@@ -1,9 +1,9 @@
-using System;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using SharpShell.Interop;
 using SharpShell.Pidl;
 using SharpShell.SharpContextMenu;
+using System;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace GitHubNamespaceExtension
 {
@@ -44,7 +44,6 @@ namespace GitHubNamespaceExtension
             Shell32.ShellExecuteEx(ref sei);
             PidlManager.DeletePidl(fullPidl);
         }
-
     }
 
     /*

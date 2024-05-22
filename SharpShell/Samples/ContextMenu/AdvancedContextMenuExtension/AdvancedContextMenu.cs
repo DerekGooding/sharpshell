@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SharpShell.Attributes;
+using SharpShell.SharpContextMenu;
+using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using SharpShell.Attributes;
-using SharpShell.SharpContextMenu;
 
 namespace AdvancedContextMenuExtension
 {
@@ -45,27 +42,27 @@ namespace AdvancedContextMenuExtension
 
             //  Create a menu item to hold all of the subitems.
             var advancedItem = new ToolStripMenuItem
-                {
-                    Text = "Advanced",
+            {
+                Text = "Advanced",
                 Image = Properties.Resources.Copy
-                };
+            };
 
             //  Now add the child items.
             var readOnlyItem = new ToolStripMenuItem
-                {
-                    Text = "Read Only",
-                    Checked = File.GetAttributes(SelectedItemPaths.First()).HasFlag(FileAttributes.ReadOnly)
-                };
+            {
+                Text = "Read Only",
+                Checked = File.GetAttributes(SelectedItemPaths.First()).HasFlag(FileAttributes.ReadOnly)
+            };
             readOnlyItem.Click += (sender, args) => DoToggleReadOnly();
 
             //  Add the touch item.
             var touchItem = new ToolStripMenuItem
-                {
-                    Text = "Touch",
-                    Enabled = !File.GetAttributes(SelectedItemPaths.First()).HasFlag(FileAttributes.ReadOnly)
-                };
+            {
+                Text = "Touch",
+                Enabled = !File.GetAttributes(SelectedItemPaths.First()).HasFlag(FileAttributes.ReadOnly)
+            };
             touchItem.Click += (sender, args) => DoTouch();
-            
+
             var copyPathItem = new ToolStripMenuItem
             {
                 Text = "Copy Path",
@@ -78,7 +75,7 @@ namespace AdvancedContextMenuExtension
             advancedItem.DropDownItems.Add(touchItem);
             advancedItem.DropDownItems.Add(new ToolStripSeparator());
             advancedItem.DropDownItems.Add(copyPathItem);
-            
+
             //  Add the item to the context menu.
             menu.Items.Add(advancedItem);
 
@@ -97,7 +94,7 @@ namespace AdvancedContextMenuExtension
                 attributes &= ~FileAttributes.ReadOnly;
             else
                 attributes |= FileAttributes.ReadOnly;
-            
+
             //  Set the attributes.
             File.SetAttributes(path, attributes);
         }

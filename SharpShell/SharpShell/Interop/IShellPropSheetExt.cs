@@ -3,7 +3,6 @@ using System.Runtime.InteropServices;
 
 namespace SharpShell.Interop
 {
-
     /// <summary>
     /// Exposes methods that allow a property sheet handler to add or replace pages in the property sheet displayed for a file object.
     /// </summary>
@@ -33,9 +32,8 @@ namespace SharpShell.Interop
         int ReplacePage(uint uPageID, AddPropertySheetPageDelegate lpfnReplacePage, IntPtr lParam);
     }
 
-
     internal delegate bool AddPropertySheetPageDelegate(IntPtr hPropSheetPage, IntPtr lParam);
-    
+
     /// <summary>
     /// Property sheet callback proc.
     /// </summary>

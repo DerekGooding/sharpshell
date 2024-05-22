@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SharpShell.Interop;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
-using SharpShell.Interop;
 
 namespace ResourcesPropertySheet.Loader
 {
@@ -52,7 +52,7 @@ namespace ResourcesPropertySheet.Loader
                     //  Load resource data.
                     var resource = new Win32Resource(resourceName, resourceType);
                     resource.Load(hModule, resourceSize, resourceData);
-                
+
                     resourceNames.Add(resource);
                     return true;
                 }

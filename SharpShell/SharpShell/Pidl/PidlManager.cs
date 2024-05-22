@@ -1,11 +1,8 @@
-﻿using System;
+﻿using SharpShell.Interop;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net.Configuration;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography;
-using SharpShell.Interop;
 
 // Notes:
 //  http://msdn.microsoft.com/en-us/library/windows/desktop/cc144093.aspx
@@ -13,7 +10,7 @@ using SharpShell.Interop;
 namespace SharpShell.Pidl
 {
     /// <summary>
-    /// The PidlManager is a class that offers a set of functions for 
+    /// The PidlManager is a class that offers a set of functions for
     /// working with PIDLs.
     /// </summary>
     /// <remarks>
@@ -39,7 +36,7 @@ namespace SharpShell.Pidl
             //  Start reading memory, shitemid at at time.
             int bytesRead = 0;
             ushort idLength = 0;
-            while((idLength = (ushort)Marshal.ReadInt16(pidl, bytesRead)) != 0)
+            while ((idLength = (ushort)Marshal.ReadInt16(pidl, bytesRead)) != 0)
             {
                 //  Read the data.
                 var id = new byte[idLength - 2];
@@ -74,7 +71,7 @@ namespace SharpShell.Pidl
         /// <returns>An <see cref="IdList"/> that corresponds to the PIDL.</returns>
         public static IdList PidlToIdlist(IntPtr pidl)
         {
-            if(pidl == IntPtr.Zero)
+            if (pidl == IntPtr.Zero)
                 throw new Exception("Cannot create an ID list from a null pidl.");
 
             //  Create the raw ID list.
@@ -163,7 +160,7 @@ namespace SharpShell.Pidl
         /// <returns>A PIDL array.</returns>
         public static IntPtr PidlsToAPidl(IntPtr[] pidls)
         {
-            var buffer = Marshal.AllocCoTaskMem(pidls.Length*IntPtr.Size);
+            var buffer = Marshal.AllocCoTaskMem(pidls.Length * IntPtr.Size);
             Marshal.Copy(pidls, 0, buffer, pidls.Length);
             return buffer;
         }

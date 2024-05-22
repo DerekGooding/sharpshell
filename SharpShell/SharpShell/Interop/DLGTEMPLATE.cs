@@ -16,6 +16,7 @@ namespace SharpShell.Interop
         internal short windowClass;
         internal short titleArray;
         internal short fontPointSize;
+
         [MarshalAs(UnmanagedType.LPWStr)]
         internal string fontTypeface;
     }

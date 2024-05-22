@@ -1,14 +1,10 @@
-﻿using System;
+﻿using SharpShell.Attributes;
+using SharpShell.SharpThumbnailHandler;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.Drawing.Text;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using SharpShell.Attributes;
-using SharpShell.SharpThumbnailHandler;
 using TxtThumbnailHandler.Renderer;
 
 namespace TxtThumbnailHandler
@@ -42,7 +38,7 @@ namespace TxtThumbnailHandler
             //  Attempt to open the stream with a reader.
             try
             {
-                using(var reader = new StreamReader(SelectedItemStream))
+                using (var reader = new StreamReader(SelectedItemStream))
                 {
                     //  Read up to ten lines of text.
                     var previewLines = new List<string>();

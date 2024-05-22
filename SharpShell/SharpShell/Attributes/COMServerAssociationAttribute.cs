@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SharpShell.Attributes
 {
@@ -33,7 +33,7 @@ namespace SharpShell.Attributes
         {
             var attribute = type.GetCustomAttributes(typeof(COMServerAssociationAttribute), true)
                 .OfType<COMServerAssociationAttribute>().FirstOrDefault();
-            return attribute != null ? attribute.Associations : new string[] {};
+            return attribute != null ? attribute.Associations : new string[] { };
         }
 
         /// <summary>
@@ -64,11 +64,13 @@ namespace SharpShell.Attributes
         /// <value>
         /// The type of the association.
         /// </value>
-        public AssociationType AssociationType { get { return associationType; } }
+        public AssociationType AssociationType
+        { get { return associationType; } }
 
         /// <summary>
         /// Gets the associations.
         /// </summary>
-        public IEnumerable<string> Associations { get { return associations; } }
+        public IEnumerable<string> Associations
+        { get { return associations; } }
     }
 }

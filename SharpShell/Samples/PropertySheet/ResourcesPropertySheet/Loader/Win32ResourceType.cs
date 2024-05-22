@@ -1,12 +1,11 @@
-﻿using System;
+﻿using SharpShell.Extensions;
+using System;
 using System.ComponentModel.DataAnnotations;
-using SharpShell.Extensions;
 
 namespace ResourcesPropertySheet.Loader
 {
-    class Win32ResourceType : Win32ResourceName
+    internal class Win32ResourceType : Win32ResourceName
     {
-
         public Win32ResourceType(IntPtr resource) : base(resource)
         {
         }

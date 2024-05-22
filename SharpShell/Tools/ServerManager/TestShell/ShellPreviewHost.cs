@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
+﻿using SharpShell.Interop;
+using System;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
-using System.Text;
 using System.Windows.Forms;
-using SharpShell.Interop;
 
 namespace ServerManager.TestShell
 {
@@ -29,7 +23,6 @@ namespace ServerManager.TestShell
 
         public void SetPreviewItem(string path)
         {
-
             if (previewHandler is IInitializeWithFile)
             {
                 ((IInitializeWithFile)previewHandler).Initialize(path, 0);
@@ -43,7 +36,7 @@ namespace ServerManager.TestShell
 
             if (previewHandler is IPreviewHandler)
             {
-                RECT rect = new RECT() {bottom = ClientRectangle.Bottom, left = ClientRectangle.Left, right = ClientRectangle.Right, top = ClientRectangle.Top};
+                RECT rect = new RECT() { bottom = ClientRectangle.Bottom, left = ClientRectangle.Left, right = ClientRectangle.Right, top = ClientRectangle.Top };
                 ((IPreviewHandler)previewHandler).SetWindow(Handle, rect);
                 ((IPreviewHandler)previewHandler).DoPreview();
             }
@@ -63,7 +56,7 @@ namespace ServerManager.TestShell
                     right = ClientRectangle.Right,
                     top = ClientRectangle.Top
                 };
-                ((IPreviewHandler) previewHandler).SetRect(ref bounds);
+                ((IPreviewHandler)previewHandler).SetRect(ref bounds);
             }
         }
     }
@@ -74,7 +67,6 @@ namespace ServerManager.TestShell
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     internal class StreamWrapper : IStream
     {
-
         private System.IO.Stream mInner;
 
         /// <summary>

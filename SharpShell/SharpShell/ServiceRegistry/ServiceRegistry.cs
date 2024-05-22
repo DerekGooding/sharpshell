@@ -1,6 +1,6 @@
-﻿using System;
+﻿using SharpShell.Registry;
+using System;
 using System.Collections.Generic;
-using SharpShell.Registry;
 
 namespace SharpShell.ServiceRegistry
 {
@@ -9,12 +9,9 @@ namespace SharpShell.ServiceRegistry
     /// </summary>
     public static class ServiceRegistry
     {
-        private static readonly Dictionary<Type, Func<object>> ServiceProviders = new Dictionary<Type, Func<object>>();
+        private static readonly Dictionary<Type, Func<object>> ServiceProviders = [];
 
-        static ServiceRegistry()
-        {
-            Reset();
-        }
+        static ServiceRegistry() => Reset();
 
         /// <summary>
         /// Resets all providers. Typically used only for testing.
@@ -33,7 +30,7 @@ namespace SharpShell.ServiceRegistry
         /// <typeparam name="T">The type of service to get.</typeparam>
         /// <returns>An instance of the service of type T.</returns>
         /// <exception cref="InvalidOperationException">Thrown if T is not registered.</exception>
-        public static T GetService<T>() where T:class
+        public static T GetService<T>() where T : class
         {
             //  Find the provider.
             if (!ServiceProviders.TryGetValue(typeof(T), out var provider)) throw new InvalidOperationException($"No provider has been registered for service type '{typeof(T).FullName}'");
@@ -47,7 +44,7 @@ namespace SharpShell.ServiceRegistry
         /// </summary>
         /// <typeparam name="T">The service type. Generally this must be the interface type, not the concrete type.</typeparam>
         /// <param name="serviceProvider">The service provider.</param>
-        public static void RegisterService<T>(Func<T> serviceProvider) where T:class
+        public static void RegisterService<T>(Func<T> serviceProvider) where T : class
         {
             ServiceProviders[typeof(T)] = serviceProvider;
         }

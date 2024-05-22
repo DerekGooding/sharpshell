@@ -1,23 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.EnterpriseServices;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Runtime.InteropServices;
-using System.Security.AccessControl;
-using System.Security.Cryptography;
-using System.Security.Principal;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using SharpShell.Attributes;
 using SharpShell.Extensions;
 using SharpShell.Interop;
 using SharpShell.Pidl;
 using SharpShell.ServerRegistration;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Security.AccessControl;
 
 namespace SharpShell.SharpNamespaceExtension
 {
@@ -26,8 +17,8 @@ namespace SharpShell.SharpNamespaceExtension
     /// This is the base class for all Shell Namespace Extensions.
     /// </summary>
     [ServerType(ServerType.ShellNamespaceExtension)]
-    public abstract class SharpNamespaceExtension : 
-        SharpShellServer, 
+    public abstract class SharpNamespaceExtension :
+        SharpShellServer,
         IPersistFolder2,
         IPersistIDList,
         IShellFolder2,
@@ -66,7 +57,7 @@ namespace SharpShell.SharpNamespaceExtension
             return ((IShellFolder)shellFolderImpl).ParseDisplayName(hwnd, pbc, pszDisplayName, ref pchEaten, out ppidl,
                 ref pdwAttributes);
         }
-        
+
         /// <summary>
         /// Allows a client to determine the contents of a folder by creating an item identifier enumeration object and returning its IEnumIDList interface.
         /// Return value: error code, if any
@@ -281,7 +272,7 @@ namespace SharpShell.SharpNamespaceExtension
         {
             return ((IShellFolder2)shellFolderImpl).SetNameOf(hwnd, pidl, pszName, uFlags, out ppidlOut);
         }
-        
+
         int IShellFolder2.GetDefaultSearchGUID(out Guid pguid)
         {
             //  Use the ShellFolderImpl to handle the details.
@@ -324,7 +315,7 @@ namespace SharpShell.SharpNamespaceExtension
             return ((IShellFolder2)shellFolderImpl).MapColumnToSCID(iColumn, out pscid);
         }
 
-        #endregion
+        #endregion Implmentation of IShellFolder and IShellFolder2
 
         #region Implementation of IPersist, IPersistFolder, IPersistFolder2 and IPersistIDList
 
@@ -332,7 +323,7 @@ namespace SharpShell.SharpNamespaceExtension
         /// Retrieves the class identifier (CLSID) of the object.
         /// </summary>
         /// <param name="pClassID">A pointer to the location that receives the CLSID on return.
-        /// The CLSID is a globally unique identifier (GUID) that uniquely represents an object 
+        /// The CLSID is a globally unique identifier (GUID) that uniquely represents an object
         /// class that defines the code that can manipulate the object's data.</param>
         /// <returns>
         /// If the method succeeds, the return value is S_OK. Otherwise, it is E_FAIL.
@@ -343,14 +334,26 @@ namespace SharpShell.SharpNamespaceExtension
             //  Use the ShellFolderImpl to handle the details.
             return ((IPersist)shellFolderImpl).GetClassID(out pClassID);
         }
-        int IPersistFolder.GetClassID(out Guid pClassId) {return ((IPersist)this).GetClassID(out pClassId); }
-        int IPersistFolder2.GetClassID(out Guid pClassId) { return ((IPersist)this).GetClassID(out pClassId); }
-        int IPersistIDList.GetClassID(out Guid pClassId) { return ((IPersist)this).GetClassID(out pClassId); }
+
+        int IPersistFolder.GetClassID(out Guid pClassId)
+        {
+            return ((IPersist)this).GetClassID(out pClassId);
+        }
+
+        int IPersistFolder2.GetClassID(out Guid pClassId)
+        {
+            return ((IPersist)this).GetClassID(out pClassId);
+        }
+
+        int IPersistIDList.GetClassID(out Guid pClassId)
+        {
+            return ((IPersist)this).GetClassID(out pClassId);
+        }
 
         /// <summary>
         /// Instructs a Shell folder object to initialize itself based on the information passed.
         /// </summary>
-        /// <param name="pidl">The address of the ITEMIDLIST (item identifier list) structure 
+        /// <param name="pidl">The address of the ITEMIDLIST (item identifier list) structure
         /// that specifies the absolute location of the folder.</param>
         /// <returns>
         /// If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
@@ -360,7 +363,11 @@ namespace SharpShell.SharpNamespaceExtension
             //  Use the ShellFolderImpl to handle the details.
             return ((IPersistFolder)shellFolderImpl).Initialize(pidl);
         }
-        int IPersistFolder2.Initialize(IntPtr pidl) { return ((IPersistFolder)this).Initialize(pidl); }
+
+        int IPersistFolder2.Initialize(IntPtr pidl)
+        {
+            return ((IPersistFolder)this).Initialize(pidl);
+        }
 
         /// <summary>
         /// Gets the ITEMIDLIST for the folder object.
@@ -389,7 +396,7 @@ namespace SharpShell.SharpNamespaceExtension
             return ((IPersistIDList)shellFolderImpl).GetIDList(out pidl);
         }
 
-        #endregion
+        #endregion Implementation of IPersist, IPersistFolder, IPersistFolder2 and IPersistIDList
 
         #region Custom Registration and Unregistration
 
@@ -457,7 +464,7 @@ namespace SharpShell.SharpNamespaceExtension
 
                     //  Write the server guid as a key, then the Junction Point Name as it's default value.
                     var serverKey = namespaceKey.CreateSubKey(serverType.GUID.ToRegistryString());
-                    if(serverKey == null)
+                    if (serverKey == null)
                         throw new InvalidOperationException("Failed to create the Virtual Folder NameSpace extension.");
                     serverKey.SetValue(null, junctionPoint.Name, RegistryValueKind.String);
                 }
@@ -489,13 +496,13 @@ namespace SharpShell.SharpNamespaceExtension
                     var registrationSettings = serverInstance.GetRegistrationSettings();
 
                     //  Apply basic settings.
-                    if(registrationSettings.HideFolderVerbs) classKey.SetValue("HideFolderVerbs", 1, RegistryValueKind.DWord);    
+                    if (registrationSettings.HideFolderVerbs) classKey.SetValue("HideFolderVerbs", 1, RegistryValueKind.DWord);
 
                     //  The default value is the junction point name.
                     classKey.SetValue(null, junctionPoint.Name, RegistryValueKind.String);
 
                     //  Set the infotip.
-                    if(string.IsNullOrEmpty(registrationSettings.Tooltip) != true)
+                    if (string.IsNullOrEmpty(registrationSettings.Tooltip) != true)
                         classKey.SetValue(@"InfoTip", registrationSettings.Tooltip, RegistryValueKind.String);
 
                     //  Set the default icon to the assembly icon if we are using it.
@@ -508,11 +515,11 @@ namespace SharpShell.SharpNamespaceExtension
                             defaultIconKey.SetValue(null, serverType.Assembly.Location, RegistryValueKind.String);
                         }
                     }
-                    
+
                     //  Set the attributes.
                     using (var shellFolderKey = classKey.CreateSubKey("ShellFolder"))
                     {
-                        if(shellFolderKey == null)
+                        if (shellFolderKey == null)
                             throw new InvalidOperationException("An exception occured creating the ShellFolder key.");
                         shellFolderKey.SetValue("Attributes", (int)registrationSettings.ExtensionAttributes, RegistryValueKind.DWord);
                     }
@@ -534,7 +541,7 @@ namespace SharpShell.SharpNamespaceExtension
             //  If the junction point is not defined, we must fail.
             if (junctionPoint == null)
                 throw new InvalidOperationException("Unable to register a SharpNamespaceExtension as it is missing it's junction point definition.");
-            
+
             //  Work out the hive and view to use, based on the junction point availability
             //  and the registration mode.
             var hive = junctionPoint.Availablity == NamespaceExtensionAvailability.CurrentUser
@@ -549,7 +556,7 @@ namespace SharpShell.SharpNamespaceExtension
                 var virtualFolderNamespacePath =
                     string.Format(@"Software\Microsoft\Windows\CurrentVersion\Explorer\{0}\NameSpace",
                         RegistryKeyAttribute.GetRegistryKey(junctionPoint.Location));
-                
+
                 //  Open the virtual folder namespace key,
                 using (var namespaceKey = baseKey.OpenSubKey(virtualFolderNamespacePath,
                     RegistryKeyPermissionCheck.ReadWriteSubTree, RegistryRights.WriteKey))
@@ -564,7 +571,7 @@ namespace SharpShell.SharpNamespaceExtension
             }
         }
 
-        #endregion
+        #endregion Custom Registration and Unregistration
 
         #region Implementation of IShellNamespaceItem and IShellNamespaceFolder
 
@@ -598,7 +605,7 @@ namespace SharpShell.SharpNamespaceExtension
             return null;
         }
 
-        #endregion
+        #endregion Implementation of IShellNamespaceItem and IShellNamespaceFolder
 
         /// <summary>
         /// Gets the registration settings. This function is called only during the initial

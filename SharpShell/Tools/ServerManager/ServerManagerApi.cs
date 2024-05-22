@@ -1,13 +1,11 @@
-﻿using System;
+﻿using SharpShell;
+using SharpShell.Diagnostics;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using SharpShell;
-using SharpShell.SharpPropertySheet;
 using System.Diagnostics;
-using SharpShell.Diagnostics;
+using System.IO;
+using System.Windows.Forms;
 
 namespace ServerManager
 {
@@ -36,7 +34,7 @@ namespace ServerManager
                 var serverTypes = container.GetExports<ISharpShellServer>();
 
                 //  Go through each servertype (creating the instance from the lazy).
-                foreach(var serverType in serverTypes)
+                foreach (var serverType in serverTypes)
                 {
                     ISharpShellServer server = null;
                     try
@@ -60,14 +58,13 @@ namespace ServerManager
 
                     //  Yield a server entry for the server type.
                     servers.Add(new ServerEntry
-                                          {
-                                              ServerName = server.DisplayName, 
-                                              ServerPath = path,
-                                              ServerType = server.ServerType,
-                                              ClassId = server.ServerClsid,
-                                              Server = server
-                                          });
-
+                    {
+                        ServerName = server.DisplayName,
+                        ServerPath = path,
+                        ServerType = server.ServerType,
+                        ClassId = server.ServerClsid,
+                        Server = server
+                    });
                 }
             }
             catch (Exception exception)

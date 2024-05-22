@@ -15,7 +15,7 @@ namespace SharpShell.Interop
         /// <summary>
         /// Version 5.0. Compare all the information contained in the ITEMIDLIST structure, not just the display names. This flag is valid only for folder objects that support the IShellFolder2 interface. For instance, if the two items are files, the folder should compare their names, sizes, file times, attributes, and any other information in the structures. If this flag is set, the lower sixteen bits of lParam must be zero.
         /// </summary>
-        SHCIDS_CANONICALONLY = 0x10000000, 
+        SHCIDS_CANONICALONLY = 0x10000000,
 
         /// <summary>
         /// Bitmask for the flag field.

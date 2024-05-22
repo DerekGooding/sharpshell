@@ -1,21 +1,18 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using SharpShell.Attributes;
+using SharpShell.Extensions;
+using SharpShell.Interop;
+using SharpShell.ServerRegistration;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.AccessControl;
-using System.Threading;
-using Microsoft.Win32;
-using SharpShell.Exceptions;
-using SharpShell.Extensions;
-using SharpShell.Interop;
-using SharpShell.Attributes;
-using SharpShell.ServerRegistration;
-using System.Diagnostics;
 
 namespace SharpShell.SharpPreviewHandler
 {
     //  TODO: There should be a single base class that implements:
-    //  IPersistFile, IInitializeWithFile and IInitializeWithStream that 
+    //  IPersistFile, IInitializeWithFile and IInitializeWithStream that
     //  provides a base for all single file servers.
 
     //  TODO: document main source of documentation http://msdn.microsoft.com/en-us/library/windows/desktop/cc144139
@@ -59,7 +56,7 @@ namespace SharpShell.SharpPreviewHandler
         private void OnPreviewHostThread(Action action)
         {
             //  Invoke the action on the preview host thread.
-            if(previewHandlerHost.Handle != IntPtr.Zero)
+            if (previewHandlerHost.Handle != IntPtr.Zero)
                 previewHandlerHost.Invoke(action);
         }
 
@@ -73,7 +70,7 @@ namespace SharpShell.SharpPreviewHandler
                 () =>
                     {
                         //  Set the parent of the host.
-                        if(previewHostHandle != IntPtr.Zero)
+                        if (previewHostHandle != IntPtr.Zero)
                             User32.SetParent(previewHandlerHost.Handle, previewHostHandle);
 
                         //  Set the bounds of the host.
@@ -100,12 +97,12 @@ namespace SharpShell.SharpPreviewHandler
                     {
                         //  Set the bounds of the host and control
                         previewHandlerHost.Bounds = new Rectangle(previewArea.left, previewArea.top, previewArea.Width(), previewArea.Height());
-                        if(previewHandlerControl != null)
+                        if (previewHandlerControl != null)
                             previewHandlerControl.Bounds = new Rectangle(previewArea.left, previewArea.top, previewArea.Width(), previewArea.Height());
                     }
                 );
         }
-    
+
         #region Implementation of IInitializeWithFile
 
         /// <summary>
@@ -125,12 +122,13 @@ namespace SharpShell.SharpPreviewHandler
             return WinError.S_OK;
         }
 
-        #endregion
-        
-        /* 
+        #endregion Implementation of IInitializeWithFile
+
+        /*
          * TODO: MSDN says initialize with stream is strongly preferred,
          * however i'm not sure that most implementers will want the stream...
-         * 
+         *
+
         #region Implementation of IInitializeWithStream
 
         /// <summary>
@@ -146,8 +144,10 @@ namespace SharpShell.SharpPreviewHandler
             fileStream = new ShellStream(pstream);
         }
 
-        #endregion
+        #endregion Implementation of IInitializeWithStream
+
         */
+
         #region Implementation of IObjectWithSite
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace SharpShell.SharpPreviewHandler
             IntPtr pUnknown = Marshal.GetIUnknownForObject(site);
             var result = Marshal.QueryInterface(pUnknown, ref riid, out ppvSite);
             Marshal.Release(pUnknown);
-            
+
             return result;
         }
 
@@ -191,7 +191,7 @@ namespace SharpShell.SharpPreviewHandler
             return WinError.S_OK;
         }
 
-        #endregion
+        #endregion Implementation of IObjectWithSite
 
         #region Implementation of IOleWindow
 
@@ -209,7 +209,7 @@ namespace SharpShell.SharpPreviewHandler
 
             //  Set the host window handle.
             phwnd = previewHandlerHost.Handle;
-            
+
             //  Return success.
             return WinError.E_FAIL;
         }
@@ -230,7 +230,7 @@ namespace SharpShell.SharpPreviewHandler
             return WinError.E_NOTIMPL;
         }
 
-        #endregion
+        #endregion Implementation of IOleWindow
 
         #region Implementation of IPreviewHandler
 
@@ -336,7 +336,6 @@ namespace SharpShell.SharpPreviewHandler
                                     previewHandlerControl = null;
                                 }
                             });
-                    
                 }
                 catch (Exception exception)
                 {
@@ -346,7 +345,7 @@ namespace SharpShell.SharpPreviewHandler
             }
 
             //  TODO: If we have a stream, we must release that too.
-            
+
             //  Return success.
             return WinError.S_OK;
         }
@@ -369,7 +368,7 @@ namespace SharpShell.SharpPreviewHandler
             //  If we have a preview handler, focus it.
             if (previewHandlerControl != null)
                 OnPreviewHostThread(() => previewHandlerControl.Focus());
-                
+
             //  Return success.
             return WinError.S_OK;
         }
@@ -418,14 +417,12 @@ namespace SharpShell.SharpPreviewHandler
             if (previewHandlerFrame != null)
                 return previewHandlerFrame.TranslateAccelerator(pmsg);
 
-
-
             //  Return success.
             return WinError.S_OK;
         }
 
-        #endregion
-        
+        #endregion Implementation of IPreviewHandler
+
         #region Implementation of IPreviewHandlerVisuals
 
         /// <summary>
@@ -444,13 +441,13 @@ namespace SharpShell.SharpPreviewHandler
             try
             {
                 OnPreviewHostThread(
-                    () => 
+                    () =>
                     {
                         //  Set the background color of the host.
                         previewHandlerHost.BackColor = color.Color;
 
                         //  Call the abstract function.
-                        if(previewHandlerControl != null)
+                        if (previewHandlerControl != null)
                             previewHandlerControl.SetVisualsBackgroundColor(color.Color);
                     });
             }
@@ -534,8 +531,8 @@ namespace SharpShell.SharpPreviewHandler
             return WinError.S_OK;
         }
 
-        #endregion
-        
+        #endregion Implementation of IPreviewHandlerVisuals
+
         /// <summary>
         /// The custom registration function.
         /// </summary>
@@ -572,7 +569,7 @@ namespace SharpShell.SharpPreviewHandler
 
                     //  If there's a value for the server, delete it.
                     var serverGuid = serverType.GUID.ToRegistryString();
-                    if(previewHandlersKey.GetValueNames().Any(vm => vm == serverGuid))
+                    if (previewHandlersKey.GetValueNames().Any(vm => vm == serverGuid))
                         previewHandlersKey.DeleteValue(serverGuid);
                 }
             }
@@ -619,7 +616,7 @@ namespace SharpShell.SharpPreviewHandler
         /// The preview handler control.
         /// </summary>
         private PreviewHandlerControl previewHandlerControl;
-        
+
         /// <summary>
         /// Gets or sets a value indicating whether to automatically apply visuals.
         /// </summary>

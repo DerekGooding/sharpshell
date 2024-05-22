@@ -169,7 +169,7 @@ namespace SharpShell.Interop
         /// Windows Vista and later. Use the search folder for stacking and searching.
         /// </summary>
         FWF_USESEARCHFOLDER = 0x40000000,
-        
+
         /// <summary>
         /// Windows Vista and later. Ensure right-to-left reading layout in a right-to-left system. Without this flag, the view displays strings from left-to-right both on systems set to left-to-right and right-to-left reading layout, which ensures that file names display correctly.
         /// </summary>

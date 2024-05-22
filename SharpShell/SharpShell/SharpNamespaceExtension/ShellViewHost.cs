@@ -1,10 +1,8 @@
-﻿using System;
+﻿using SharpShell.Interop;
+using System;
 using System.Drawing;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 using System.Windows.Forms;
-using SharpShell.Interop;
 
 namespace SharpShell.SharpNamespaceExtension
 {
@@ -58,7 +56,7 @@ namespace SharpShell.SharpNamespaceExtension
         }
 
         int IShellView.CreateViewWindow([In, MarshalAs(UnmanagedType.Interface)] IShellView psvPrevious,
-             [In] ref FOLDERSETTINGS pfs, [In, MarshalAs(UnmanagedType.Interface)] IShellBrowser psb, [In]  ref RECT prcView, [In, Out] ref IntPtr phWnd)
+             [In] ref FOLDERSETTINGS pfs, [In, MarshalAs(UnmanagedType.Interface)] IShellBrowser psb, [In] ref RECT prcView, [In, Out] ref IntPtr phWnd)
         {
             //  Store the shell browser.
             shellBrowser = psb;
@@ -66,7 +64,7 @@ namespace SharpShell.SharpNamespaceExtension
             //  Resize the custom view.
             customView.Bounds = new Rectangle(prcView.left, prcView.top, prcView.Width(), prcView.Height());
             customView.Visible = true;
-            
+
             //  Set the handle to the handle of the custom view.
             phWnd = customView.Handle;
 
@@ -100,7 +98,7 @@ namespace SharpShell.SharpNamespaceExtension
 
         int IShellView.GetCurrentInfo(ref FOLDERSETTINGS pfs)
         {
-            pfs = new FOLDERSETTINGS {fFlags = 0, ViewMode = FOLDERVIEWMODE.FVM_AUTO};
+            pfs = new FOLDERSETTINGS { fFlags = 0, ViewMode = FOLDERVIEWMODE.FVM_AUTO };
             return WinError.S_OK;
         }
 

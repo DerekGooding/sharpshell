@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.AccessControl;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using NUnit.Framework;
-using NUnit.Framework.Internal.Execution;
 using SharpShell.Attributes;
-using SharpShell.Extensions;
 using SharpShell.Registry;
 using SharpShell.ServerRegistration;
+using System;
 
 namespace SharpShell.Tests.ServerRegistration
 {
@@ -38,7 +33,7 @@ namespace SharpShell.Tests.ServerRegistration
             //  register an extension with the appropriate ProgID.
 
             //  Prime the registry with a progid for *.exe files.
-            _registry.AddStructure(RegistryView.Registry64, string.Join(Environment.NewLine, 
+            _registry.AddStructure(RegistryView.Registry64, string.Join(Environment.NewLine,
                 @"HKEY_CLASSES_ROOT",
                 @"   .exe",
                 @"      (Default) = exefile",
@@ -122,7 +117,7 @@ namespace SharpShell.Tests.ServerRegistration
                 @"   myfile.1",                   // ...uh-oh - we will want to create myfile.1, but someone else is using it.
                 @"      (Default) = Clashing Application"
             ));
-            
+
             try
             {
                 //  Register a server.
@@ -152,7 +147,7 @@ namespace SharpShell.Tests.ServerRegistration
             var clsid = new Guid("00000000-1111-2222-3333-444444444444");
             var serverType = ServerType.ShellContextMenu;
             var serverName = "TestContextMenu";
-            var associations = new[] {new COMServerAssociationAttribute(AssociationType.ClassOfExtension, ".myfile")};
+            var associations = new[] { new COMServerAssociationAttribute(AssociationType.ClassOfExtension, ".myfile") };
             var registrationType = RegistrationType.OS64Bit;
             ServerRegistrationManager.RegisterServerAssociations(clsid, serverType, serverName, associations, registrationType);
 

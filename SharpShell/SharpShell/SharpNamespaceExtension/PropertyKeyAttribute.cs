@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+
 #pragma warning disable 1591
 
 namespace SharpShell.SharpNamespaceExtension
@@ -10,10 +11,9 @@ namespace SharpShell.SharpNamespaceExtension
     {
         public PropertyKeyAttribute(uint a, ushort b, ushort c, byte d, byte e, byte f, byte g, byte h, byte i, byte j, byte k, uint propertyId)
         {
-            formatId = new  Guid(a, b, c, d, e, f, g, h, i, j, k);
+            formatId = new Guid(a, b, c, d, e, f, g, h, i, j, k);
             this.propertyId = propertyId;
         }
-
 
         public PropertyKeyAttribute(string formatId, uint propertyId)
         {
@@ -34,7 +34,5 @@ namespace SharpShell.SharpNamespaceExtension
 
         private readonly Guid formatId;
         private readonly uint propertyId;
-        
-
     }
 }

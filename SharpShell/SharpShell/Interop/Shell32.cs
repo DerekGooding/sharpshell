@@ -135,7 +135,6 @@ namespace SharpShell.Interop
         [DllImport("shell32.dll")]
         public static extern int AssocCreateForClasses(ASSOCIATIONELEMENT[] rgClasses, uint cClasses, Guid riid, out IntPtr ppv);
 
-
         /// <summary>
         /// Tests whether two ITEMIDLIST structures are equal in a binary comparison.
         /// </summary>
@@ -200,7 +199,7 @@ namespace SharpShell.Interop
         /// <param name="ppv">When this method returns, contains the interface pointer requested in riid. This is typically IImageList.</param>
         /// <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
         [DllImport("shell32.dll", EntryPoint = "#727")]
-        public extern static int SHGetImageList(int iImageList, ref Guid riid, ref IImageList ppv);
+        public static extern int SHGetImageList(int iImageList, ref Guid riid, ref IImageList ppv);
 
         /// <summary>
         /// Retrieves a pointer to the ITEMIDLIST structure of a special folder.
@@ -290,6 +289,5 @@ namespace SharpShell.Interop
         /// Guid for IID_IFolderView.
         /// </summary>
         public static Guid IID_IFolderView = new Guid("cde725b0-ccc9-4519-917e-325d72fab4ce");
-
     }
 }

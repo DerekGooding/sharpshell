@@ -2,7 +2,7 @@ using System;
 
 namespace SharpShell.Interop
 {
-// ReSharper disable InconsistentNaming
+    // ReSharper disable InconsistentNaming
 
     /// <summary>
     /// A pointer to a value that contains flags that indicate the default column state. This parameter can include a combination of the following flags.
@@ -60,45 +60,22 @@ namespace SharpShell.Interop
         /// </summary>
         SHCOLSTATE_PREFER_VARCMP = 0x200,
 
-        /// <summary>
-        /// 
-        /// </summary>
         SHCOLSTATE_PREFER_FMTCMP = 0x400,
-        
-        /// <summary>
-        /// 
-        /// </summary>
+
         SHCOLSTATE_NOSORTBYFOLDERNESS = 0x800,
 
-        /// <summary>
-        /// 
-        /// </summary>
         SHCOLSTATE_VIEWONLY = 0x10000,
 
-        /// <summary>
-        /// 
-        /// </summary>
         SHCOLSTATE_BATCHREAD = 0x20000,
 
-        /// <summary>
-        /// 
-        /// </summary>
         SHCOLSTATE_NO_GROUPBY = 0x40000,
 
-        /// <summary>
-        /// 
-        /// </summary>
         SHCOLSTATE_FIXED_WIDTH = 0x1000,
 
-        /// <summary>
-        /// 
-        /// </summary>
         SHCOLSTATE_NODPISCALE = 0x2000,
 
-        /// <summary>
-        /// 
-        /// </summary>
         SHCOLSTATE_FIXED_RATIO = 0x4000,
     }
-// ReSharper restore InconsistentNaming
+
+    // ReSharper restore InconsistentNaming
 }

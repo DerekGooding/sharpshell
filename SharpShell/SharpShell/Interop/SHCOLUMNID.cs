@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace SharpShell.Interop
 {
-// ReSharper disable InconsistentNaming
+    // ReSharper disable InconsistentNaming
 
     /// <summary>
     /// Specifies the FMTID/PID identifier of a column that will be displayed by the Windows Explorer Details view.
@@ -22,5 +22,5 @@ namespace SharpShell.Interop
         public uint pid;
     }
 
-// ReSharper restore InconsistentNaming
+    // ReSharper restore InconsistentNaming
 }

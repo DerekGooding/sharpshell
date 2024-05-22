@@ -1,6 +1,6 @@
 namespace SharpShell.Interop
 {
-// ReSharper disable InconsistentNaming
+    // ReSharper disable InconsistentNaming
 
     /// <summary>
     /// Specifies column format flags.
@@ -28,5 +28,5 @@ namespace SharpShell.Interop
         LVCFMT_COL_HAS_IMAGES = 0x8000
     }
 
-// ReSharper restore InconsistentNaming
+    // ReSharper restore InconsistentNaming
 }

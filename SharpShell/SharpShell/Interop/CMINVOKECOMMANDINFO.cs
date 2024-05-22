@@ -25,7 +25,7 @@ namespace SharpShell.Interop
         public IntPtr hwnd;
 
         /// <summary>
-        /// The address of a null-terminated string that specifies the language-independent name of the command to carry out. This member is typically a string when a command is being activated by an application. 
+        /// The address of a null-terminated string that specifies the language-independent name of the command to carry out. This member is typically a string when a command is being activated by an application.
         /// </summary>
         public IntPtr verb;
 
@@ -39,9 +39,6 @@ namespace SharpShell.Interop
         /// </summary>
         [MarshalAs(UnmanagedType.LPStr)] public string directory;
 
-        /// <summary>
-        /// 
-        /// </summary>
         public int nShow;
 
         /// <summary>

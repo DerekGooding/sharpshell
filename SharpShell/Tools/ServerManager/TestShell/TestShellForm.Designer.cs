@@ -35,8 +35,8 @@
             this.toolStripStatusLabelAttributes = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainerViewAndProperties = new System.Windows.Forms.SplitContainer();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.shellTreeView = new Apex.WinForms.Controls.ShellTreeView();
-            this.shellListView = new Apex.WinForms.Controls.ShellListView();
+            //this.shellTreeView = new Apex.WinForms.Controls.ShellTreeView();
+            //this.shellListView = new Apex.WinForms.Controls.ShellListView();
             this.tabControlDetails = new System.Windows.Forms.TabControl();
             this.tabPageProperties = new System.Windows.Forms.TabPage();
             this.propertyGridSelectedObject = new System.Windows.Forms.PropertyGrid();
@@ -143,46 +143,46 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.shellTreeView);
+            //this.splitContainer1.Panel1.Controls.Add(this.shellTreeView);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.shellListView);
+            //this.splitContainer1.Panel2.Controls.Add(this.shellListView);
             this.splitContainer1.Size = new System.Drawing.Size(550, 515);
             this.splitContainer1.SplitterDistance = 183;
             this.splitContainer1.TabIndex = 0;
             // 
             // shellTreeView
             // 
-            this.shellTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.shellTreeView.HideSelection = false;
-            this.shellTreeView.Location = new System.Drawing.Point(0, 0);
-            this.shellTreeView.Name = "shellTreeView";
-            this.shellTreeView.ShowFiles = false;
-            this.shellTreeView.ShowHiddenFilesAndFolders = false;
-            this.shellTreeView.Size = new System.Drawing.Size(183, 515);
-            this.shellTreeView.TabIndex = 0;
-            this.shellTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.shellTreeView_AfterSelect);
-            this.shellTreeView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.shellTreeView1_MouseUp);
+            //this.shellTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            //this.shellTreeView.HideSelection = false;
+            //this.shellTreeView.Location = new System.Drawing.Point(0, 0);
+            //this.shellTreeView.Name = "shellTreeView";
+            //this.shellTreeView.ShowFiles = false;
+            //this.shellTreeView.ShowHiddenFilesAndFolders = false;
+            //this.shellTreeView.Size = new System.Drawing.Size(183, 515);
+            //this.shellTreeView.TabIndex = 0;
+            //this.shellTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.shellTreeView_AfterSelect);
+            //this.shellTreeView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.shellTreeView1_MouseUp);
             // 
             // shellListView
             // 
-            this.shellListView.AssociationTreeView = this.shellTreeView;
-            this.shellListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.shellListView.Location = new System.Drawing.Point(0, 0);
-            this.shellListView.Name = "shellListView";
-            this.shellListView.ShowFolders = true;
-            this.shellListView.ShowHiddenFilesAndFolders = false;
-            this.shellListView.ShowItemToolTips = true;
-            this.shellListView.Size = new System.Drawing.Size(363, 515);
-            this.shellListView.TabIndex = 0;
-            this.shellListView.UseCompatibleStateImageBehavior = false;
-            this.shellListView.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.shellListView_ItemDrag);
-            this.shellListView.SelectedIndexChanged += new System.EventHandler(this.shellListView_SelectedIndexChanged);
-            this.shellListView.DragDrop += new System.Windows.Forms.DragEventHandler(this.shellListView_DragDrop);
-            this.shellListView.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.shellListView_GiveFeedback);
-            this.shellListView.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.shellListView_QueryContinueDrag);
-            this.shellListView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.shellListView1_MouseUp);
+            //this.shellListView.AssociationTreeView = this.shellTreeView;
+            //this.shellListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            //this.shellListView.Location = new System.Drawing.Point(0, 0);
+            //this.shellListView.Name = "shellListView";
+            //this.shellListView.ShowFolders = true;
+            //this.shellListView.ShowHiddenFilesAndFolders = false;
+            //this.shellListView.ShowItemToolTips = true;
+            //this.shellListView.Size = new System.Drawing.Size(363, 515);
+            //this.shellListView.TabIndex = 0;
+            //this.shellListView.UseCompatibleStateImageBehavior = false;
+            //this.shellListView.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.shellListView_ItemDrag);
+            //this.shellListView.SelectedIndexChanged += new System.EventHandler(this.shellListView_SelectedIndexChanged);
+            //this.shellListView.DragDrop += new System.Windows.Forms.DragEventHandler(this.shellListView_DragDrop);
+            //this.shellListView.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.shellListView_GiveFeedback);
+            //this.shellListView.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.shellListView_QueryContinueDrag);
+            //this.shellListView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.shellListView1_MouseUp);
             // 
             // tabControlDetails
             // 
@@ -420,8 +420,8 @@
 
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private Apex.WinForms.Controls.ShellTreeView shellTreeView;
-        private Apex.WinForms.Controls.ShellListView shellListView;
+        //private Apex.WinForms.Controls.ShellTreeView shellTreeView;
+        //private Apex.WinForms.Controls.ShellListView shellListView;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelAttributes;
         private System.Windows.Forms.ToolStrip toolStrip1;

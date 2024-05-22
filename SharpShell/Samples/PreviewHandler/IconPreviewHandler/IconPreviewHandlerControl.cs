@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using SharpShell.SharpPreviewHandler;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.IconLib;
 using System.Linq;
 using System.Windows.Forms;
-using SharpShell.Diagnostics;
-using SharpShell.SharpPreviewHandler;
 
 namespace IconPreviewHandler
 {
@@ -36,23 +35,23 @@ namespace IconPreviewHandler
             {
                 //  Create the description.
                 var descriptionLabel = new Label
-                                           {
-                                               Location = new Point(12, yPos),
-                                               Text = string.Format("{0}x{1} - {2}",
+                {
+                    Location = new Point(12, yPos),
+                    Text = string.Format("{0}x{1} - {2}",
                                                                     iconImage.Size.Width, iconImage.Size.Height, iconImage.PixelFormat),
-                                               AutoSize = true,
-                                               BackColor = Color.White
-                                           };
+                    AutoSize = true,
+                    BackColor = Color.White
+                };
                 yPos += 20;
 
                 //  Create the picture box.
                 var pictureBox = new PictureBox
-                                     {
-                                         Location = new Point(12, yPos),
-                                         Image = iconImage.Icon.ToBitmap(),
-                                         Width = iconImage.Size.Width,
-                                         Height = iconImage.Size.Height
-                                     };
+                {
+                    Location = new Point(12, yPos),
+                    Image = iconImage.Icon.ToBitmap(),
+                    Width = iconImage.Size.Width,
+                    Height = iconImage.Size.Height
+                };
                 yPos += iconImage.Size.Height + 20;
                 panelImages.Controls.Add(descriptionLabel);
                 panelImages.Controls.Add(pictureBox);
@@ -66,27 +65,27 @@ namespace IconPreviewHandler
         /// Does the preview.
         /// </summary>
         /// <param name="selectedFilePath">The selected file path.</param>
-public void DoPreview(string selectedFilePath)
-{
-    //  Load the icons.
-    try
-    {
-        var multiIcon = new MultiIcon();
-        multiIcon.Load(selectedFilePath);
+        public void DoPreview(string selectedFilePath)
+        {
+            //  Load the icons.
+            try
+            {
+                var multiIcon = new MultiIcon();
+                multiIcon.Load(selectedFilePath);
 
-        //  Add the icon images.
-        foreach (var iconImage in multiIcon.SelectMany(singleIcon => singleIcon))
-            iconImages.Add(iconImage);
+                //  Add the icon images.
+                foreach (var iconImage in multiIcon.SelectMany(singleIcon => singleIcon))
+                    iconImages.Add(iconImage);
 
-        //  Add the icons to the control.
-        AddIconsToControl();
-    }
-    catch
-    {
-        //  Maybe we could show something to the user in the preview
-        //  window, but for now we'll just ignore any exceptions.
-    }
-}
+                //  Add the icons to the control.
+                AddIconsToControl();
+            }
+            catch
+            {
+                //  Maybe we could show something to the user in the preview
+                //  window, but for now we'll just ignore any exceptions.
+            }
+        }
 
         /// <summary>
         /// Sets the color of the background, if possible, to coordinate with the windows
@@ -125,11 +124,11 @@ public void DoPreview(string selectedFilePath)
         /// <summary>
         /// The set of generated labels.
         /// </summary>
-        private readonly List<Label> generatedLabels = new List<Label>();
+        private readonly List<Label> generatedLabels = [];
 
         /// <summary>
         /// The set of icon images.
         /// </summary>
-        private readonly List<IconImage> iconImages = new List<IconImage>();
+        private readonly List<IconImage> iconImages = [];
     }
 }

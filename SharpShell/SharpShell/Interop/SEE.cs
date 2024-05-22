@@ -121,6 +121,5 @@ namespace SharpShell.Interop
         /// Introduced in Windows 8. The hInstApp member is used to specify the IUnknown of the object that will be used as a site pointer. The site pointer is used to provide services to the ShellExecute function, the handler binding process, and invoked verb handlers.
         /// </summary>
         SEE_MASK_FLAG_HINST_IS_SITE = 0x08000000,
-
     }
 }
